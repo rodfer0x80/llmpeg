@@ -6,6 +6,7 @@ python -m venv .venv &&\
   ./.venv/bin/python -m playwright install
   
 ollama serve & 
+sleep 10
 ollama pull gemma:2b
 ollama pull nomic-embed-text
 pkill ollama
