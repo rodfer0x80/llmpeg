@@ -1,6 +1,3 @@
-requests
-bs4
-playwright
+scrapegraphai
 tiktoken
 ollama
-langchain

@@ -1,15 +1,30 @@
-import requests
-from bs4 import BeautifulSoup
+from scrapegraphai.graphs import SmartScraperGraph
 
+class Prompts:
+  summarize = "what is all about?"
 class Browser:
-  def __init__(self, model):
-    self.model = model
-    self.headless = True
+  def __init__(self, model, embedding):
+    self.graph_config = {
+      "llm": {
+          "model": f"ollama/{model}",
+          "temperature": 0,
+          "format": "json",
+          "base_url": "http://localhost:11434", 
+      },
+      "embeddings": {
+          "model": f"ollama/{embedding}",
+          "base_url": "http://localhost:11434",  
+      }
+    }
 
-  def extract_text_from_url(self, url):
-    response = requests.get(url)
-    html_content = response.text
-    soup = BeautifulSoup(html_content, 'html.parser')
-    text_elements = soup.find_all(['p', 'div', 'span', 'article', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
-    text = '\n'.join(element.get_text(separator='\n') for element in text_elements)
-    return text
+  def scrape_url(self, url, prompt):
+    smart_scraper_graph = SmartScraperGraph(
+      prompt=prompt,
+      source=url, # also accepts a string with the already downloaded HTML code
+      config=self.graph_config
+    )
+    data = smart_scraper_graph.run()
+    return data
+  
+  def summarize_url(self, url):
+    print(self.scrape_url(url=url, prompt=Prompts.summarize))
