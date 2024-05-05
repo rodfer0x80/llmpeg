@@ -1,2 +1,2 @@
 #!/bin/sh
-./venv/bin/python __main__.py
+./.venv/bin/python __main__.py
