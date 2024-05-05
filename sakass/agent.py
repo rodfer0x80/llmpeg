@@ -1,5 +1,5 @@
-from .capabilities import Speak, Listen
-from .modules import Conversation, Browser
+from sakass.capabilities import Speak, Listen
+from sakass.modules import Conversation, Browser
 
 class Agent:
   def __init__(self, conversation_model, browser_model, browser_embedding):
@@ -8,11 +8,22 @@ class Agent:
     self.speak = Speak()
     self.listen = Listen()
     
+  # Browser
+  def search(self, url, prompt):
+    print(self.browser.search(url, prompt))
+
+  def summarize_search(self, url):
+    print(self.browser.summarize(url))
+
+  def explain_search(self, url):
+    print(self.browser.explain(url))
+
+  # Conversation
   def respond(self, text):
     print(self.conversation.respond(text))
 
+  def explain(self, text):
+    print(self.conversation.explain(text))
+
   def summarize(self, text):
     print(self.conversation.summarize(text))
-
-  def summarize_url(self, url):
-    self.browser.summarize_url(url)

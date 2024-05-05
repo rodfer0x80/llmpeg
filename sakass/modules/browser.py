@@ -1,7 +1,6 @@
 from scrapegraphai.graphs import SmartScraperGraph
 
-class Prompts:
-  summarize = "what is all about?"
+from sakass.modules.prompts import Prompts
 class Browser:
   def __init__(self, model, embedding):
     self.graph_config = {
@@ -17,14 +16,20 @@ class Browser:
       }
     }
 
-  def scrape_url(self, url, prompt):
+  def scrape(self, url, prompt):
     smart_scraper_graph = SmartScraperGraph(
       prompt=prompt,
       source=url, # also accepts a string with the already downloaded HTML code
       config=self.graph_config
     )
-    data = smart_scraper_graph.run()
-    return data
+    llm_processed_data = smart_scraper_graph.run()
+    return llm_processed_data
   
-  def summarize_url(self, url):
-    print(self.scrape_url(url=url, prompt=Prompts.summarize))
+  def search(self, url, prompt):
+    return self.scrape(url=url, prompt=prompt)
+  
+  def summarize(self, url, prompt=Prompts.summarize):
+    print(self.scrape(url=url, prompt=prompt))
+
+  def explain(self, url, prompt=Prompts.explain):
+    print(self.scrape(url=url, prompt=Prompts.explain))
