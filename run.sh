@@ -1,2 +1,2 @@
 #!/bin/sh
-./.venv/bin/python __main__.py
+ollama serve 2>1 >/dev/null &; ./.venv/bin/python __main__.py
