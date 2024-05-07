@@ -12,13 +12,13 @@ class Browser:
     def scrape(self, url):
         try:
             response = self.session.get(url)
-            response.raise_for_status()  # raise an exception for bad status codes
+            response.raise_for_status()  #NOTE: raise an exception for bad status codes
             soup = BeautifulSoup(response.content, 'html.parser')
             text_content = soup.get_text()
             return text_content, None
         except requests.RequestException as e:
             return "", f"Error: {e}"
-
+    
     def search_audio_stream(self, query):
         try:
             ydl_opts = {

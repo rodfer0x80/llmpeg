@@ -1,7 +1,7 @@
 import vlc
 import signal
 
-
+#TODO: convert txt to audio and play live during conversation
 class AudioOutput:
     def __init__(self):
         self.player = vlc.MediaPlayer()
