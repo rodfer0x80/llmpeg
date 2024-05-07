@@ -2,28 +2,32 @@ from sakass.capabilities import Speak, Listen
 from sakass.modules import Conversation, Browser
 
 class Agent:
-  def __init__(self, conversation_model, browser_model, browser_embedding):
+  def __init__(self, conversation_model):
     self.conversation = Conversation(model=conversation_model)
-    self.browser = Browser(model=browser_model, embedding=browser_embedding)
+    self.browser = Browser()
     self.speak = Speak()
     self.listen = Listen()
     
   # Browser
-  def search(self, url, prompt):
-    print(self.browser.search(url, prompt))
-
   def summarize_search(self, url):
-    print(self.browser.summarize(url))
+    search_content, err = self.browser.scrape(url)
+    if err: print(err)
+    else: self.summarize(search_content)
 
   def explain_search(self, url):
-    print(self.browser.explain(url))
+    search_content, err = self.browser.scrape(url)
+    if err: print(err)
+    else: self.explain(search_content)
 
   # Conversation
   def respond(self, text):
-    print(self.conversation.respond(text))
+    if not text: return ""
+    print(self.conversation.respond(text).response)
 
   def explain(self, text):
-    print(self.conversation.explain(text))
+    if not text: return ""
+    print(self.conversation.explain(text).response)
 
   def summarize(self, text):
-    print(self.conversation.summarize(text))
+    if not text: return ""
+    print(self.conversation.summarize(text).response)
