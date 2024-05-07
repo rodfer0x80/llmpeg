@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 
-import sys
-
 from sakass.agent import Agent
 
 class Main:
@@ -10,9 +8,9 @@ class Main:
     self.agent = Agent(conversation_model=conversation_model)
  
   def __call__(self):
-    self.agent.explain_search("https://en.wikipedia.org/wiki/Masculinity")
+    self.agent.explain_search("https://joe-antognini.github.io/machine-learning/steins-paradox")
     return 0
   
 
 if __name__ == '__main__':
-  sys.exit(Main()())
+  exit(Main()())

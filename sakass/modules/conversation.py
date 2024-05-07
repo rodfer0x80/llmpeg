@@ -1,11 +1,7 @@
+from sakass.modules.patterns import Prompts
+from sakass.modules.patterns import Triggers
+
 import ollama
-
-from sakass.modules.prompts import Prompts
-
-class Triggers:
-  start = "hey babe"
-  stop = "see ya babe"
-
 class Conversation:
   def __init__(self, model):
     self.model = model

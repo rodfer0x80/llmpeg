@@ -22,12 +22,12 @@ class Agent:
   # Conversation
   def respond(self, text):
     if not text: return ""
-    print(self.conversation.respond(text).response)
+    print(self.conversation.respond(text)['response'])
 
   def explain(self, text):
     if not text: return ""
-    print(self.conversation.explain(text).response)
+    print(self.conversation.explain(text)['response'])
 
   def summarize(self, text):
     if not text: return ""
-    print(self.conversation.summarize(text).response)
+    print(self.conversation.summarize(text)['response'])

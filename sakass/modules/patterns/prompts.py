@@ -1,3 +1,3 @@
 class Prompts:
-  explain = "What is all about?"
+  explain = "Explain the following data which was extracted from a webpage in your own words"
   summarize = "Summarize the following data which was extracted from a webpage"
