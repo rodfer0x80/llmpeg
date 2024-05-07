@@ -1,2 +1,2 @@
-from .speak import Speak
-from .listen import Listen
+from .audio_input import AudioInput
+from .audio_output import AudioOutput
