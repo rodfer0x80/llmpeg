@@ -9,11 +9,11 @@ class NLP:
 
   def check_greeting(self, text: str) -> bool:
     tokens = nltk.tokenize.word_tokenize(text.lower())
-    return any(word in tokens for word in ["hi", "hello", "hey"])
+    return any(keyword in tokens for keyword in ["hi", "hello", "hey"])
   
   def check_goodbye(self, text: str) -> bool:
     tokens = nltk.tokenize.word_tokenize(text.lower())
-    return any(word in tokens for word in ["bye", "goodbye"])
+    return any(keyword in tokens for keyword in ["bye", "goodbye"])
 
   # TODO: find sentiment to play song or not
   def check_audio_request(self, text: str) -> bool:
