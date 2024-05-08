@@ -3,3 +3,6 @@ yt-dlp
 python-vlc
 tiktoken
 ollama
+numpy
+openai-whisper
+sounddevice

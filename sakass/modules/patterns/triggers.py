@@ -1,3 +1,3 @@
 class Triggers:
-  start = "hey babe"
-  stop = "see ya babe"
+  start: str = "hey babe"
+  stop: str = "see ya babe"
