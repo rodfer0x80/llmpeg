@@ -10,11 +10,7 @@ class Main:
 
   def __call__(self):
     self.agent.chat()
-    # self.agent.respond()
-    # self.agent.stream_audio("play Californication by Red Hot Chili Peppers")
-    # self.agent.stream_audio("play On My Way by Sabrina Carpenter")
-    # self.agent.explain_search("https://joe-antognini.github.io/machine-learning/steins-paradox")
-
+    
     return 0
 
 
