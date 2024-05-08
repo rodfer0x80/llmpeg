@@ -13,16 +13,30 @@ class Conversation:
     self.client = ollama.Client(host='http://localhost:11434')
 
   def summarize(self, text: str) -> str:
-    return ollama.generate(model=self.model, prompt=f"{Prompts.summarize}\n{text}")
+    return ollama.generate(
+        model=self.model,
+        prompt=f"{Prompts.summarize}\n{text}"
+    )
 
   def explain(self, text: str) -> str:
-    return ollama.generate(model=self.model, prompt=f"{Prompts.explain}\n{text}")
+    return ollama.generate(
+        model=self.model,
+        prompt=f"{Prompts.explain}\n{text}"
+    )
 
   def respond(self, text: str) -> str:
-    return ollama.generate(model=self.model, prompt=text)
+    return ollama.generate(
+        model=self.model,
+        prompt=text
+    )
 
   def chat(self, messages: list[dict[str, str]], text: str) -> Union[str, list[str]]:
-    messages.append({"role": "user", "content": text})
+    messages.append(
+        {
+            "role": "user",
+            "content": text
+        }
+    )
     res = ollama.chat(
         model=self.model,
         messages=messages,
