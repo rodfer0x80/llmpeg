@@ -57,7 +57,8 @@ class Agent:
     self.logger.info("Starting chat...")
     text = self.speech_to_text().strip()
     self.logger.info(f"USER: {text}")
-    while not self.nlp.check_goodbye(text):  # TODO: this should be a check for a conversation end using NLP
+    # TODO: this should be a check for a conversation end using NLP
+    while not self.nlp.check_goodbye(text):
       res, messages = self.conversation.chat(messages=messages, text=text)
       self.logger.info(f"AGENT: {res}")
       self.text_to_speech(res)

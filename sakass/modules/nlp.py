@@ -1,5 +1,6 @@
 import nltk
 
+
 class NLP:
   def __init__(self):
     self.audio_start = ["play"]
@@ -10,7 +11,7 @@ class NLP:
   def check_greeting(self, text: str) -> bool:
     tokens = nltk.tokenize.word_tokenize(text.lower())
     return any(keyword in tokens for keyword in ["hi", "hello", "hey"])
-  
+
   def check_goodbye(self, text: str) -> bool:
     tokens = nltk.tokenize.word_tokenize(text.lower())
     return any(keyword in tokens for keyword in ["bye", "goodbye"])

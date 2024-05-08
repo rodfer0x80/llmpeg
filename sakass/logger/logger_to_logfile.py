@@ -3,6 +3,7 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+
 class Logger:
   def __init__(self):
     return None

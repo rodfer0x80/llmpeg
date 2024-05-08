@@ -1,5 +1,6 @@
 import whisper  # TODO: change this to use tinygrad customised whisper example
 
+
 class STT:
   def __init__(self):
     model_size = "tiny"

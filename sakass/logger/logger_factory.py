@@ -1,6 +1,7 @@
 from sakass.logger.logger_to_stdout import LoggerToStdout
 from sakass.logger.logger_to_logfile import LoggerToLogfile
 
+
 class LoggerFactory:
   def __init__(self, log_output="stdout"):
     self.log_output = log_output
