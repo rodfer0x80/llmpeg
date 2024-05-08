@@ -29,13 +29,13 @@ class Conversation:
 
   def chat(self, messages: list[dict[str, str]], text: str) -> Union[str, list[str]]:
     messages.append(
-      {
-        "role": "user",
-        "content": text
-      }
+        {
+            "role": "user",
+            "content": text
+        }
     )
     res = ollama.chat(
-      model=self.model,
-      messages=messages,
+        model=self.model,
+        messages=messages,
     )
     return res['message']['content'], messages

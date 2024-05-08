@@ -39,7 +39,7 @@ class Agent:
   # NOTE: <-------- Audio -------->
   def text_to_speech(self, text: str) -> None:
     audio_file_path = self.tts.text_to_audio(text)
-    err = self.audio_output.play_audio_single(audio_file_path)
+    err = self.audio_output.play_audio_file(audio_file_path)
     # if err: self.logger.error(err)
 
    # TODO: this tts part should go to modules/stt where stuff is fronted from this class into agent class
@@ -58,9 +58,13 @@ class Agent:
     self.logger.info(f"USER: {text}")
     # TODO: this should be a check for a conversation end using NLP
     while not self.nlp.check_goodbye(text):
-      res, messages = self.conversation.chat(messages=messages, text=text)
-      self.logger.info(f"AGENT: {res}")
-      self.text_to_speech(res)
+      if self.nlp.check_audio_request(text):
+        self.logger.debug("Audio request...")
+        self.stream_audio(text)
+      else:
+        res, messages = self.conversation.chat(messages=messages, text=text)
+        self.logger.info(f"AGENT: {res}")
+        self.text_to_speech(res)
       text = self.speech_to_text().strip()
       self.logger.info(f"USER: {text}")
 

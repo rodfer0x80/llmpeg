@@ -42,3 +42,4 @@ class AudioOutput:
     except KeyboardInterrupt:
       self.player.stop()
       self.playing = False
+      return

@@ -10,7 +10,7 @@ class Main:
 
   def __call__(self):
     self.agent.chat()
-    
+
     return 0
 
 

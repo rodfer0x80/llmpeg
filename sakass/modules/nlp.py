@@ -2,6 +2,7 @@ import nltk
 
 from sakass.modules.patterns import Triggers
 
+
 class NLP:
   def __init__(self):
     nltk.download('punkt')
