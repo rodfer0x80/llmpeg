@@ -1,3 +1,5 @@
 class Triggers:
-  start: str = "hey babe"
-  stop: str = "see ya babe"
+  audio_check = ["from", "by", "song", "music", "play"]
+  audio_start = "play"
+  goodbye = ["bye", "goodbye"]
+  greeting = ["hi", "hello", "hey", "greetings"]

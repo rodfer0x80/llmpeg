@@ -52,8 +52,7 @@ class Agent:
 
   # NOTE: <-------- Conversation -------->
   def chat(self) -> None:
-    messages = []
-    text = ""
+    text, messages = "", []
     self.logger.info("Starting chat...")
     text = self.speech_to_text().strip()
     self.logger.info(f"USER: {text}")
