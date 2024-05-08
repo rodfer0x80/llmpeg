@@ -7,8 +7,8 @@ from typing import Optional, List
 
 class AudioOutput:
   def __init__(self, audio_output_config: Optional[str] = None):
-    self.instance = vlc.Instance(audio_output_config or "--aout=alsa")
-    self.player = vlc.MediaPlayer(self.instance)
+    self.instance = vlc.Instance(audio_output_config or "--aout=alsa") # TODO: this should be a config
+    self.player = vlc.MediaPlayer(self.instance) 
     self.playing = False
 
   def play_audio_file(self, audio_file_path: str) -> None:
