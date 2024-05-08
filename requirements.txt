@@ -6,3 +6,4 @@ ollama
 numpy
 openai-whisper
 sounddevice
+nltk

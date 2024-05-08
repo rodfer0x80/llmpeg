@@ -22,8 +22,8 @@ class Browser:
 
   def search_audio_stream(self, query: str) -> Tuple[Optional[str], Optional[str]]:
     try:
-      #NOTE: ffmpeg is required for this to work
-      #NOTE: mp3 192kbps is the preferred format
+      # NOTE: ffmpeg is required for this to work
+      # NOTE: mp3 192kbps is the preferred format
       ydl_opts = {
           'format': 'bestaudio/best',
           'postprocessors': [{
@@ -33,7 +33,7 @@ class Browser:
           }],
           'quiet': True,
       }
-      #NOTE: search ytdl database for the query
+      # NOTE: search ytdl database for the query
       with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         search_results = ydl.extract_info(f"ytsearch1:{query}", download=False)
         if 'entries' in search_results and len(search_results['entries']) > 0:

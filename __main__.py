@@ -9,7 +9,7 @@ class Main:
     self.agent = Agent(conversation_model=conversation_model)
 
   def __call__(self):
-    self.agent.say("Hello, I am Gemma. How can I help you today?")
+    self.agent.respond()
     # self.agent.respond()
     # self.agent.stream_audio("play Californication by Red Hot Chili Peppers")
     # self.agent.stream_audio("play On My Way by Sabrina Carpenter")

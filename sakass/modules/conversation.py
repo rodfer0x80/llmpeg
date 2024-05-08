@@ -1,10 +1,9 @@
 from sakass.modules.patterns import Prompts, Triggers
-import ollama  #TODO: change this to use tinygrad?
+import ollama  # TODO: change this to use tinygrad?
 from typing import Union
 
 # TODO: have a conversation with preprompted character roleplay and play songs on request
 # TODO: this should be a in front of browser and call it todo stuff instead of bypassing this and using capabilities directly
-
 
 class Conversation:
   def __init__(self, model: str):
@@ -20,4 +19,4 @@ class Conversation:
     return ollama.generate(model=self.model, prompt=text)
 
   def chat(self, text: str) -> Union[int, str]:
-    return 0  #TODO: use ollama.chat() feature to chat with the model
+    return 0  # TODO: use ollama.chat() feature to chat with the model
