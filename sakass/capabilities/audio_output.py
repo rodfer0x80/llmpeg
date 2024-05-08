@@ -11,7 +11,7 @@ class AudioOutput:
     self.player = vlc.MediaPlayer(self.instance)
     self.playing = False
 
-  def play_audio_single(self, audio_file_path: str) -> None:
+  def play_audio_file(self, audio_file_path: str) -> None:
     err = "File not found."
     if audio_file_path:
       try:
