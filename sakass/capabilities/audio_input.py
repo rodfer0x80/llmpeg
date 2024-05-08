@@ -1,6 +1,7 @@
 import sounddevice as sd
 import numpy as np
 
+
 class AudioInput:
   def __init__(self):
     pass
@@ -12,5 +13,3 @@ class AudioInput:
     audio_stream = audio_data_int.flatten().astype(np.float32) / \
         np.iinfo(np.int16).max
     return audio_stream
-
- 

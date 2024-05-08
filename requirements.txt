@@ -7,3 +7,5 @@ numpy
 openai-whisper
 sounddevice
 nltk
+flask-socketio
+flask

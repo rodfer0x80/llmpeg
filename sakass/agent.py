@@ -4,6 +4,7 @@ from sakass.logger import LoggerToStdout
 
 from typing import Optional
 
+
 class Agent:
   def __init__(self, conversation_model: str):
     self.logger = LoggerToStdout()
@@ -28,13 +29,14 @@ class Agent:
 
   def stream_audio(self, query: str) -> None:
     audio_stream, _ = self.browser.search_audio_stream(query)
-    audio_stream = [audio_stream] if audio_stream else None # NOTE: convert to list for play_audio_stream
+    # NOTE: convert to list for play_audio_stream
+    audio_stream = [audio_stream] if audio_stream else None
     if audio_stream:
       self.audio_output.play_audio_stream(audio_stream)
     else:
       self.logger.error("No audio stream found.")
 
-  #NOTE: <-------- Audio -------->
+  # NOTE: <-------- Audio -------->
   def text_to_speech(self, text: str) -> None:
     audio_file_path = self.tts.text_to_audio(text)
     err = self.audio_output.play_audio_single(audio_file_path)
@@ -49,28 +51,41 @@ class Agent:
     return audio_text
 
   # NOTE: <-------- Conversation -------->
+  def chat(self) -> None:
+    messages = []
+    text = ""
+    self.logger.info("Starting chat...")
+    text = self.speech_to_text().strip()
+    self.logger.info(f"USER: {text}")
+    while "bye" not in text.lower(): #TODO: this should be a check for a conversation end using NLP
+      res, messages = self.conversation.chat(messages=messages, text=text)
+      self.logger.info(f"AGENT: {res}")
+      self.text_to_speech(res)
+      text = self.speech_to_text().strip()
+      self.logger.info(f"USER: {text}")
+
   def respond(self) -> None:
     text = self.speech_to_text().strip()
-    self.logger.info("[USER]: "+text)
+    self.logger.info(f"USER: {text}")
     if self.nlp.check_audio_request(text):
       self.logger.debug("Audio request...")
       self.stream_audio(text)
-      return 
+      return
     self.logger.debug("Responding...")
     res = self.conversation.respond(text)['response']
-    self.logger.info("[AGENT]: "+res)
+    self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
   def explain(self, text: str) -> None:
     text = self.speech_to_text().strip()
-    self.logger.info("[USER]: "+text)
+    self.logger.info(f"USER: {text}")
     res = self.conversation.explain(text)['response']
-    self.logger.info("[AGENT]: "+res)
+    self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
   def summarize(self, text: str) -> None:
     text = self.speech_to_text().strip()
-    self.logger.info("[USER]: "+text)
+    self.logger.info(f"USER: {text}")
     res = self.conversation.summarize(text)['response']
-    self.logger.info("[AGENT]: "+res)
+    self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)

@@ -4,6 +4,7 @@ import time
 import os
 from typing import Optional, List
 
+
 class AudioOutput:
   def __init__(self, audio_output_config: Optional[str] = None):
     self.instance = vlc.Instance(audio_output_config or "--aout=alsa")
@@ -34,9 +35,9 @@ class AudioOutput:
         if audio_url:
           self.player.set_media(vlc.Media(audio_url))
           self.player.play()
-          while self.player.get_state() == vlc.State.Opening: # NOTE: wait for the player to start playing
+          while self.player.get_state() == vlc.State.Opening:  # NOTE: wait for the player to start playing
             continue
-          while self.player.get_state() != vlc.State.Ended: # NOTE: wait until playback is finished
+          while self.player.get_state() != vlc.State.Ended:  # NOTE: wait until playback is finished
             continue
     except KeyboardInterrupt:
       self.player.stop()

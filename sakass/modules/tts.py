@@ -2,6 +2,7 @@ from gtts import gTTS
 
 import tempfile
 
+
 class TTS:
   def __init__(self) -> None:
     pass
