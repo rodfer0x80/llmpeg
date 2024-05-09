@@ -3,3 +3,4 @@ class Triggers:
   audio_start = "play"
   goodbye = ["bye", "goodbye"]
   greeting = ["hi", "hello", "hey", "greetings"]
+  goodbye_default_phrase = ["see", "you", "next", "time"]

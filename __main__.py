@@ -10,6 +10,7 @@ class Main:
       nlp_wordlist="punkt",
       audio_output_src="--aout=alsa", 
       tts_lang="en", 
+      tts_model_size="small",
       stt_model_size="tiny"
     )
 
