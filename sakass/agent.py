@@ -1,13 +1,14 @@
 from sakass.capabilities import AudioInput, AudioOutput
-from .modules import Conversation, Browser, NLP, TTS, STT
-from sakass.logger import LoggerToStdout
+from sakass.modules import Conversation, Browser, NLP, STT
+from sakass.modules.tts import TTS
+from sakass.logger import LoggerFactory
 
 from typing import Optional
 
 
 class Agent:
   def __init__(self, conversation_model: str, nlp_wordlist: str, tts_lang: str, stt_model_size: str, audio_output_src:str):
-    self.logger = LoggerToStdout()
+    self.logger = LoggerFactory(log_output="stdout")
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
     self.nlp = NLP(wordlist=nlp_wordlist)
