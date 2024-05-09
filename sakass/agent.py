@@ -1,19 +1,19 @@
 from sakass.capabilities import AudioInput, AudioOutput
-from sakass.modules import Conversation, Browser, NLP, TTS, STT
+from .modules import Conversation, Browser, NLP, TTS, STT
 from sakass.logger import LoggerToStdout
 
 from typing import Optional
 
 
 class Agent:
-  def __init__(self, conversation_model: str):
+  def __init__(self, conversation_model: str, nlp_wordlist: str, tts_lang: str, stt_model_size: str, audio_output_src:str):
     self.logger = LoggerToStdout()
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
-    self.nlp = NLP()
-    self.tts = TTS()
-    self.stt = STT()
-    self.audio_output = AudioOutput()
+    self.nlp = NLP(wordlist=nlp_wordlist)
+    self.tts = TTS(lang=tts_lang)
+    self.stt = STT(model_size=stt_model_size)
+    self.audio_output = AudioOutput(audio_output_src=audio_output_src)
     self.audio_input = AudioInput()
 
   # NOTE: <-------- Browser -------->
@@ -47,26 +47,26 @@ class Agent:
     self.logger.debug("Recording...")
     audio_stream = self.audio_input.capture_audio()
     self.logger.debug("Finished recording...")
-    audio_text = self.stt.audio_to_text(audio_stream)
-    return audio_text
+    text = self.stt.audio_to_text(audio_stream)
+    return text
 
   # NOTE: <-------- Conversation -------->
   def chat(self) -> None:
-    text, messages = "", []
+    prompt, messages = "", []
     self.logger.info("Starting chat...")
-    text = self.speech_to_text().strip()
-    self.logger.info(f"USER: {text}")
+    prompt = self.speech_to_text().strip()
+    self.logger.info(f"USER: {prompt}")
     # TODO: this should be a check for a conversation end using NLP
-    while not self.nlp.check_goodbye(text):
-      if self.nlp.check_audio_request(text):
+    while not self.nlp.check_goodbye(prompt):
+      if self.nlp.check_audio_request(prompt):
         self.logger.debug("Audio request...")
-        self.stream_audio(text)
+        self.stream_audio(prompt)
       else:
-        res, messages = self.conversation.chat(messages=messages, text=text)
+        res, messages = self.conversation.chat(messages=messages, prompt=prompt)
         self.logger.info(f"AGENT: {res}")
-        self.text_to_speech(res)
-      text = self.speech_to_text().strip()
-      self.logger.info(f"USER: {text}")
+        self.text_to_speech(text=res)
+      prompt = self.speech_to_text().strip()
+      self.logger.info(f"USER: {prompt}")
 
   def respond(self) -> None:
     text = self.speech_to_text().strip()

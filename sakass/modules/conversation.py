@@ -7,35 +7,33 @@ from typing import Union
 
 class Conversation:
   def __init__(self, model: str):
-    self.model = model
+    self.model = model # NOTE: e.g. "gemma:2b"
 
-  def summarize(self, text: str) -> str:
+  def summarize(self, prompt: str) -> str:
     return ollama.generate(
         model=self.model,
-        prompt=f"{Prompts.summarize}\n{text}"
+        prompt=f"{Prompts.summarize}\n{prompt}"
     )
 
-  def explain(self, text: str) -> str:
+  def explain(self, prompt: str) -> str:
     return ollama.generate(
         model=self.model,
-        prompt=f"{Prompts.explain}\n{text}"
+        prompt=f"{Prompts.explain}\n{prompt}"
     )
 
-  def respond(self, text: str) -> str:
+  def respond(self, prompt: str) -> str:
     return ollama.generate(
         model=self.model,
-        prompt=text
+        prompt=prompt
     )
 
-  def chat(self, messages: list[dict[str, str]], text: str) -> Union[str, list[str]]:
-    messages.append(
-        {
-            "role": "user",
-            "content": text
-        }
-    )
+  def chat(self, messages: list[dict[str, str]], prompt: str) -> Union[str, list[str]]:
+    messages.append({
+        "role": "user",
+        "content": prompt,
+    })
     res = ollama.chat(
-        model=self.model,
-        messages=messages,
+      model=self.model,
+      messages=messages,
     )
     return res['message']['content'], messages
