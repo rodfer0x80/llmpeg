@@ -6,8 +6,9 @@ from sakass.logger import LoggerFactory
 from typing import Optional
 import time
 
+
 class Agent:
-  def __init__(self, conversation_model: str, nlp_wordlist: str, tts_lang: str, tts_model_size:str, stt_model_size: str, audio_output_src:str):
+  def __init__(self, conversation_model: str, nlp_wordlist: str, tts_lang: str, tts_model_size: str, stt_model_size: str, audio_output_src: str):
     self.logger = LoggerFactory(log_output="stdout")()
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
@@ -60,13 +61,15 @@ class Agent:
     self.logger.info(f"USER: {prompt}")
     # TODO: this should be a check for a conversation end using NLP
     while not self.nlp.check_goodbye(prompt):
-      if exit_flag: exit_flag = False
+      if exit_flag:
+        exit_flag = False
       if self.nlp.check_audio_request(prompt):
         self.logger.debug("Audio request...")
         self.stream_audio(prompt)
         time.sleep(.5)
       else:
-        res, messages = self.conversation.chat(messages=messages, prompt=prompt)
+        res, messages = self.conversation.chat(
+            messages=messages, prompt=prompt)
         self.logger.info(f"AGENT: {res}")
         self.text_to_speech(text=res)
       prompt = self.speech_to_text().strip()

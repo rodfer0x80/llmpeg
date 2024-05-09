@@ -5,7 +5,7 @@ import tempfile
 
 class TTS:
   def __init__(self, model_size, lang) -> None:
-    self.lang = lang # NOTE: e.g. "en"
+    self.lang = lang  # NOTE: e.g. "en"
     self.large_tts_model = "tts_models/en/jenny/jenny"
     self.small_tts_model = "tts_models/en/ljspeech/glow-tts"
     model_name = self.large_tts_model if model_size == "large" else self.small_tts_model

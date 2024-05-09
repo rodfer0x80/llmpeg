@@ -7,7 +7,7 @@ from typing import Union
 
 class Conversation:
   def __init__(self, model: str):
-    self.model = model # NOTE: e.g. "gemma:2b"
+    self.model = model  # NOTE: e.g. "gemma:2b"
 
   def summarize(self, prompt: str) -> str:
     return ollama.generate(
@@ -33,7 +33,7 @@ class Conversation:
         "content": prompt,
     })
     res = ollama.chat(
-      model=self.model,
-      messages=messages,
+        model=self.model,
+        messages=messages,
     )
     return res['message']['content'], messages
