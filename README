@@ -10,4 +10,5 @@ https://huggingface.co/docs/transformers/en/model_doc/vits
 listen -> wav2vec or whisper local 
 https://huggingface.co/docs/transformers/en/model_doc/whisper
 https://huggingface.co/docs/transformers/en/model_doc/wav2vec2
+https://hackernoon.com/building-a-facial-recognition-pipeline-with-deep-learning-in-tensorflow-66e7645015b8
 ````

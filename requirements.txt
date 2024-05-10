@@ -7,3 +7,4 @@ numpy
 openai-whisper
 sounddevice
 nltk
+pocketsphinx
