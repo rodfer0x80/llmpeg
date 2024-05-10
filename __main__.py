@@ -15,8 +15,9 @@ class Main:
     )
 
   def __call__(self):
+    print(self.agent.speech_to_text())
     #self.agent.chat()
-    self.agent.summarize_search("https://finallyfocused.org/adhd-sugar/")
+    #self.agent.summarize_search("https://finallyfocused.org/adhd-sugar/")
     return 0
 
 

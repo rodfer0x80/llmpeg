@@ -48,8 +48,9 @@ class Agent:
   def speech_to_text(self) -> str:
     self.logger.debug("Recording...")
     audio_stream = self.audio_input.capture_audio()
+    audio_file = self.audio_input.save_audio_to_file(audio_stream)
     self.logger.debug("Finished recording...")
-    text = self.stt.audio_to_text(audio_stream)
+    text = self.stt.audio_to_text(audio_file)
     return text
 
   # NOTE: <-------- Conversation -------->
