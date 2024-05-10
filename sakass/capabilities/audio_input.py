@@ -1,6 +1,7 @@
 import sounddevice as sd
 import numpy as np
-
+import soundfile as sf
+import tempfile
 
 class AudioInput:
   def __init__(self):
@@ -13,3 +14,9 @@ class AudioInput:
     audio_stream = audio_data_int.flatten().astype(np.float32) / \
         np.iinfo(np.int16).max
     return audio_stream
+  
+  def save_audio_to_file(self, audio_stream, sr=16000):
+    tmp = tempfile.NamedTemporaryFile(delete=False, suffix='.wav')
+    sf.write(tmp.name, audio_stream, samplerate=sr)
+    return tmp.name
+
