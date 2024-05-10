@@ -16,6 +16,12 @@ class Browser:
       response.raise_for_status()  # NOTE: raise an exception for bad status codes
       soup = BeautifulSoup(response.content, 'html.parser')
       text_content = soup.get_text()
+      text_content = " ".join(text_content.split())
+      text_content = text_content.replace("\n", " ")
+      text_content = text_content.replace("\t", " ")
+      text_content = text_content.replace("\r", " ")
+      text_content = text_content.replace("\xa0", " ")
+      text_content = text_content.replace("\u200b", " ")
       return text_content, None
     except requests.RequestException as e:
       return "", f"Error: {e}"

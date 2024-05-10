@@ -91,16 +91,22 @@ class Agent:
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
-  def explain(self, text: str) -> None:
-    text = self.speech_to_text().strip()
-    self.logger.info(f"USER: {text}")
+  def explain(self, text="") -> None:
+    if not text:
+      text = self.speech_to_text().strip()
+      self.logger.info(f"USER: {text}")
+    else:
+      self.logger.info(f"USER: __explain__ {text}")
     res = self.conversation.explain(text)['response']
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
-  def summarize(self, text: str) -> None:
-    text = self.speech_to_text().strip()
-    self.logger.info(f"USER: {text}")
+  def summarize(self, text="") -> None:
+    if not text:
+      text = self.speech_to_text().strip()
+      self.logger.info(f"USER: {text}")
+    else:
+      self.logger.info(f"USER: __summarize__ {text}")
     res = self.conversation.summarize(text)['response']
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)

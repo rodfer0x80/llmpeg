@@ -15,8 +15,8 @@ class Main:
     )
 
   def __call__(self):
-    self.agent.chat()
-
+    #self.agent.chat()
+    self.agent.summarize_search("https://finallyfocused.org/adhd-sugar/")
     return 0
 
 
