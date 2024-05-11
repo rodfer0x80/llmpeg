@@ -4,7 +4,7 @@ from sakass.modules.patterns import Triggers
 
 
 class NLP:
-  def __init__(self, wordlist: str):
+  def __init__(self, wordlist="punkt"):
     nltk.download(wordlist)  # NOTE: e.g. "punkt"
 
   def check_greeting(self, prompt: str) -> bool:

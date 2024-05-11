@@ -6,12 +6,8 @@ from sakass.agent import Agent
 class Main:
   def __init__(self):
     self.agent = Agent(
-        conversation_model="llama3",
-        nlp_wordlist="punkt",
-        audio_output_src="--aout=alsa",
-        tts_lang="en",
-        tts_model_size="large",
-        stt_model_size="tiny"
+        conversation_model="gemma:2b",
+        stt_model_size="base"
     )
 
   def __call__(self):

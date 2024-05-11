@@ -7,14 +7,14 @@ import time
 
 
 class Agent:
-  def __init__(self, conversation_model: str, nlp_wordlist: str, tts_lang: str, tts_model_size: str, stt_model_size: str, audio_output_src: str):
+  def __init__(self, conversation_model: str, stt_model_size: str):
     self.logger = LoggerFactory(log_output="stdout")()
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
-    self.nlp = NLP(wordlist=nlp_wordlist)
-    self.tts = TTS(lang=tts_lang, model_size=tts_model_size)
+    self.nlp = NLP()
+    self.tts = TTS()
     self.stt = STT(model_size=stt_model_size)
-    self.audio_output = AudioOutput(audio_output_src=audio_output_src)
+    self.audio_output = AudioOutput()
     self.audio_input = AudioInput()
 
   # NOTE: <-------- Browser -------->
@@ -31,6 +31,7 @@ class Agent:
   def stream_audio(self, query: str) -> None:
     audio_stream, _ = self.browser.search_audio_stream(query)
     # NOTE: convert to list for play_audio_stream
+    print(audio_stream)
     audio_stream = [audio_stream] if audio_stream else None
     if audio_stream:
       self.audio_output.play_audio_stream(audio_stream)
@@ -39,9 +40,9 @@ class Agent:
 
   # NOTE: <-------- Audio -------->
   def text_to_speech(self, text: str) -> None:
-    audio_file_path = self.tts.text_to_audio(text)
-    err = self.audio_output.play_audio_file(audio_file_path)
-    # if err: self.logger.error(err)
+    audio_path = self.tts.synthesize(text_to_synthesize=text)
+    audio_stream = [audio_path]
+    self.audio_output.play_audio_stream(audio_stream)
 
    # TODO: this tts part should go to modules/stt where stuff is fronted from this class into agent class
   def speech_to_text(self) -> str:
@@ -53,7 +54,8 @@ class Agent:
 
   # NOTE: <-------- Conversation -------->
   def chat(self) -> None:
-    prompt, messages = "", []
+    prompt = ""
+    messages = []
     exit_flag = True
     self.logger.info("Starting chat...")
     prompt = self.speech_to_text().strip()

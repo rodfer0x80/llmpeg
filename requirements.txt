@@ -7,3 +7,9 @@ numpy
 openai-whisper
 sounddevice
 nltk
+unidecode 
+inflect 
+eng_to_ipa
+phonemizer
+sound
+git+https://github.com/tinygrad/tinygrad.git
