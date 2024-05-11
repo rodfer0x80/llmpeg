@@ -67,7 +67,7 @@ class Agent:
       if self.nlp.check_audio_request(prompt):
         self.logger.debug("Audio request...")
         self.stream_audio(prompt)
-        time.sleep(.5)
+        time.sleep(.5)       
       else:
         res, messages = self.conversation.chat(
             messages=messages, prompt=prompt)

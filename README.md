@@ -1,6 +1,10 @@
 # sakass
 
 ````
+
+````
+
+````
 conversation -> ollama api
 browser -> scrapegraphai
 speech -> vits or openvoice 

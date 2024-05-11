@@ -16,6 +16,18 @@ class NLP:
         or\
         all(keyword in nltk.tokenize.word_tokenize(text.lower())
             for keyword in Triggers.goodbye_default_phrase)
+  
+  def check_browse_request(self, text: str) -> bool:
+    tokens = nltk.tokenize.word_tokenize(text.lower())
+    if Triggers.browse_start in tokens and any(keyword in tokens for keyword in Triggers.browse_check):
+      return True
+    return False
+  
+  def check_explain_request(self, text: str) -> bool:
+    tokens = nltk.tokenize.word_tokenize(text.lower())
+    if Triggers.explain_start in tokens and any(keyword in tokens for keyword in Triggers.explain_check):
+      return True
+    return False
 
   # TODO: find sentiment to play song or not
   def check_audio_request(self, text: str) -> bool:
