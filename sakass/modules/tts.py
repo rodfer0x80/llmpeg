@@ -8,8 +8,8 @@ class TTS:
     self.lang = lang  # NOTE: e.g. "en"
     self.large_tts_model = "tts_models/en/jenny/jenny"
     self.small_tts_model = "tts_models/en/ljspeech/glow-tts"
-    self.model_name = self.large_tts_model if model_size == "large" else self.small_tts_model
-    self.speed = 1.3 if self.model_size == "large" else self.speed = 2.5
+    model_name = self.large_tts_model if model_size == "large" else self.small_tts_model
+    self.speed = 1.3 if model_size  == "large" else 2.5
     self.tts = MozillaTTS(model_name=model_name)
 
   def text_to_audio(self, text: str) -> str:
