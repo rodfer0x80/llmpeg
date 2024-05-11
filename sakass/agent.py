@@ -1,6 +1,5 @@
 from sakass.capabilities import AudioInput, AudioOutput
-from sakass.modules import Conversation, Browser, NLP, STT
-from sakass.modules.tts import TTS
+from .modules import Conversation, Browser, NLP, TTS, STT
 from sakass.logger import LoggerFactory
 
 from typing import Optional
