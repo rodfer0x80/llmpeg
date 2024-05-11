@@ -7,12 +7,12 @@ import time
 
 
 class Agent:
-  def __init__(self, conversation_model: str, stt_model_size: str):
+  def __init__(self, conversation_model: str, stt_model_size: str, tts_model_size: str):
     self.logger = LoggerFactory(log_output="stdout")()
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
     self.nlp = NLP()
-    self.tts = TTS()
+    self.tts = TTS(model_size=tts_model_size)
     self.stt = STT(model_size=stt_model_size)
     self.audio_output = AudioOutput()
     self.audio_input = AudioInput()
@@ -40,7 +40,7 @@ class Agent:
 
   # NOTE: <-------- Audio -------->
   def text_to_speech(self, text: str) -> None:
-    audio_path = self.tts.synthesize(text_to_synthesize=text)
+    audio_path = self.tts.synthesize(text=text)
     audio_stream = [audio_path]
     self.audio_output.play_audio_stream(audio_stream)
 

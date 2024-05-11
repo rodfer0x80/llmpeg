@@ -3,13 +3,9 @@ yt-dlp
 python-vlc
 tiktoken
 ollama
+TTS
 numpy
 openai-whisper
 sounddevice
+soundfile
 nltk
-unidecode 
-inflect 
-eng_to_ipa
-phonemizer
-sound
-git+https://github.com/tinygrad/tinygrad.git
