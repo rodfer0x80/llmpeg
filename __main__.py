@@ -6,13 +6,14 @@ from sakass.agent import Agent
 class Main:
   def __init__(self):
     self.agent = Agent(
-        conversation_model="gemma:2b",
+        conversation_model="llama3",
         tts_model_size="large",
         stt_model_size="base"
     )
 
   def __call__(self):
-    self.agent.chat()
+    self.agent.explain_search("https://www.scientificamerican.com/article/system-analysis-and-programming-christopher-strachey/")
+    #self.agent.chat()
     return 0
 
 
