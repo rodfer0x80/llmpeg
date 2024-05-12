@@ -7,12 +7,12 @@ import time
 
 
 class Agent:
-  def __init__(self, conversation_model: str, stt_model_size: str, tts_model_size: str):
+  def __init__(self, conversation_model: str, stt_model_size: str):
     self.logger = LoggerFactory(log_output="stdout")()
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
     self.nlp = NLP()
-    self.tts = TTS(model_size=tts_model_size)
+    self.tts = TTS()
     self.stt = STT(model_size=stt_model_size)
     self.audio_output = AudioOutput()
     self.audio_input = AudioInput()
@@ -80,15 +80,16 @@ class Agent:
       self.logger.info(f"AGENT: {res}")
       self.text_to_speech(text=res)
 
-  def respond(self) -> None:
-    text = self.speech_to_text().strip()
+  def respond(self, text="") -> None:
+    if not text:
+      text = self.speech_to_text().strip()
     self.logger.info(f"USER: {text}")
     if self.nlp.check_audio_request(text):
       self.logger.debug("Audio request...")
       self.stream_audio(text)
       return
     self.logger.debug("Responding...")
-    res = self.conversation.respond(text)['response']
+    res = self.conversation.respond(text)
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
@@ -98,7 +99,7 @@ class Agent:
       self.logger.info(f"USER: {text}")
     else:
       self.logger.info(f"USER: __explain__ {text}")
-    res = self.conversation.explain(text)['response']
+    res = self.conversation.explain(text)
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
@@ -108,6 +109,6 @@ class Agent:
       self.logger.info(f"USER: {text}")
     else:
       self.logger.info(f"USER: __summarize__ {text}")
-    res = self.conversation.summarize(text)['response']
+    res = self.conversation.summarize(text)
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)

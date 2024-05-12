@@ -13,19 +13,19 @@ class Conversation:
     return ollama.generate(
         model=self.model,
         prompt=f"{Prompts.summarize}\n{prompt}"
-    )
+    )['response']
 
   def explain(self, prompt: str) -> str:
     return ollama.generate(
         model=self.model,
         prompt=f"{Prompts.explain}\n{prompt}"
-    )
+    )['response']
 
   def respond(self, prompt: str) -> str:
     return ollama.generate(
         model=self.model,
         prompt=prompt
-    )
+    )['response']
 
   def chat(self, messages: list[dict[str, str]], prompt: str) -> Union[str, list[str]]:
     messages.append({
