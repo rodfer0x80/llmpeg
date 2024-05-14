@@ -77,7 +77,7 @@ class Agent:
       prompt = self.speech_to_text().strip()
       self.logger.info(f"USER: {prompt}")
     if exit_flag:
-      res = self.conversation.respond(prompt)['response']
+      res = self.conversation.respond(prompt)
       self.logger.info(f"AGENT: {res}")
       self.text_to_speech(text=res)
 
@@ -99,7 +99,7 @@ class Agent:
       self.logger.info(f"USER: {text}")
     else:
       self.logger.info(f"USER: __explain__ {text}")
-    res = self.conversation.explain(text)['response']
+    res = self.conversation.explain(text)
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
@@ -109,6 +109,6 @@ class Agent:
       self.logger.info(f"USER: {text}")
     else:
       self.logger.info(f"USER: __summarize__ {text}")
-    res = self.conversation.summarize(text)['response']
+    res = self.conversation.summarize(text)
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
