@@ -7,6 +7,7 @@ class Main:
   def __init__(self):
     self.agent = Agent(
         conversation_model="llama3",
+        tts_model_size="small",
         stt_model_size="base"
     )
 

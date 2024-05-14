@@ -7,12 +7,12 @@ import time
 
 
 class Agent:
-  def __init__(self, conversation_model: str, stt_model_size: str):
+  def __init__(self, conversation_model: str, tts_model_size: str, stt_model_size: str):
     self.logger = LoggerFactory(log_output="stdout")()
     self.conversation = Conversation(model=conversation_model)
     self.browser = Browser()
     self.nlp = NLP()
-    self.tts = TTS()
+    self.tts = TTS(model_size=tts_model_size)
     self.stt = STT(model_size=stt_model_size)
     self.audio_output = AudioOutput()
     self.audio_input = AudioInput()
