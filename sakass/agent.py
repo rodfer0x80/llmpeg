@@ -1,4 +1,4 @@
-from sakass.capabilities import AudioInput, AudioOutput
+from sakass.capabilities import AudioInput, AudioOutput, WebInterface
 from .modules import Conversation, Browser, NLP, TTS, STT
 from sakass.logger import LoggerFactory
 
@@ -16,6 +16,7 @@ class Agent:
     self.stt = STT(model_size=stt_model_size)
     self.audio_output = AudioOutput()
     self.audio_input = AudioInput()
+    self.iface = WebInterface()
 
   # NOTE: <-------- Browser -------->
   def summarize_search(self, url: str) -> None:
@@ -80,9 +81,8 @@ class Agent:
       self.logger.info(f"AGENT: {res}")
       self.text_to_speech(text=res)
 
-  def respond(self, text="") -> None:
-    if not text:
-      text = self.speech_to_text().strip()
+  def respond(self) -> None:
+    text = self.speech_to_text().strip()
     self.logger.info(f"USER: {text}")
     if self.nlp.check_audio_request(text):
       self.logger.debug("Audio request...")
@@ -99,7 +99,7 @@ class Agent:
       self.logger.info(f"USER: {text}")
     else:
       self.logger.info(f"USER: __explain__ {text}")
-    res = self.conversation.explain(text)
+    res = self.conversation.explain(text)['response']
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)
 
@@ -109,6 +109,6 @@ class Agent:
       self.logger.info(f"USER: {text}")
     else:
       self.logger.info(f"USER: __summarize__ {text}")
-    res = self.conversation.summarize(text)
+    res = self.conversation.summarize(text)['response']
     self.logger.info(f"AGENT: {res}")
     self.text_to_speech(res)

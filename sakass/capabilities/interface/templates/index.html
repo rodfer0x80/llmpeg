@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyberpunk Animation</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .animation {
+            position: absolute;
+            color: #0f0; /* Green color for the communication voice */
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cyberpunk Animation</h1>
+    <button onclick="startAnimation()">Start Animation</button>
+    <div id="animation" class="animation"></div>
+
+    <script>
+        function startAnimation() {
+            fetch("/start_animation", { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "success") {
+                        console.log("Animation started");
+                    } else {
+                        console.error("Failed to start animation");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    </script>
+</body>
+</html>
