@@ -12,7 +12,8 @@ class Main:
 
   def __call__(self):
     self.agent.explain_search("https://aljamal.substack.com/p/homoiconic-python")
-    return 0
+
+return 0
 
 
 if __name__ == '__main__':
