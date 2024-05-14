@@ -12,7 +12,7 @@ class Main:
     )
 
   def __call__(self):
-    self.agent.explain_search("https://www.scientificamerican.com/article/system-analysis-and-programming-christopher-strachey/")
+    self.agent.explain_search("https://aljamal.substack.com/p/homoiconic-python")
     #self.agent.chat()
     return 0
 
