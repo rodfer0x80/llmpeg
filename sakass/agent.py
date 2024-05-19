@@ -1,8 +1,6 @@
 import time
 import os
 
-import os
-
 from sakass.logger import LoggerFactory
 from sakass.config import Config
 from sakass.capabilities.audio.audio import Audio
@@ -28,14 +26,10 @@ class Agent:
     self.tts = TTS(model_size=tts_model_size, cache_dir=self.cache_dir)
     self.vision = Vision(browser=self.browser)
 
-
+  # NOTE: <-------- Vision -------->
   def ocr_url(self, url: str): return self.vision.ocr_stream(self.browser.screenshot(url))
   def dictate_url(self, url: str): self.text_to_speech(" ".join(self.ocr_url(url)))
   # TODO: explain/summ etc on data from ocr_url
-
-
-
-  # TODO: all of this shit below is legacy and has to be cleaned up
 
   # NOTE: <-------- Browser -------->
   def summarize_search(self, url: str) -> None:
@@ -66,6 +60,13 @@ class Agent:
     self.logger.debug("Finished recording...")
     text = self.stt.audio_to_text(audio_stream)
     return text
+
+
+
+
+
+
+
 
   # NOTE: <-------- Conversation -------->
   def chat(self) -> None:
