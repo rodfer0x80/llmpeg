@@ -2,9 +2,11 @@
 
 ## TODO
 [x] fix play audio output
+[ ] headless browser
 [ ] pyproject proper struct
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
-[ ] dynamic config command flags and args
+[ ] dynamic config 
+[ ] basic gui with tk
 
 ## Resources
 
