@@ -1,22 +1,36 @@
-from sakass.capabilities import AudioInput, AudioOutput, WebInterface
-from .modules import Conversation, Browser, NLP, TTS, STT
-from sakass.logger import LoggerFactory
-
-from typing import Optional
 import time
+import os
 
+import os
+
+from sakass.capabilities.audio import AudioInput, AudioOutput
+from sakass.capabilities.webdriver import DefaultChromeDriver
+from sakass.modules import Conversation, Browser, NLP, TTS, STT
+from sakass.logger import LoggerFactory
+from sakass.config import Config
 
 class Agent:
   def __init__(self, conversation_model: str, tts_model_size: str, stt_model_size: str):
+    # TODO: configurable class for customising the agent
+    Config()()
+    self.cache_dir = os.path.expanduser("~/.cache/sakass")
+    os.makedirs(self.cache_dir, exist_ok=True)
     self.logger = LoggerFactory(log_output="stdout")()
-    self.conversation = Conversation(model=conversation_model)
-    self.browser = Browser()
-    self.nlp = NLP()
-    self.tts = TTS(model_size=tts_model_size)
-    self.stt = STT(model_size=stt_model_size)
+    self.browser = Browser(driver=DefaultChromeDriver(
+      cache_dir=self.cache_dir,
+      driver_flags=
+      {
+        "headless": False,
+        "incognito": False
+      }
+    ))
+    if os.getenv("DEBUG") != "1":
+      self.conversation = Conversation(model=conversation_model)
+      self.nlp = NLP()
+      self.tts = TTS(model_size=tts_model_size)
+      self.stt = STT(model_size=stt_model_size, cache_dir=self.cache_dir)
     self.audio_output = AudioOutput()
-    self.audio_input = AudioInput()
-    self.iface = WebInterface()
+    self.audio_input = AudioInput(cache_dir=self.cache_dir)
 
   # NOTE: <-------- Browser -------->
   def summarize_search(self, url: str) -> None:
@@ -56,9 +70,9 @@ class Agent:
   # NOTE: <-------- Conversation -------->
   def chat(self) -> None:
     prompt = ""
-    messages = []
     exit_flag = True
     self.logger.info("Starting chat...")
+    self.conversation.clear_chat()
     prompt = self.speech_to_text().strip()
     self.logger.info(f"USER: {prompt}")
     # TODO: this should be a check for a conversation end using NLP
@@ -68,10 +82,9 @@ class Agent:
       if self.nlp.check_audio_request(prompt):
         self.logger.debug("Audio request...")
         self.stream_audio(prompt)
-        time.sleep(.5)       
+        time.sleep(.5)
       else:
-        res, messages = self.conversation.chat(
-            messages=messages, prompt=prompt)
+        res = self.conversation.chat(prompt=prompt)
         self.logger.info(f"AGENT: {res}")
         self.text_to_speech(text=res)
       prompt = self.speech_to_text().strip()

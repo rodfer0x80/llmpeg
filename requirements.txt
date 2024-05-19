@@ -9,3 +9,5 @@ openai-whisper
 sounddevice
 soundfile
 nltk
+selenium
+easyocr

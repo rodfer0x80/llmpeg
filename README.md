@@ -1,7 +1,9 @@
 # sakass
 
 ````
-
+project struct 
+https://matt.sh/python-project-structure-2024
+https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming.html
 ````
 
 ````
