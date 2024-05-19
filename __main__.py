@@ -9,6 +9,7 @@ class Main:
     os.environ["DEBUG"] = "1"
     self.agent = Agent(
         conversation_model="gemma:2b",
+        nlp_model="punkt",
         tts_model_size="small",
         stt_model_size="tiny"
     )
@@ -16,8 +17,7 @@ class Main:
   def __call__(self):
     url = "https://github.com/SeleniumHQ/seleniumhq.github.io/blob/trunk/examples/python/tests/waits/test_waits.py"
     #self.agent.explain_search("https://aljamal.substack.com/p/homoiconic-python")
-    ss = self.agent.browser.save_screenshot(url)
-    print(ss)
+    self.agent.dictate_url(url)
     return 0
 
 

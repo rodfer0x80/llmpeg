@@ -7,4 +7,4 @@ class LoggerFactory:
   def __call__(self):
     if self.log_output == "stdout": return LoggerToStdout()
     elif self.log_output == "logfile": return LoggerToLogfile()
-    else: raise(error("Invalid log_output"))
+    else: raise(Exception(error("Invalid <log_output>")))

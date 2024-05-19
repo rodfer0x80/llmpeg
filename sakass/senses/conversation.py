@@ -1,4 +1,4 @@
-from sakass.modules.patterns import Prompts, Triggers
+from sakass.patterns import Prompts, Triggers
 import ollama  # TODO: change this to use tinygrad?
 from typing import Union
 # TODO: have a conversation with preprompted character roleplay and play songs on request
@@ -6,10 +6,9 @@ from typing import Union
 
 
 class Conversation:
-  def __init__(self, model: str): 
-    self.model = model  # NOTE: e.g. "gemma:2b"
-    self.messages = []
-
+        
+  def __init__(self, model: str): self.model, self.messages = model, [] # NOTE: e.g. "gemma:2b"
+  
   def summarize(self, prompt: str) -> str: return ollama.generate(model=self.model, prompt=f"{Prompts.summarize}\n{prompt}")['response']
   def explain(self, prompt: str) -> str: return ollama.generate(model=self.model, prompt=f"{Prompts.explain}\n{prompt}")['response']
   def respond(self, prompt: str) -> str: return ollama.generate(model=self.model, prompt=prompt)['response']

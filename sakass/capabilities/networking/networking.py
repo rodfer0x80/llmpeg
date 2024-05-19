@@ -9,8 +9,7 @@ from sakass.utils import error
 class Networking:
   def __init__(self) -> None:
     self.session = requests.Session()
-    self.session.headers.update({'User-Agent': 'Mozilla/5.0'})
-    #self.session.headers.update({'User-Agent': 'Chrome/78.0.3904.108'})
+    self.session.headers.update({'User-Agent': 'Mozilla/5.0'}) # self.session.headers.update({'User-Agent': 'Chrome/78.0.3904.108'})
     
   def scrape(self, url: str) -> Tuple[str, Optional[str]]:
     try:

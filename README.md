@@ -1,9 +1,31 @@
 # sakass
 
+## TODO
+[ ] fix play audio output
+[ ] pyproject proper struct
+[ ] refactor into senses high abstraction layer into very basic agent for easy config
+[ ] dynamic config command flags and args
+
+## Resources
+
 ````
 project struct 
 https://matt.sh/python-project-structure-2024
 https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming.html
+````
+
+````
+clutter
+https://www.youtube.com/watch?v=E2shqsYwxck
+https://www.youtube.com/watch?v=jENqvjpkwmw
+https://www.youtube.com/watch?v=GxLoMquHynY
+https://www.youtube.com/watch?v=QxHE4af5BQE
+https://www.youtube.com/watch?v=V1Mz8gMBDMo
+https://www.youtube.com/watch?v=iIWbhwLyDQQ
+https://www.youtube.com/watch?v=f1ihg20fQiU
+https://www.youtube.com/watch?v=Oe-7dGDyzPM
+https://www.youtube.com/watch?v=ztBJqzBU5kc
+
 ````
 
 ````
