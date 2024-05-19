@@ -3,9 +3,13 @@ import os
 
 from llmpeg.logger import LoggerFactory
 from llmpeg.config import Config
+
 from llmpeg.capabilities.audio.audio import Audio
 from llmpeg.capabilities.networking.browser import Browser
-from llmpeg.senses import Conversation, Browser, NLP, TTS, STT, Vision
+
+from llmpeg.actions.reactions import Conversation, TTS, STT, Vision # TODO: remove this import
+from llmpeg.actions.triggers.triggers import Triggers # TODO: remove this import
+from llmpeg.actions.actions import Actions
 
 class Agent:
   def __init__(self, conversation_model: str, nlp_model: str, tts_model_size: str, stt_model_size: str):
@@ -17,11 +21,14 @@ class Agent:
     # TODO: make this work and dynamically
     Config()()
 
+    # TODO: make all internal logic for agent in senses.py and turn this into a clean wrapper
+    self.actions = Actions()
+
     self.audio = Audio(cache_dir=self.cache_dir, audio_output_src="--aout=alsa")
     self.browser = Browser(cache_dir=self.cache_dir)
 
     self.conversation = Conversation(model=conversation_model)
-    self.nlp = NLP(model_name=nlp_model)
+    self.nlp = Triggers(model_name=nlp_model)
     self.stt = STT(model_size=stt_model_size, cache_dir=self.cache_dir)
     self.tts = TTS(model_size=tts_model_size, cache_dir=self.cache_dir)
     self.vision = Vision(browser=self.browser)
