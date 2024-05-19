@@ -15,7 +15,7 @@ class TTS:
     
   def synthesize_to_file(self, text: str) -> os.PathLike:
     path = os.path.join(self.cache_dir, f"{curr_date()}.wav")
-    self.tts.tts_to_file(text=text, speed=self.speed, path=path)
+    self.tts.tts_to_file(text=text, speed=self.speed, file_path=path)
     return path
   
   # def synthesize_to_stream(self, text: str) -> str: return self.tts.tts(text=text, speed=self.speed)

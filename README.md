@@ -1,7 +1,7 @@
 # sakass
 
 ## TODO
-[ ] fix play audio output
+[x] fix play audio output
 [ ] pyproject proper struct
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
 [ ] dynamic config command flags and args

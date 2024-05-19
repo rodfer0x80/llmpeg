@@ -1,5 +1,6 @@
 from typing import List
 import time
+import os
 
 import vlc
 
@@ -35,4 +36,4 @@ class AudioOutput:
             print(f"[ERROR]: {error(e)}")
             return
     
-    def play_from_file(self, audio_file: str) -> None: self.play_stream([audio_file])
+    def play_from_file(self, audio_file: os.PathLike) -> None: self.play_stream([audio_file])
