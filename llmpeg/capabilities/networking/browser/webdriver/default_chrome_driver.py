@@ -7,8 +7,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException as WebDriverTimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
-from sakass.capabilities.networking.browser.webdriver import Driver
-from sakass.utils import curr_date, get_screen_size
+from llmpeg.capabilities.networking.browser.webdriver import Driver
+from llmpeg.utils import curr_date, get_screen_size
 
 class DefaultChromeDriver(Driver):
   # NOTE: default screen size

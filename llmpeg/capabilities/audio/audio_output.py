@@ -4,7 +4,7 @@ import os
 
 import vlc
 
-from sakass.utils import error
+from llmpeg.utils import error
 
 class AudioOutput:
     def __init__(self, audio_output_src: str):

@@ -3,7 +3,7 @@ from typing import List
 
 import easyocr
 
-from sakass.capabilities.networking.browser import Browser
+from llmpeg.capabilities.networking.browser import Browser
 
 class Vision:
   def __init__(self, browser: Browser): 

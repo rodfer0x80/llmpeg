@@ -2,7 +2,7 @@
 
 import os
 
-from sakass.agent import Agent
+from llmpeg.agent import Agent
 
 class Main:
   def __init__(self):

@@ -1,4 +1,5 @@
-from sakass.utils import error
+from llmpeg.utils import error
+
 class LoggerToStdout:
   def __init__(self): pass
   def log(self, msg: str): self.debug(msg)

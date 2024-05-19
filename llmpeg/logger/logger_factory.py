@@ -1,6 +1,6 @@
-from sakass.logger.logger_to_stdout import LoggerToStdout
-from sakass.logger.logger_to_logfile import LoggerToLogfile
-from sakass.utils import error
+from llmpeg.logger.logger_to_stdout import LoggerToStdout
+from llmpeg.logger.logger_to_logfile import LoggerToLogfile
+from llmpeg.utils import error
 
 class LoggerFactory:
   def __init__(self, log_output="stdout"): self.log_output = log_output

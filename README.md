@@ -1,4 +1,4 @@
-# sakass
+# llmpeg
 
 ## TODO
 [x] fix play audio output
@@ -6,7 +6,10 @@
 [ ] pyproject proper struct
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
 [ ] dynamic config 
+[ ] basic cli with flags
 [ ] basic gui with tk
+...
+[ ] models in tinygrad
 
 ## Resources
 

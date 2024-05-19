@@ -1,8 +1,8 @@
 from typing import Tuple, Optional
 import os
 
-from sakass.capabilities.networking.browser.webdriver import DefaultChromeDriver
-from sakass.capabilities.networking import Networking
+from llmpeg.capabilities.networking.browser.webdriver import DefaultChromeDriver
+from llmpeg.capabilities.networking import Networking
 
 class Browser:
   def __init__(self, cache_dir: os.PathLike): 

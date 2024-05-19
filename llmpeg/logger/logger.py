@@ -1,6 +1,6 @@
 import logging
 
-from sakass.utils import error
+from llmpeg.utils import error
 
 class Logger:
   def __init__(self): pass

@@ -2,8 +2,8 @@ import logging
 import pathlib
 import os
 
-from sakass.logger.logger import Logger
-from sakass.utils import curr_date
+from llmpeg.logger.logger import Logger
+from llmpeg.utils import curr_date
 
 class LoggerToLogfile(Logger):
   def __init__(self, cache_dir: str):

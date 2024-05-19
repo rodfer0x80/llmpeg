@@ -1,6 +1,6 @@
 import nltk
 
-from sakass.patterns import Triggers
+from llmpeg.patterns import Triggers
 
 class NLP:
   def __init__(self, model_name): nltk.download(model_name)  # NOTE: e.g. "punkt"

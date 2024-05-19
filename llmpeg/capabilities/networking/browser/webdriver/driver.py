@@ -1,4 +1,4 @@
-from sakass.utils import error
+from llmpeg.utils import error
 
 class Driver:
   def __init__(self, headless) -> None:

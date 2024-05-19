@@ -2,7 +2,7 @@ import os
 
 from TTS.api import TTS as MozillaTTS
 
-from sakass.utils import curr_date
+from llmpeg.utils import curr_date
 
 class TTS:
   LARGE_MODEL = "tts_models/en/jenny/jenny"

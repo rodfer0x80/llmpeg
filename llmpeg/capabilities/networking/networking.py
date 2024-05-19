@@ -4,7 +4,7 @@ from typing import Tuple, Optional
 from bs4 import BeautifulSoup
 import yt_dlp
 
-from sakass.utils import error
+from llmpeg.utils import error
 
 class Networking:
   def __init__(self) -> None:

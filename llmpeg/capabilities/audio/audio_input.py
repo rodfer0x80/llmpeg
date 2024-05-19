@@ -4,7 +4,7 @@ import sounddevice as sd
 import numpy as np
 import soundfile as sf
 
-from sakass.utils import curr_date
+from llmpeg.utils import curr_date
 
 class AudioInput:
   def __init__(self, cache_dir: str): self.cache_dir = cache_dir

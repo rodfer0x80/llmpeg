@@ -1,5 +1,5 @@
-from sakass.capabilities.audio.audio_input import AudioInput
-from sakass.capabilities.audio.audio_output import AudioOutput
+from llmpeg.capabilities.audio.audio_input import AudioInput
+from llmpeg.capabilities.audio.audio_output import AudioOutput
 
 class Audio:
   def __init__(self, cache_dir: str, audio_output_src: str): self.audio_input, self.audio_output = AudioInput(cache_dir=cache_dir), AudioOutput(audio_output_src=audio_output_src)

@@ -1,11 +1,11 @@
 import time
 import os
 
-from sakass.logger import LoggerFactory
-from sakass.config import Config
-from sakass.capabilities.audio.audio import Audio
-from sakass.capabilities.networking.browser import Browser
-from sakass.senses import Conversation, Browser, NLP, TTS, STT, Vision
+from llmpeg.logger import LoggerFactory
+from llmpeg.config import Config
+from llmpeg.capabilities.audio.audio import Audio
+from llmpeg.capabilities.networking.browser import Browser
+from llmpeg.senses import Conversation, Browser, NLP, TTS, STT, Vision
 
 class Agent:
   def __init__(self, conversation_model: str, nlp_model: str, tts_model_size: str, stt_model_size: str):
