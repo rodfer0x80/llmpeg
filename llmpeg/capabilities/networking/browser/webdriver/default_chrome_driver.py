@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 import tkinter as tk
 
 from selenium import webdriver
@@ -14,13 +14,15 @@ class DefaultChromeDriver(Driver):
   # NOTE: default screen size
   # TODO: this should be dynamic
   WIDTH, HEIGHT = get_screen_size()
+
   def __init__(self, cache_dir, driver_flags):
-    self.cache_dir = cache_dir
+    self.cache_dir = cache_dir / "browser"
     self.headless = driver_flags["headless"]
     self.incognito = driver_flags["incognito"]
     super().__init__(headless=self.headless)
-    self.browser_data_dir = os.path.join(self.cache_dir, "data")
+    self.browser_data_dir = self.cache_dir / "data"
     self.driver = self.init()
+
   def init(self):
     self.options = webdriver.ChromeOptions()
     self._enable_system_options()
@@ -30,6 +32,7 @@ class DefaultChromeDriver(Driver):
     driver.implicitly_wait(3)
     driver.maximize_window()
     return driver
+  
   def close(self): super().close()
   def quit(self): super().quit()
 
@@ -64,9 +67,11 @@ class DefaultChromeDriver(Driver):
     # self.options.add_argument("--disable-extensions")  
 
   def screenshot(self, url: str) -> bytes: 
-    with open(self.save_screenshot(url=url, path=""), "rb") as h: return h.read()
-  def save_screenshot(self, url: str, path: os.PathLike) -> os.PathLike:
-    if not path: path = os.path.join(self.cache_dir, f"{curr_date()}.png")
+    with open(self.save_screenshot(url=url, path=None), "rb") as h: 
+      return h.read()
+
+  def save_screenshot(self, url: str, path: Path) -> Path:
+    if not path: path = self.cache_dir / f"{curr_date()}.png"
     # Ref: https://stackoverflow.com/a/52572919/
     original_size = self.driver.get_window_size()
     required_width = self.driver.execute_script('return document.body.parentNode.scrollWidth')
@@ -74,8 +79,10 @@ class DefaultChromeDriver(Driver):
     self.driver.set_window_size(required_width, required_height)
     self.driver.get(url)
     # NOTE: hack to wait for webpage to load, sometimes breaks
-    try: WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
-    except WebDriverTimeoutException: pass
+    try: 
+      WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+    except WebDriverTimeoutException: 
+      pass
     WebDriverWait(self.driver, 5).until(lambda d: self.driver.execute_script('return document.readyState') == 'complete')
     #self.driver.save_screenshot(path)  # has scrollbar?
     self.driver.find_element(By.TAG_NAME, 'body').screenshot(path)  # avoids scrollbar?

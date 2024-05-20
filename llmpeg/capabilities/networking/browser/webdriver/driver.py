@@ -1,11 +1,13 @@
 from llmpeg.utils import error
 
 class Driver:
-  def __init__(self, headless) -> None:
+  def __init__(self, headless: bool) -> None:
     self.options = None
     self.service = None
     self.headless: bool = headless
+
   def init(self) -> None: raise(Exception(error("Not implemented")))
+  
   def close(self) -> None: self.driver.close() if self.driver else None # NOTE: webdrive breaks without this condition
   def quit(self) -> None: self.driver.quit() if self.driver else None # NOTE: webdrive breaks without this condition
 

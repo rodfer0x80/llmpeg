@@ -1,13 +1,16 @@
 from typing import Tuple, Optional
+from pathlib import Path
 import os
 
 from llmpeg.capabilities.networking.browser.webdriver import DefaultChromeDriver
 from llmpeg.capabilities.networking import Networking
 
 class Browser:
-  def __init__(self, cache_dir: os.PathLike): 
-    self.cache_dir = cache_dir
-    self.driver = DefaultChromeDriver(cache_dir=self.cache_dir,driver_flags={"headless": False,"incognito": False})
+  def __init__(self, cache_dir: Path): 
+    self.cache_dir = cache_dir / "browser"
+    os.mkdir(self.cache_dir, exist_ok=True)
+    
+    self.driver = DefaultChromeDriver(cache_dir=self.cache_dir,driver_flags={"headless": True,"incognito": True})
     self.networking = Networking()
   
   def scrape(self, url: str) -> Tuple[str, Optional[str]]: return self.networking.scrape(url)
@@ -17,6 +20,7 @@ class Browser:
     data = self.driver.screenshot(url)
     self.driver.close()
     return data
+  
   def save_screenshot(self, url: str, path = "") -> str: 
     ss_path = self.driver.save_screenshot(url, path)
     self.driver.close()

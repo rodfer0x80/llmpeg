@@ -4,6 +4,7 @@
 [x] fix play audio output
 [ ] headless browser
 [ ] pyproject proper struct
+[ ] get rid of bloated tts mozzila package that has 1B dependencies from the summer of '69
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
 [ ] dynamic config 
 [ ] basic cli with flags
@@ -25,12 +26,14 @@ https://www.youtube.com/watch?v=E2shqsYwxck
 https://www.youtube.com/watch?v=jENqvjpkwmw
 https://www.youtube.com/watch?v=GxLoMquHynY
 https://www.youtube.com/watch?v=QxHE4af5BQE
+https://www.youtube.com/watch?v=mdV8lETtGY4
+https://www.youtube.com/watch?v=KVOWPeV9s00
 https://www.youtube.com/watch?v=V1Mz8gMBDMo
 https://www.youtube.com/watch?v=iIWbhwLyDQQ
 https://www.youtube.com/watch?v=f1ihg20fQiU
 https://www.youtube.com/watch?v=Oe-7dGDyzPM
 https://www.youtube.com/watch?v=ztBJqzBU5kc
-
+https://www.youtube.com/watch?v=piFuaOrpfN4
 ````
 
 ````

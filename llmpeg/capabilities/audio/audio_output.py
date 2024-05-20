@@ -1,20 +1,25 @@
-from typing import List
+from typing import List, Union
 import time
-import os
+from pathlib import Path
 
 import vlc
+import numpy as np
 
 from llmpeg.utils import error
 
 class AudioOutput:
-    def __init__(self, audio_output_src: str):
+    def __init__(self, audio_output_src: str) -> None:
         self.instance = vlc.Instance(audio_output_src)  # e.g. "--aout=alsa"
         self.player = vlc.MediaPlayer(self.instance)
         self.playing = False
-    
-    def play_stream(self, audio_stream: List[str]) -> None:
+
+    def stop(self) -> None:
+      self.player.stop()
+      self.playing = False
+
+    def play(self, tracks: List[Union[str, Path, bytes, np.float32]]) -> None:
       try:
-        for track in audio_stream:
+        for track in tracks:
           if track:
             self.player.set_media(vlc.Media(track))
             self.player.play()      
@@ -35,5 +40,3 @@ class AudioOutput:
             self.playing = False
             print(f"[ERROR]: {error(e)}")
             return
-    
-    def play_from_file(self, audio_file: os.PathLike) -> None: self.play_stream([audio_file])
