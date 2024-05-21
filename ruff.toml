@@ -6,11 +6,11 @@ lint.select = [
   "W6",
   "E71",
   "E72",
-  "E112",   # no-indented-block
-  "E113",   # unexpected-indentation
+  #"E112",   # no-indented-block
+  #"E113",   # unexpected-indentation
   # "E124",
-  "E203",   # whitespace-before-punctuation
-  "E272",   # multiple-spaces-before-keyword
+  #"E203",   # whitespace-before-punctuation
+  #"E272",   # multiple-spaces-before-keyword
   # "E303",
   # "E304",
   "E501",   # line-too-long

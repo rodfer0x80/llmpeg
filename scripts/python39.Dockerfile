@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM python:3.9-slim
 
 # globally install poetry and upgrade pip things
 # (NOTE: the poetry project often releases new versions over weekends, so
@@ -8,7 +8,7 @@ FROM python:3.12-slim
 RUN pip install pip poetry setuptools wheel -U --no-cache-dir
 
 # Copy your project definitions into the image
-COPY pyproject.toml poetry.lock README.md .
+COPY pyproject.toml poetry.lock .
 
 # Run the virtual env creator and dependency installer
 # (NOTE: some python packages like mysqlclient require more system binary packages
@@ -17,7 +17,7 @@ COPY pyproject.toml poetry.lock README.md .
 RUN poetry install --without=dev --no-cache
 
 # Copy your project package
-COPY hello hello
+COPY llmpeg llmpeg
 
 # Now install the project package itself
 # NOTE: Yes, we run `poetry install` TWICE due to the docker
@@ -28,4 +28,4 @@ COPY hello hello
 RUN poetry install --without=dev --no-cache
 
 # now run your command (as defined in `pyproject.toml` poetry scripts section)
-CMD poetry run hello-command extra-args
+CMD poetry run main
