@@ -1,5 +1,6 @@
 import time
-import os
+from dataclasses import dataclass
+from pathlib import Path
 
 from llmpeg.logger import LoggerFactory
 from llmpeg.config import Config
@@ -17,17 +18,17 @@ from llmpeg.actions.triggers.triggers import Triggers  # TODO: remove this impor
 from llmpeg.actions.actions import Actions
 
 
+@dataclass
 class Agent:
-  def __init__(
-    self,
-    conversation_model: str,
-    nlp_model: str,
-    tts_model_size: str,
-    stt_model_size: str,
-  ):
+  conversation_model: str
+  nlp_model: str
+  tts_model_size: str
+  stt_model_size: str
+  
+  def __post_init__(self):
+    self.cache_dir = Path(f'~/.cache/{str(Path(__file__).cwd().name).split("/")[-1]}').expanduser()
     # TODO: configurable class for customising the agent
-    self.cache_dir = os.path.expanduser('~/.cache/sakass')
-    os.makedirs(self.cache_dir, exist_ok=True)
+    Path.mkdir(self.cache_dir, exist_ok=True)
     self.logger = LoggerFactory(log_output='stdout')()
 
     # TODO: make this work and dynamically
@@ -39,10 +40,10 @@ class Agent:
     self.audio = Audio(cache_dir=self.cache_dir, audio_output_src='--aout=alsa')
     self.browser = Browser(cache_dir=self.cache_dir)
 
-    self.conversation = Conversation(model=conversation_model)
-    self.nlp = Triggers(model_name=nlp_model)
-    self.stt = STT(model_size=stt_model_size, cache_dir=self.cache_dir)
-    self.tts = TTS(model_size=tts_model_size, cache_dir=self.cache_dir)
+    self.conversation = Conversation(model=self.conversation_model)
+    self.nlp = Triggers(model_name=self.nlp_model)
+    self.stt = STT(model_size=self.stt_model_size, cache_dir=self.cache_dir)
+    self.tts = TTS(model_size=self.tts_model_size, cache_dir=self.cache_dir)
     self.vision = Vision(browser=self.browser)
 
   # NOTE: <-------- Vision -------->

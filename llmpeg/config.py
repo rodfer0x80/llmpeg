@@ -1,6 +1,6 @@
-class Config:
-  def __init__(self):
-    pass
+from dataclasses import dataclass
 
-  def __call__(self):
+@dataclass
+class Config:
+  def __post_init__(self):
     pass

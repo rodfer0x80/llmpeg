@@ -1,13 +1,14 @@
 from pathlib import Path
+from dataclasses import dataclass
 
 import easyocr
 
 from llmpeg.capabilities.networking.browser import Browser
 
-
+@dataclass
 class Vision:
-  def __init__(self, browser: Browser):
-    self.browser = browser
+  browser: Browser
+  def __post_init__(self):
     self.ocr_reader = easyocr.Reader(['ch_tra', 'en'])
 
   def ocr_stream(self, stream: bytes) -> list[str]:

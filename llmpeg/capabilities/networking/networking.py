@@ -1,14 +1,15 @@
 import requests
+from dataclasses import dataclass
 
 from bs4 import BeautifulSoup
 import yt_dlp
 
 from llmpeg.utils import error
 
-
+@dataclass
 class Networking:
-  def __init__(self) -> None:
-    self.session = requests.Session()
+  def __post_init__(self) -> None:
+    self.session: requests.Session = requests.Session()
     self.session.headers.update({'User-Agent': 'Mozilla/5.0'})  # self.session.headers.update({'User-Agent': 'Chrome/78.0.3904.108'})
 
   def scrape(self, url: str) -> tuple[str, str | None]:

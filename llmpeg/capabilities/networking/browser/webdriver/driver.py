@@ -1,14 +1,17 @@
+from dataclasses import dataclass
+
 from llmpeg.utils import error
 
-
+@dataclass
 class Driver:
-  def __init__(self, headless: bool) -> None:
-    self.options = None
-    self.service = None
-    self.headless: bool = headless
+  headless: bool
+  
+  def __post_init__(self):
+    options = None
+    service = None
 
-  def init(self) -> None:
-    raise (Exception(error('Not implemented')))
+  def _init_driver(self) -> None:
+    raise Exception(error('Not implemented'))
 
   def close(self) -> None:
     self.driver.close() if self.driver else None  # NOTE: webdrive breaks without this condition

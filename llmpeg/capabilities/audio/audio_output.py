@@ -1,4 +1,5 @@
 import time
+from dataclasses import dataclass
 from pathlib import Path
 
 import vlc
@@ -6,10 +7,13 @@ import numpy as np
 
 from llmpeg.utils import error
 
-
+@dataclass
 class AudioOutput:
-  def __init__(self, audio_output_src: str) -> None:
-    self.instance = vlc.Instance(audio_output_src)  # e.g. "--aout=alsa"
+  audio_output_src: str  # e.g. "--aout=alsa"
+  cache_dir: Path
+
+  def __post_init__(self) -> None:
+    self.instance = vlc.Instance(self.audio_output_src) 
     self.player = vlc.MediaPlayer(self.instance)
     self.playing = False
 

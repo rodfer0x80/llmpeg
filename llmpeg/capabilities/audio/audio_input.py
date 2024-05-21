@@ -1,13 +1,13 @@
 from pathlib import Path
+from dataclasses import dataclass
 
 import sounddevice as sd
 import numpy as np
 import soundfile as sf
 
-
+@dataclass
 class AudioInput:
-  def __init__(self, cache_dir: Path):
-    self.cache_dir = cache_dir
+  cache_dir: Path
 
   def capture_stream(self, duration: int = 5, sr: int = 16000) -> np.float32:
     audio_data_int = sd.rec(int(duration * sr), samplerate=sr, channels=1, dtype='int16')

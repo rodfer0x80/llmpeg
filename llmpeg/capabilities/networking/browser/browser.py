@@ -1,15 +1,16 @@
 from pathlib import Path
-import os
+from dataclasses import dataclass
 
 from llmpeg.capabilities.networking.browser.webdriver import DefaultChromeDriver
 from llmpeg.capabilities.networking import Networking
 
-
+@dataclass
 class Browser:
-  def __init__(self, cache_dir: Path):
-    self.cache_dir = cache_dir / 'browser'
-    os.mkdir(self.cache_dir, exist_ok=True)
+  cache_dir: Path
 
+  def __post_init__(self):
+    self.cache_dir = self.cache_dir / 'browser'
+    Path.mkdir(self.cache_dir, exist_ok=True)
     self.driver = DefaultChromeDriver(cache_dir=self.cache_dir, driver_flags={'headless': True, 'incognito': True})
     self.networking = Networking()
 

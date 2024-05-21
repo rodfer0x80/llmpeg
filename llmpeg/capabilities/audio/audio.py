@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Union
+from dataclasses import dataclass
 
 import numpy as np
 
@@ -7,12 +7,15 @@ from llmpeg.capabilities.audio.audio_input import AudioInput
 from llmpeg.capabilities.audio.audio_output import AudioOutput
 from llmpeg.utils import curr_date
 
-
+@dataclass
 class Audio:
-  def __init__(self, cache_dir: Path, audio_output_src: str):
-    self.audio_input = AudioInput(cache_dir=cache_dir)
-    self.audio_output = AudioOutput(audio_output_src=audio_output_src)
-    self.cache_dir = cache_dir / 'audio'
+  cache_dir: Path
+  audio_output_src: str
+
+  def __post_init__(self):
+    self.cache_dir = self.cache_dir / 'audio'
+    self.audio_input = AudioInput(cache_dir=self.cache_dir)
+    self.audio_output = AudioOutput(audio_output_src=self.audio_output_src, cache_dir=self.cache_dir)
 
   def capture_stream(self, duration: int = 5):
     return self.audio_input.capture_stream(duration)
@@ -22,7 +25,7 @@ class Audio:
       path = self.cache_dir / f'{curr_date()}.wav'
     return self.audio_input.write_audio_stream_to_file(self.capture_stream(), path)
 
-  def play_audio_stream(self, audio_stream: Union[bytes, np.float32]) -> None:
+  def play_audio_stream(self, audio_stream: bytes|np.float32) -> None:
     self.audio_output.play([audio_stream])
 
   def play_remote_audio_stream_url(self, url: str) -> None:

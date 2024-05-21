@@ -1,12 +1,10 @@
 import logging
+from dataclasses import dataclass
 
 from llmpeg.utils import error
 
-
+@dataclass
 class Logger:
-  def __init__(self):
-    pass
-
   def log(self, msg):
     return self.info(error(msg))
 

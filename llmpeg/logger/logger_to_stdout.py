@@ -1,10 +1,9 @@
+from dataclasses import dataclass
+
 from llmpeg.utils import error
 
-
+@dataclass
 class LoggerToStdout:
-  def __init__(self):
-    pass
-
   def log(self, msg: str):
     self.debug(msg)
 

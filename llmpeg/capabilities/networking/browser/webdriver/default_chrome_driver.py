@@ -1,4 +1,5 @@
 from pathlib import Path
+from dataclasses import dataclass
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,21 +10,24 @@ from selenium.webdriver.support import expected_conditions as EC
 from llmpeg.capabilities.networking.browser.webdriver import Driver
 from llmpeg.utils import curr_date, get_screen_size
 
-
+@dataclass
 class DefaultChromeDriver(Driver):
   # NOTE: default screen size
   # TODO: this should be dynamic
-  WIDTH, HEIGHT = get_screen_size()
+  cache_dir: Path
+  driver_flags: dict[bool, bool]
 
-  def __init__(self, cache_dir, driver_flags):
-    self.cache_dir = cache_dir / 'browser'
-    self.headless = driver_flags['headless']
-    self.incognito = driver_flags['incognito']
+  def __post_init__(self):
+    self.cache_dir = self.cache_dir / 'browser'
+    self.headless = self.driver_flags['headless']
+    self.incognito = self.driver_flags['incognito']
     super().__init__(headless=self.headless)
     self.browser_data_dir = self.cache_dir / 'data'
-    self.driver = self.init()
+    self.driver = self._init_driver()
+    self.window_width, self.window_height = get_screen_size()
 
-  def init(self):
+
+  def _init_driver(self):
     self.options = webdriver.ChromeOptions()
     self._enable_system_options()
     self._enable_stealth_options()
@@ -63,7 +67,7 @@ class DefaultChromeDriver(Driver):
     # self.options.add_argument("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) "
     #                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
     self.options.add_argument(f'--{country_id}')
-    self.options.add_argument(f'--window-size={self.WIDTH},{self.HEIGHT}')
+    self.options.add_argument(f'--window-size={self.window_width},{self.window_height}')
     if incognito:
       self.options.add_argument('--incognito')
     self.options.add_argument('--disable-gpu')
