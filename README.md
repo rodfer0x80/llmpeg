@@ -4,6 +4,7 @@
 [x] fix play audio output
 [ ] headless browser
 [ ] pyproject proper struct
+[ ] get rid of mozzilla tts and upgrade to python3.11 or atleast 3.10
 [ ] get rid of bloated tts mozzila package that has 1B dependencies from the summer of '69
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
 [ ] dynamic config 
