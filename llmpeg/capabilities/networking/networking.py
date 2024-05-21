@@ -1,5 +1,4 @@
 import requests
-from typing import Tuple, Optional
 
 from bs4 import BeautifulSoup
 import yt_dlp
@@ -11,7 +10,7 @@ class Networking:
     self.session = requests.Session()
     self.session.headers.update({'User-Agent': 'Mozilla/5.0'}) # self.session.headers.update({'User-Agent': 'Chrome/78.0.3904.108'})
     
-  def scrape(self, url: str) -> Tuple[str, Optional[str]]:
+  def scrape(self, url: str) -> tuple[str, str|None]:
     try:
       response = self.session.get(url)
       response.raise_for_status()  # NOTE: raise an exception for bad status codes
@@ -27,7 +26,7 @@ class Networking:
     except requests.RequestException as e:
       return "", error(e)
 
-  def search_audio_stream(self, query: str) -> Tuple[Optional[str], Optional[str]]:
+  def search_audio_stream(self, query: str) -> tuple[str|None, str|None]:
     try:
       # NOTE: ffmpeg is required for this to work
       # NOTE: mp3 192kbps is the preferred format

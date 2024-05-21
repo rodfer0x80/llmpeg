@@ -1,4 +1,3 @@
-from typing import List, Union
 import time
 from pathlib import Path
 
@@ -17,7 +16,7 @@ class AudioOutput:
       self.player.stop()
       self.playing = False
 
-    def play(self, tracks: List[Union[str, Path, bytes, np.float32]]) -> None:
+    def play(self, tracks: list[str|Path|bytes|np.float32]) -> None:
       try:
         for track in tracks:
           if track:

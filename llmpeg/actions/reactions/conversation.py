@@ -1,5 +1,3 @@
-from typing import Union
-
 import ollama  # TODO: change this to use tinygrad?
 
 # TODO: have a conversation with preprompted character roleplay and play songs on request
@@ -16,6 +14,6 @@ class Conversation:
   
   def clear_chat(self) -> None: self.messages = []
   def _add_message(self, prompt) -> None: return self.messages.append({"role": "user", "content": prompt})
-  def chat(self, prompt: str) -> Union[str, list[str]]:
+  def chat(self, prompt: str) -> str|list[str]:
     self._add_message(prompt)
     return ollama.chat(model=self.model, messages=self.messages)['message']['content']
