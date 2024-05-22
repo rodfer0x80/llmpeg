@@ -8,13 +8,14 @@ import numpy as np
 
 from llmpeg.utils import error
 
+
 @dataclass
 class AudioOutput:
   audio_output_src: str  # e.g. "--aout=alsa"
   cache_dir: Path
 
   def __post_init__(self) -> None:
-    self.instance = vlc.Instance(self.audio_output_src) 
+    self.instance = vlc.Instance(self.audio_output_src, '--verbose=1')
     self.player = vlc.MediaPlayer(self.instance)
     self.playing = False
 

@@ -5,6 +5,7 @@ import sounddevice as sd
 import numpy as np
 import soundfile as sf
 
+
 @dataclass
 class AudioInput:
   cache_dir: Path

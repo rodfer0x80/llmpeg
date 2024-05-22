@@ -7,6 +7,7 @@ import yt_dlp
 
 from llmpeg.utils import error
 
+
 @dataclass
 class Networking:
   def __post_init__(self) -> None:

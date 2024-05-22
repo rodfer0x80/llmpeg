@@ -5,9 +5,11 @@ import easyocr
 
 from llmpeg.capabilities.networking.browser import Browser
 
+
 @dataclass
 class Vision:
   browser: Browser
+
   def __post_init__(self):
     self.ocr_reader = easyocr.Reader(['ch_tra', 'en'])
 

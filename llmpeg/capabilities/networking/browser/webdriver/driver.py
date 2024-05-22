@@ -2,10 +2,9 @@ from dataclasses import dataclass
 
 from llmpeg.utils import error
 
+
 @dataclass
 class Driver:
-  headless: bool
-
   def _init_driver(self) -> None:
     raise Exception(error('Not implemented'))
 

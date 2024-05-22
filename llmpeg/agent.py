@@ -2,12 +2,10 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from llmpeg.logger import LoggerFactory
+from llmpeg.logger import LoggerToStdout
 from llmpeg.config import Config
-
 from llmpeg.capabilities.audio.audio import Audio
 from llmpeg.capabilities.networking.browser import Browser
-
 from llmpeg.actions.reactions import (
   Conversation,
   TTS,
@@ -17,6 +15,8 @@ from llmpeg.actions.reactions import (
 from llmpeg.actions.triggers.triggers import Triggers  # TODO: remove this import
 from llmpeg.actions.actions import Actions
 
+from llmpeg.utils import filenamed_cache_dir
+
 
 @dataclass
 class Agent:
@@ -24,15 +24,15 @@ class Agent:
   nlp_model: str
   tts_model_size: str
   stt_model_size: str
-  
+
   def __post_init__(self):
-    self.cache_dir = Path(f'~/.cache/{str(Path(__file__).cwd().name).split("/")[-1]}').expanduser()
+    self.cache_dir = filenamed_cache_dir()
     # TODO: configurable class for customising the agent
     Path.mkdir(self.cache_dir, exist_ok=True)
-    self.logger = LoggerFactory(log_output='stdout')
+    self.logger = LoggerToStdout()
 
     # TODO: make this work and dynamically
-    Config()()
+    Config()
 
     # TODO: make all internal logic for agent in senses.py and turn this into a clean wrapper
     self.actions = Actions()
@@ -40,11 +40,11 @@ class Agent:
     self.audio = Audio(cache_dir=self.cache_dir, audio_output_src='--aout=alsa')
     self.browser = Browser(cache_dir=self.cache_dir)
 
-    self.conversation = Conversation(model=self.conversation_model)
-    self.nlp = Triggers(model_name=self.nlp_model)
-    self.stt = STT(model_size=self.stt_model_size, cache_dir=self.cache_dir)
-    self.tts = TTS(model_size=self.tts_model_size, cache_dir=self.cache_dir)
-    self.vision = Vision(browser=self.browser)
+    self.conversation = Conversation(self.conversation_model)
+    self.nlp = Triggers(self.nlp_model)
+    self.stt = STT(self.stt_model_size, self.cache_dir)
+    self.tts = TTS(self.tts_model_size, self.cache_dir)
+    self.vision = Vision(self.browser)
 
   # NOTE: <-------- Vision -------->
   def ocr_url(self, url: str):
@@ -79,7 +79,7 @@ class Agent:
   # NOTE: <-------- Audio -------->
   # def text_to_speech(self, text: str) -> None: self.audio.play_stream(self.tts.synthesize_to_stream(text=text))
   def text_to_speech(self, text: str) -> None:
-    self.audio.play_from_file(self.tts.synthesize_to_file(text=text))
+    self.audio.play_audio_file(self.tts.synthesize_to_file(text=text))
 
   def speech_to_text(self) -> str:
     self.logger.debug('Recording...')

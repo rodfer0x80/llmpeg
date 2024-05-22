@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 from llmpeg.utils import error
 
+
 @dataclass
 class LoggerToStdout:
   def log(self, msg: str):

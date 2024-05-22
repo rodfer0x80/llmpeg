@@ -5,6 +5,7 @@ import whisper  # TODO: change this to use tinygrad customised whisper example
 
 from llmpeg.utils import curr_date
 
+
 @dataclass
 class STT:
   model_size: str

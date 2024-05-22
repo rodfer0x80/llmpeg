@@ -5,6 +5,7 @@ from typing import Union
 from llmpeg.capabilities.networking.browser.webdriver import DefaultChromeDriver
 from llmpeg.capabilities.networking import Networking
 
+
 @dataclass
 class Browser:
   cache_dir: Path
@@ -25,10 +26,16 @@ class Browser:
     self.driver.close()
     return data
 
-  def save_screenshot(self, url: str, path='') -> str:
-    ss_path = self.driver.save_screenshot(url, path)
+  def save_screenshot(self, url: str) -> str:
+    ss_path = self.driver.save_screenshot(url)
     self.driver.close()
     return ss_path
 
   def search_audio_stream(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
-    self.driver.search_audio_stream(query)
+    self.networking.search_audio_stream(query)
+
+  def scrape_url(self, url: str) -> tuple[Union[str, None], Union[str, None]]:
+    text_content, err = self.networking.scrape(url)
+    if err:
+      raise Exception(err)
+    return text_content

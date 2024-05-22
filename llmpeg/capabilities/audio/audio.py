@@ -8,6 +8,7 @@ from llmpeg.capabilities.audio.audio_input import AudioInput
 from llmpeg.capabilities.audio.audio_output import AudioOutput
 from llmpeg.utils import curr_date
 
+
 @dataclass
 class Audio:
   cache_dir: Path

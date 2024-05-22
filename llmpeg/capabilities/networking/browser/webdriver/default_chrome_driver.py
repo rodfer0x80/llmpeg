@@ -8,7 +8,8 @@ from selenium.common.exceptions import TimeoutException as WebDriverTimeoutExcep
 from selenium.webdriver.support import expected_conditions as EC
 
 from llmpeg.capabilities.networking.browser.webdriver import Driver
-from llmpeg.utils import curr_date, get_screen_size
+from llmpeg.utils import curr_date, screen_size
+
 
 @dataclass
 class DefaultChromeDriver(Driver):
@@ -16,19 +17,21 @@ class DefaultChromeDriver(Driver):
   # TODO: this should be dynamic
   cache_dir: Path
   driver_flags: dict[bool, bool]
+  window_width, window_height = screen_size()
 
   def __post_init__(self):
-    self.cache_dir = self.cache_dir / 'browser'
+    self.browser_data_dir = self.cache_dir / 'data'
+    Path.mkdir(self.browser_data_dir, exist_ok=True)
+    self.cache_dir = self.cache_dir / 'webdriver'
+    Path.mkdir(self.cache_dir, exist_ok=True)
     self.headless = self.driver_flags['headless']
     self.incognito = self.driver_flags['incognito']
-    super().__init__(headless=self.headless)
-    self.browser_data_dir = self.cache_dir / 'data'
     self.driver = self._init_driver()
-    self.window_width, self.window_height = get_screen_size()
-
 
   def _init_driver(self):
     self.options = webdriver.ChromeOptions()
+    # super()._enable_insecure_options()
+    super()._enable_system_options()
     self._enable_system_options()
     self._enable_stealth_options()
     self._enable_automation_options()
@@ -76,12 +79,13 @@ class DefaultChromeDriver(Driver):
     # self.options.add_argument("--disable-extensions")
 
   def screenshot(self, url: str) -> bytes:
-    with open(self.save_screenshot(url=url, path=None), 'rb') as h:
-      return h.read()
+    img_path = self.save_screenshot(url)
+    with open(img_path, 'rb') as h:
+      img_bytes = h.read()
+    return img_bytes
 
-  def save_screenshot(self, url: str, path: Path) -> Path:
-    if not path:
-      path = self.cache_dir / f'{curr_date()}.png'
+  def save_screenshot(self, url: str) -> Path:
+    path = self.cache_dir / f'{curr_date()}.png'
     # Ref: https://stackoverflow.com/a/52572919/
     original_size = self.driver.get_window_size()
     required_width = self.driver.execute_script('return document.body.parentNode.scrollWidth')
@@ -95,6 +99,6 @@ class DefaultChromeDriver(Driver):
       pass
     WebDriverWait(self.driver, 5).until(lambda d: self.driver.execute_script('return document.readyState') == 'complete')
     # self.driver.save_screenshot(path)  # has scrollbar?
-    self.driver.find_element(By.TAG_NAME, 'body').screenshot(path)  # avoids scrollbar?
+    self.driver.find_element(By.TAG_NAME, 'body').screenshot(str(path))  # avoids scrollbar?
     self.driver.set_window_size(original_size['width'], original_size['height'])
     return path
