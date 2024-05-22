@@ -1,5 +1,6 @@
 from pathlib import Path
 from dataclasses import dataclass
+from typing import Union
 
 from llmpeg.capabilities.networking.browser.webdriver import DefaultChromeDriver
 from llmpeg.capabilities.networking import Networking
@@ -14,7 +15,7 @@ class Browser:
     self.driver = DefaultChromeDriver(cache_dir=self.cache_dir, driver_flags={'headless': True, 'incognito': True})
     self.networking = Networking()
 
-  def scrape(self, url: str) -> tuple[str, str | None]:
+  def scrape(self, url: str) -> tuple[str, Union[str, None]]:
     return self.networking.scrape(url)
 
   # TODO: need to hide browser while doing this but headless is only screenshoting all the page on x11
@@ -29,5 +30,5 @@ class Browser:
     self.driver.close()
     return ss_path
 
-  def search_audio_stream(self, query: str) -> tuple[str | None, str | None]:
+  def search_audio_stream(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
     self.driver.search_audio_stream(query)

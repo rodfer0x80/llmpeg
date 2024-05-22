@@ -1,8 +1,3 @@
 #!/bin/sh
 
-pkill ollama && sleep 60
-ollama serve &
-sleep 10
-./.venv/bin/python __main__.py
-pkill ollam
-sleep 3
+poetry run main --conversation_model "gemma:2b" --nlp_model "punkt" --tts_model_size "small" --stt_model_size "tiny" - run

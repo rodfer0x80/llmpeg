@@ -5,10 +5,6 @@ from llmpeg.utils import error
 @dataclass
 class Driver:
   headless: bool
-  
-  def __post_init__(self):
-    options = None
-    service = None
 
   def _init_driver(self) -> None:
     raise Exception(error('Not implemented'))

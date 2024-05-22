@@ -1,5 +1,13 @@
-FROM python:3.9-slim
+FROM ollama/ollama:latest
 
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    libffi-dev \
+    python3-dev \
+    python3-pip \
+    python3-venv \
+    && apt-get clean
 # globally install poetry and upgrade pip things
 # (NOTE: the poetry project often releases new versions over weekends, so
 #        if your have auto-building services and poetry releases a new incompatible
@@ -28,4 +36,4 @@ COPY llmpeg llmpeg
 RUN poetry install --without=dev --no-cache
 
 # now run your command (as defined in `pyproject.toml` poetry scripts section)
-CMD poetry run main
+CMD poetry run main --conversation_model "gemma:2b" --nlp_model "punkt" --tts_model_size "small" --stt_model_size "tiny" - run

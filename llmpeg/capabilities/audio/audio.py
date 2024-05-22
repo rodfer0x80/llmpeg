@@ -1,5 +1,6 @@
 from pathlib import Path
 from dataclasses import dataclass
+from typing import Union
 
 import numpy as np
 
@@ -25,7 +26,7 @@ class Audio:
       path = self.cache_dir / f'{curr_date()}.wav'
     return self.audio_input.write_audio_stream_to_file(self.capture_stream(), path)
 
-  def play_audio_stream(self, audio_stream: bytes|np.float32) -> None:
+  def play_audio_stream(self, audio_stream: Union[bytes, np.float32]) -> None:
     self.audio_output.play([audio_stream])
 
   def play_remote_audio_stream_url(self, url: str) -> None:

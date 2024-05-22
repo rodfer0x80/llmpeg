@@ -1,6 +1,7 @@
 import time
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Union
 
 import vlc
 import numpy as np
@@ -21,7 +22,7 @@ class AudioOutput:
     self.player.stop()
     self.playing = False
 
-  def play(self, tracks: list[str | Path | bytes | np.float32]) -> None:
+  def play(self, tracks: list[Union[str, Path, bytes, np.float32]]) -> None:
     try:
       for track in tracks:
         if track:

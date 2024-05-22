@@ -29,7 +29,7 @@ class Agent:
     self.cache_dir = Path(f'~/.cache/{str(Path(__file__).cwd().name).split("/")[-1]}').expanduser()
     # TODO: configurable class for customising the agent
     Path.mkdir(self.cache_dir, exist_ok=True)
-    self.logger = LoggerFactory(log_output='stdout')()
+    self.logger = LoggerFactory(log_output='stdout')
 
     # TODO: make this work and dynamically
     Config()()
