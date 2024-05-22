@@ -23,6 +23,11 @@
 project struct 
 https://matt.sh/python-project-structure-2024
 https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming.html
+https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
+https://hub.docker.com/r/ollama/ollama
+https://collabnix.com/getting-started-with-ollama-and-docker/
+https://docs.coqui.ai/en/latest/inference.html
+https://github.com/valiantlynx/ollama-docker
 ````
 
 ````
