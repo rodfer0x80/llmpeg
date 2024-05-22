@@ -41,7 +41,7 @@ class Agent:
     self.browser = Browser(cache_dir=self.cache_dir)
 
     self.conversation = Conversation(self.conversation_model)
-    self.nlp = Triggers(self.nlp_model)
+    self.nlp = Triggers(self.nlp_model, self.cache_dir)
     self.stt = STT(self.stt_model_size, self.cache_dir)
     self.tts = TTS(self.tts_model_size, self.cache_dir)
     self.vision = Vision(self.browser)

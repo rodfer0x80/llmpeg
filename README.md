@@ -2,12 +2,12 @@
 
 ## TODO
 [x] fix play audio output
-[ ] headless browser
+[x] headless browser
 [ ] pyproject proper struct
 [x] upgrade to python3.11
+...
 [ ] dockerfile update to python3.11
 [ ] containerd cluster run ollama server and llmpeg client
-[ ] pass logger to lower classes to log all output to their cache dir
 ...
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
 [ ] dynamic config 
@@ -22,6 +22,10 @@
 ````
 project struct 
 https://matt.sh/python-project-structure-2024
+````
+
+````
+docker
 https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming.html
 https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
 https://hub.docker.com/r/ollama/ollama
@@ -31,25 +35,6 @@ https://github.com/valiantlynx/ollama-docker
 ````
 
 ````
-clutter
-https://www.youtube.com/watch?v=E2shqsYwxck
-https://www.youtube.com/watch?v=jENqvjpkwmw
-https://www.youtube.com/watch?v=GxLoMquHynY
-https://www.youtube.com/watch?v=QxHE4af5BQE
-https://www.youtube.com/watch?v=mdV8lETtGY4
-https://www.youtube.com/watch?v=KVOWPeV9s00
-https://www.youtube.com/watch?v=V1Mz8gMBDMo
-https://www.youtube.com/watch?v=iIWbhwLyDQQ
-https://www.youtube.com/watch?v=f1ihg20fQiU
-https://www.youtube.com/watch?v=Oe-7dGDyzPM
-https://www.youtube.com/watch?v=ztBJqzBU5kc
-https://www.youtube.com/watch?v=piFuaOrpfN4
-````
-
-````
-ideas: https://www.youtube.com/watch?v=7VAs22LC7WE
-conversation -> ollama api
-browser -> scrapegraphai
 speech -> vits or openvoice 
 https://github.com/myshell-ai/OpenVoice/blob/main/docs/USAGE.md
 https://github.com/myshell-ai/OpenVoice/blob/main/demo_part3.ipynb

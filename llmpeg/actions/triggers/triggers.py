@@ -1,6 +1,10 @@
+import os
+from pathlib import Path
+from dataclasses import dataclass
+
 import nltk
 
-
+@dataclass
 class Triggers:
   audio_check = ['from', 'by', 'song', 'music', 'play']
   audio_start = 'play'
@@ -54,8 +58,14 @@ class Triggers:
   ] + browse_check
   summarize_start = 'summarize'
 
-  def __init__(self, model_name):
-    nltk.download(model_name)  # NOTE: e.g. "punkt"
+  model_name: str
+  cache_dir: Path
+
+  def __post_init__(self):
+    self.cache_dir = self.cache_dir / 'triggers'
+    Path.mkdir(self.cache_dir, exist_ok=True)
+    os.environ['NLTK_DATA'] = str(self.cache_dir / 'nltk_data')
+    nltk.download(self.model_name)  # NOTE: e.g. "punkt"
 
   def check_greeting(self, prompt: str) -> bool:
     return any(keyword in nltk.tokenize.word_tokenize(prompt.lower()) for keyword in Triggers.greeting)

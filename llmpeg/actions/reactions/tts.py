@@ -2,11 +2,11 @@ from pathlib import Path
 from dataclasses import dataclass
 import site
 
-import torch
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
 
 from llmpeg.utils import curr_date
+
 
 @dataclass
 class TTS:
@@ -23,27 +23,19 @@ class TTS:
     print(self.model_name)
     self.speed = 1.3 if self.model_size == 'large' else 2.5
 
-    model_config_path = site.getsitepackages()[0]+"/TTS/.models.json"
+    model_config_path = site.getsitepackages()[0] + '/TTS/.models.json'
     model_manager = ModelManager(model_config_path)
     model_path, config_path, model_item = model_manager.download_model(self.model_name)
-    voc_path, voc_config_path, _ = model_manager.download_model(model_item["default_vocoder"])
+    voc_path, voc_config_path, _ = model_manager.download_model(model_item['default_vocoder'])
     self.synthesizer = Synthesizer(
-        tts_checkpoint=model_path,
-        tts_config_path=config_path,
-        vocoder_checkpoint=voc_path,
-        vocoder_config=voc_config_path
+      tts_checkpoint=model_path, tts_config_path=config_path, vocoder_checkpoint=voc_path, vocoder_config=voc_config_path
     )
 
   def synthesize_to_file(self, text: str) -> Path:
     path = self.cache_dir / f'{curr_date()}.wav'
     outputs = self.synthesizer.tts(text)
-    self.synthesizer.save_wav(outputs, path)  
+    self.synthesizer.save_wav(outputs, path)
     return path
 
   # def synthesize_to_stream(self, text: str) -> str:
   #   return self.tts.tts(text=text, speed=self.speed)
-
-
-
-
-
