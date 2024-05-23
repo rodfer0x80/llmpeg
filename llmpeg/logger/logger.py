@@ -1,40 +1,24 @@
-import logging
 from dataclasses import dataclass
 
-from llmpeg.utils import error
+from llmpeg.utils import Error
 
 
 @dataclass
 class Logger:
-  def log(self, msg):
-    return self.info(error(msg))
+  def log(self, msg: str):
+    self.debug(msg)
 
-  def debug(msg):
-    try:
-      logging.debug(f'{error(msg)}')
-    except Exception as e:
-      raise (Exception(f'{error(e)}'))
+  def debug(self, msg: str):
+    print(f'[DEBUG]: {Error(msg)}')
 
-  def info(self, msg):
-    try:
-      logging.info(f'{error(msg)}')
-    except Exception as e:
-      raise (Exception(f'{error(e)}'))
+  def info(self, msg: str):
+    print(f'[INFO]: {Error(msg)}')
 
-  def warning(self, msg):
-    try:
-      logging.warning(f'{error(msg)}')
-    except Exception as e:
-      raise (Exception(f'{error(e)}'))
+  def warning(self, msg: str):
+    print(f'[WARNING]: {Error(msg)}')
 
-  def error(self, msg: str) -> int:
-    try:
-      logging.error(f'{error(msg)}')
-    except Exception as e:
-      raise (Exception(f'{error(e)}'))
+  def error(self, msg: str):
+    print(f'[ERROR]: {Error(msg)}')
 
-  def critical(self, msg: str) -> int:
-    try:
-      logging.critical(f'{error(msg)}')
-    except Exception as e:
-      raise (Exception(f'{error(e)}'))
+  def critical(self, msg: str):
+    print(f'[CRITICAL]: {Error(msg)}')

@@ -5,7 +5,7 @@ from typing import Union
 from bs4 import BeautifulSoup
 import yt_dlp
 
-from llmpeg.utils import error
+from llmpeg.utils import Error
 
 
 @dataclass
@@ -28,7 +28,7 @@ class Networking:
       text_content = text_content.replace('\u200b', ' ')
       return text_content, None
     except requests.RequestException as e:
-      return '', error(e)
+      return '', Error(e)
 
   def search_audio_stream(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
     try:
@@ -51,6 +51,6 @@ class Networking:
         if 'entries' in search_results and len(search_results['entries']) > 0:
           return search_results['entries'][0]['url'], None
         else:
-          return None, error('No search results found')
+          return None, Error('No search results found')
     except Exception as e:
-      return None, error(e)
+      return None, Error(e)

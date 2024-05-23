@@ -6,7 +6,7 @@ from typing import Union
 import vlc
 import numpy as np
 
-from llmpeg.utils import error
+from llmpeg.utils import Error
 
 
 @dataclass
@@ -44,10 +44,10 @@ class AudioOutput:
     except TypeError as e:
       self.player.stop()
       self.playing = False
-      print(f'[ERROR]: {error(e)}')
+      print(f'[ERROR]: {Error(e)}')
       return
     except Exception as e:
       self.player.stop()
       self.playing = False
-      print(f'[ERROR]: {error(e)}')
+      print(f'[ERROR]: {Error(e)}')
       return

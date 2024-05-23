@@ -5,7 +5,7 @@ import site
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
 
-from llmpeg.utils import curr_date
+from llmpeg.utils import CurrentDate
 
 
 @dataclass
@@ -32,7 +32,7 @@ class TTS:
     )
 
   def synthesize_to_file(self, text: str) -> Path:
-    path = self.cache_dir / f'{curr_date()}.wav'
+    path = self.cache_dir / f'{CurrentDate()}.wav'
     outputs = self.synthesizer.tts(text)
     self.synthesizer.save_wav(outputs, path)
     return path

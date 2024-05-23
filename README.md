@@ -19,8 +19,10 @@ nvidia-container-toolkit [ https://docs.nvidia.com/datacenter/cloud-native/conta
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
 [ ] dynamic config 
 [ ] basic cli with flags
+[ ] install script linux/mac
 ...
-[ ] basic gui with tk
+[ ] basic gui with tk 
+[ ] install gui windows
 ...
 [ ] models in tinygrad
 
@@ -29,6 +31,14 @@ nvidia-container-toolkit [ https://docs.nvidia.com/datacenter/cloud-native/conta
 ````
 project struct 
 https://matt.sh/python-project-structure-2024
+https://docs.python.org/3/library/itertools.html
+https://more-itertools.readthedocs.io/en/stable/
+https://boltons.readthedocs.io/en/latest/
+https://grantjenks.com/docs/sortedcontainers/
+https://grantjenks.com/docs/diskcache/
+https://docs.peewee-orm.com/en/latest/peewee/quickstart.html#quickstart
+https://github.com/ijl/orjson?tab=readme-ov-file
+https://www.python-httpx.org/
 ````
 
 ````

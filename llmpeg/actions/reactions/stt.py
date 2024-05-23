@@ -3,7 +3,7 @@ from pathlib import Path
 
 import whisper  # TODO: change this to use tinygrad customised whisper example
 
-from llmpeg.utils import curr_date
+from llmpeg.utils import CurrentDate
 
 
 @dataclass
@@ -21,6 +21,6 @@ class STT:
 
   def audio_to_text_file(self, audio_data: bytes, path: Path) -> Path:
     if not path:
-      path = self.cache_dir / f'{curr_date()}.txt'
+      path = self.cache_dir / f'{CurrentDate()}.txt'
     open(path, 'w').write(self.model.transcribe(audio_data)['text'])
     return path

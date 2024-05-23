@@ -6,7 +6,7 @@ import numpy as np
 
 from llmpeg.capabilities.audio.audio_input import AudioInput
 from llmpeg.capabilities.audio.audio_output import AudioOutput
-from llmpeg.utils import curr_date
+from llmpeg.utils import CurrentDate
 
 
 @dataclass
@@ -24,7 +24,7 @@ class Audio:
 
   def capture_to_file(self, path: Path = None):
     if not path:
-      path = self.cache_dir / f'{curr_date()}.wav'
+      path = self.cache_dir / f'{CurrentDate()}.wav'
     return self.audio_input.write_audio_stream_to_file(self.capture_stream(), path)
 
   def play_audio_stream(self, audio_stream: Union[bytes, np.float32]) -> None:

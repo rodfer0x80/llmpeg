@@ -3,4 +3,4 @@
 CACHE=.
 VENV=$CACHE/.venv
 POETRY=$VENV/bin/poetry
-$POETRY add $1
+$POETRY remove $1

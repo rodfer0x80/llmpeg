@@ -15,7 +15,7 @@ from llmpeg.actions.reactions import (
 from llmpeg.actions.triggers.triggers import Triggers  # TODO: remove this import
 from llmpeg.actions.actions import Actions
 
-from llmpeg.utils import filenamed_cache_dir
+from llmpeg.utils import FileCacheDirectory
 
 
 @dataclass
@@ -26,7 +26,7 @@ class Agent:
   stt_model_size: str
 
   def __post_init__(self):
-    self.cache_dir = filenamed_cache_dir()
+    self.cache_dir = FileCacheDirectory().__repr__()
     # TODO: configurable class for customising the agent
     Path.mkdir(self.cache_dir, exist_ok=True)
     self.logger = LoggerToStdout()
