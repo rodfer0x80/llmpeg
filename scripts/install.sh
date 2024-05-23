@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHE=.
+CACHE=~/.cache
 VENV=$CACHE/.venv
 PYTHON="/usr/bin/python3.11"
 PIP=$VENV/bin/pip

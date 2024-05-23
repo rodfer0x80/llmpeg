@@ -4,7 +4,7 @@ import datetime
 import tkinter as tk
 from pathlib import Path
 from dataclasses import dataclass
-from collections import namedtuple
+
 
 @dataclass
 class Error:
@@ -23,6 +23,7 @@ class Error:
   def __repr__(self):
     return self.error_msg
 
+
 @dataclass
 class CurrentDate:
   date: str = None
@@ -35,6 +36,7 @@ class CurrentDate:
 
   def __repr__(self):
     return self.date
+
 
 @dataclass
 class ScreenSize:
@@ -50,7 +52,8 @@ class ScreenSize:
 
   def __repr__(self) -> tuple:
     return self.width, self.height
-  
+
+
 @dataclass
 class FileCacheDirectory:
   cache_dir: Path = None

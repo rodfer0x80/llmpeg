@@ -1,5 +1,7 @@
 from pathlib import Path
 from dataclasses import dataclass
+from os import getenv
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -14,10 +16,10 @@ from llmpeg.utils import CurrentDate, ScreenSize
 @dataclass
 class DefaultChromeDriver(Driver):
   # NOTE: default screen size
-  # TODO: this should be dynamic but breaks in docker, need to check where it's running 
+  # TODO: this should be dynamic but breaks in docker, need to check where it's running
   cache_dir: Path
   driver_flags: dict[bool, bool]
-  window_width, window_height = 3840, 2160
+  window_width, window_height = ScreenSize().__repr__() if getenv('$DISPLAY', '') else 1920, 1080
 
   def __post_init__(self):
     self.browser_data_dir = self.cache_dir / 'data'
@@ -100,5 +102,6 @@ class DefaultChromeDriver(Driver):
     WebDriverWait(self.driver, 5).until(lambda d: self.driver.execute_script('return document.readyState') == 'complete')
     # self.driver.save_screenshot(path)  # has scrollbar?
     self.driver.find_element(By.TAG_NAME, 'body').screenshot(str(path))  # avoids scrollbar?
+    sleep(1)
     self.driver.set_window_size(original_size['width'], original_size['height'])
     return path

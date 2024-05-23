@@ -18,9 +18,8 @@ class Main:
   def run(self):
     # NOTE: [EDITABLE]
 
-    data = self.agent.ocr_url("https://example.com/")
-    print(data)
-
+    self.agent.dictate_url('https://example.com/')
+    self.agent.summarize_search('https://example.com/')
     # ----------------
 
 

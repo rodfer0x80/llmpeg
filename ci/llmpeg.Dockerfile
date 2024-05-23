@@ -26,6 +26,23 @@ RUN apt-get install -yq \
     fonts-freefont-ttf \
     fonts-liberation \
     fonts-arphic-uming
+# alsa
+RUN apt-get install -yq \
+    alsa-utils
+# sounddevice
+RUN apt-get install -yq \
+    libportaudio2 \
+    libportaudiocpp0 \
+    libsndfile1
+# soundfile
+RUN apt-get install -yq \
+    libsndfile1
+# ollama
+RUN apt-get install -yq \
+    libsm6 \
+    libxext6 \
+    libxrender-dev
+RUN curl -fsSL https://ollama.com/install.sh | sh
 
 # Install poetry
 RUN pip install pip poetry setuptools wheel -U --no-cache-dir
@@ -57,4 +74,4 @@ RUN poetry install --no-dev --no-interaction --no-ansi --no-root --no-cache
 # Set environment variables
 
 # Run command (as defined in `pyproject.toml` poetry scripts section)
-CMD poetry run main "gemma:2b" "punkt" "small" "tiny" run
+CMD ollama pull "gemma:2b"; poetry run main "gemma:2b" "punkt" "small" "tiny" run

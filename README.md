@@ -2,12 +2,16 @@
 
 ## Requirements
 ````
-speak [ https://github.com/espeak-ng/espeak-ng ] 
+> running locally
+espeak [ https://github.com/espeak-ng/espeak-ng ] 
 ffmpeg [ https://ffmpeg.org/ ]
-nvidia-container-toolkit [ https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html ]
 vlc [ https://www.videolan.org/ ]
 chrome [ https://www.chromium.org/ ]
 chromedriver [ https://developer.chrome.com/docs/chromedriver/downloads ]
+ollama (server must be running) [ https://ollama.com/ ]
+> running with docker:
+nvidia-container-toolkit [ https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html ]
+
 --
 for ubuntu check ci/llmpeg.Dockerfile for all packages needed 
 ````
@@ -17,6 +21,8 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [x] headless browser
 [x] pyproject proper struct
 [x] upgrade to python3.11
+...
+[ ] good nlp for chat flow and controls
 ...
 [ ] dockerfile update to python3.11
 [ ] containerd cluster run ollama server and llmpeg client
@@ -28,11 +34,8 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [ ] expand web search for processing screenshots+scraping to extract intel
 [ ] expand web search with rag?
 [ ] dynamic config 
-[ ] basic cli with flags
-[ ] install script linux/mac
 ...
-[ ] basic gui with tk 
-[ ] install gui windows
+[ ] basic gui tk/web?
 ...
 [ ] models in tinygrad
 
@@ -52,7 +55,16 @@ https://www.python-httpx.org/
 ````
 
 ````
+nlp llm model
+https://github.com/ollama/ollama/blob/main/docs/import.md
+https://github.com/ollama/ollama/blob/main/docs/import.md
+https://github.com/ollama/ollama/blob/main/docs/import.md#manually-converting--quantizing-models
+````
+
+
+````
 docker
+https://www.youtube.com/watch?v=m0fc6ZPb6NU
 https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming.html
 https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
 https://hub.docker.com/r/ollama/ollama

@@ -13,7 +13,7 @@ class Browser:
   def __post_init__(self):
     self.cache_dir = self.cache_dir / 'browser'
     Path.mkdir(self.cache_dir, exist_ok=True)
-    self.driver = DefaultChromeDriver(cache_dir=self.cache_dir, driver_flags={'headless': True, 'incognito': True})
+    self.driver = DefaultChromeDriver(cache_dir=self.cache_dir, driver_flags={'headless': True, 'incognito': False})
     self.networking = Networking()
 
   def scrape(self, url: str) -> tuple[str, Union[str, None]]:

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHE=.
+CACHE=~/.cache
 VENV=$CACHE/.venv
 RUFF=$VENV/bin/ruff
 $RUFF format --config ruff.toml --preview

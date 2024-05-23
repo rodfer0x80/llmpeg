@@ -1,4 +1,3 @@
-import logging
 from pathlib import Path
 from dataclasses import dataclass
 
@@ -8,7 +7,7 @@ from llmpeg.utils import CurrentDate, Error
 
 
 @dataclass
-class LoggerToLogfile():
+class LoggerToLogfile:
   cache_dir: Path
 
   def __post_init__(self):
@@ -16,7 +15,7 @@ class LoggerToLogfile():
     Path.mkdir(self.cache_dir, exist_ok=True)
     logfile = self.cache_dir / f'{CurrentDate}.log'
     logger.add(logfile, rotation='1 day', retention='7 days', level='DEBUG')
-  
+
   def log(self, msg):
     return self.info(Error(msg))
 
@@ -49,5 +48,3 @@ class LoggerToLogfile():
       logger.critical(msg)
     except Exception as e:
       raise (Exception(f'{Error(e)}'))
-
-
