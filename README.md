@@ -1,5 +1,12 @@
 # llmpeg
 
+## Requirements
+````
+speak [ https://github.com/espeak-ng/espeak-ng ] 
+ffmpeg [ https://ffmpeg.org/ ]
+nvidia-container-toolkit [ https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html ]
+````
+
 ## TODO
 [x] fix play audio output
 [x] headless browser
