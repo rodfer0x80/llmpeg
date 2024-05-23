@@ -5,18 +5,28 @@
 speak [ https://github.com/espeak-ng/espeak-ng ] 
 ffmpeg [ https://ffmpeg.org/ ]
 nvidia-container-toolkit [ https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html ]
+vlc [ https://www.videolan.org/ ]
+chrome [ https://www.chromium.org/ ]
+chromedriver [ https://developer.chrome.com/docs/chromedriver/downloads ]
+--
+for ubuntu check ci/llmpeg.Dockerfile for all packages needed 
 ````
 
 ## TODO
 [x] fix play audio output
 [x] headless browser
-[ ] pyproject proper struct
+[x] pyproject proper struct
 [x] upgrade to python3.11
 ...
 [ ] dockerfile update to python3.11
 [ ] containerd cluster run ollama server and llmpeg client
 ...
+[ ] add regression tests
+[ ] add docs
+...
 [ ] refactor into senses high abstraction layer into very basic agent for easy config
+[ ] expand web search for processing screenshots+scraping to extract intel
+[ ] expand web search with rag?
 [ ] dynamic config 
 [ ] basic cli with flags
 [ ] install script linux/mac
@@ -52,10 +62,18 @@ https://github.com/valiantlynx/ollama-docker
 ````
 
 ````
+expand websearch
+https://www.youtube.com/watch?v=ZE6t9trCRnw
+````
+
+````
 speech -> vits or openvoice 
 https://github.com/myshell-ai/OpenVoice/blob/main/docs/USAGE.md
 https://github.com/myshell-ai/OpenVoice/blob/main/demo_part3.ipynb
 https://huggingface.co/docs/transformers/en/model_doc/vits
+````
+
+````
 listen -> wav2vec or whisper local 
 https://huggingface.co/docs/transformers/en/model_doc/whisper
 https://huggingface.co/docs/transformers/en/model_doc/wav2vec2

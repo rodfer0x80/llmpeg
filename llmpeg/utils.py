@@ -38,18 +38,18 @@ class CurrentDate:
 
 @dataclass
 class ScreenSize:
-  screen_size: tuple = None
+  width: int = None
+  height: int = None
 
   def __post_init__(self):
-    width = tk.Tk().winfo_screenwidth()
-    height = tk.Tk().winfo_screenheight()
-    self.screen_size = namedtuple('ScreenSize', ['width', 'height'])(width, height)
+    self.width = tk.Tk().winfo_screenwidth()
+    self.height = tk.Tk().winfo_screenheight()
 
-  def __str__(self):
-    return self.screen_size
+  def __str__(self) -> tuple:
+    return self.width, self.height
 
-  def __repr__(self):
-    return self.screen_size
+  def __repr__(self) -> tuple:
+    return self.width, self.height
   
 @dataclass
 class FileCacheDirectory:

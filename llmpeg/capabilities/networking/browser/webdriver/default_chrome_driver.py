@@ -14,10 +14,10 @@ from llmpeg.utils import CurrentDate, ScreenSize
 @dataclass
 class DefaultChromeDriver(Driver):
   # NOTE: default screen size
-  # TODO: this should be dynamic
+  # TODO: this should be dynamic but breaks in docker, need to check where it's running 
   cache_dir: Path
   driver_flags: dict[bool, bool]
-  window_width, window_height = ScreenSize().__repr__()
+  window_width, window_height = 3840, 2160
 
   def __post_init__(self):
     self.browser_data_dir = self.cache_dir / 'data'

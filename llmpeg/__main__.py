@@ -18,8 +18,8 @@ class Main:
   def run(self):
     # NOTE: [EDITABLE]
 
-    self.url = 'https://github.com/SeleniumHQ/seleniumhq.github.io/blob/trunk/examples/python/tests/waits/test_waits.py'
-    self.agent.dictate_url(self.url)
+    data = self.agent.ocr_url("https://example.com/")
+    print(data)
 
     # ----------------
 
