@@ -4,6 +4,7 @@ from dataclasses import dataclass
 
 import nltk
 
+
 @dataclass
 class Triggers:
   audio_check = ['from', 'by', 'song', 'music', 'play']
