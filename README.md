@@ -76,6 +76,7 @@ https://github.com/valiantlynx/ollama-docker
 ````
 expand websearch
 https://www.youtube.com/watch?v=ZE6t9trCRnw
+https://www.youtube.com/watch?v=W5XNOmyJr6I
 ````
 
 ````
