@@ -1,7 +1,6 @@
 from pathlib import Path
 from dataclasses import dataclass
 from os import getenv
-from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -107,9 +106,8 @@ class DefaultChromeDriver(Driver):
       pass
     WebDriverWait(self.driver, 3).until(lambda d: self.driver.execute_script('return document.readyState') == 'complete')
     # self.driver.save_screenshot(path)  # has scrollbar?
-    self.driver.inplicitly_wait(3)
+    self.driver.implicitly_wait(2)
     self.driver.find_element(By.TAG_NAME, 'body').screenshot(str(path))  # avoids scrollbar?
-    self.driver.inplicitly_wait(3)
-    # sleep(1)
+    self.driver.implicitly_wait(1)
     self.driver.set_window_size(original_size['width'], original_size['height'])
     return path
