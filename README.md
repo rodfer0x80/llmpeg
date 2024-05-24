@@ -22,10 +22,13 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [x] pyproject proper struct
 [x] upgrade to python3.11
 ...
-[ ] good nlp for chat flow and controls
+[x] good nlp for chat flow and controls
 ...
-[ ] dockerfile update to python3.11
-[ ] containerd cluster run ollama server and llmpeg client
+[x] dockerfile update to python3.11
+[x] containerd cluster run ollama server and llmpeg client
+...
+[ ] sqlite db for llm chat
+[ ] agent pipeline for executing actions in chaingraph of functions
 ...
 [ ] add regression tests
 [ ] add docs
