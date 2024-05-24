@@ -7,7 +7,7 @@ from llmpeg.utils import CurrentDate
 
 
 @dataclass
-class STT:
+class Speech:
   model_size: str
   cache_dir: Path
 

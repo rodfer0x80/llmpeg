@@ -3,27 +3,20 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from pylogger import LoggerToStdout
+
 from llmpeg.config import Config
 from llmpeg.capabilities.audio.audio import Audio
 from llmpeg.capabilities.networking.browser import Browser
-from llmpeg.actions.reactions import (
-  Conversation,
-  TTS,
-  STT,
-  Vision,
-)  # TODO: remove this import
-from llmpeg.actions.triggers.triggers import Triggers  # TODO: remove this import
 from llmpeg.actions.actions import Actions
-
 from llmpeg.utils import FileCacheDirectory
 
 
 @dataclass
 class Agent:
-  conversation_model: str
-  nlp_model: str
-  tts_model_size: str
-  stt_model_size: str
+  rational_model: str
+  trigger_model: str
+  speech_model: str
+  hear_model: str
 
   def __post_init__(self):
     self.cache_dir = FileCacheDirectory().__repr__()
@@ -34,21 +27,14 @@ class Agent:
     # TODO: make this work and dynamically
     Config()
 
-    # TODO: make all internal logic for agent in senses.py and turn this into a clean wrapper
-    self.actions = Actions()
-
     self.audio = Audio(cache_dir=self.cache_dir, audio_output_src='--aout=alsa')
     self.browser = Browser(cache_dir=self.cache_dir)
 
-    self.conversation = Conversation(self.conversation_model)
-    self.nlp = Triggers(self.nlp_model, self.cache_dir)
-    self.stt = STT(self.stt_model_size, self.cache_dir)
-    self.tts = TTS(self.tts_model_size, self.cache_dir)
-    self.vision = Vision(self.browser)
+    self.actions = Actions(self.cache_dir, self.rational_model, self.trigger_model, self.speech_model, self.hear_model)
 
   # NOTE: <-------- Vision -------->
   def ocr_url(self, url: str):
-    return self.vision.ocr_stream(self.browser.screenshot(url))
+    return self.actions.vision.ocr_stream(self.browser.screenshot(url))
 
   def dictate_url(self, url: str):
     self.text_to_speech(' '.join(self.ocr_url(url)))
@@ -72,7 +58,7 @@ class Agent:
     self.logger.debug(audio_stream)
     audio_stream = [audio_stream] if audio_stream else None
     if audio_stream:
-      self.audio.play_stream(audio_stream)
+      self.audio.play_audio_stream(audio_stream)
     else:
       self.logger.error('No audio stream found.')
 
@@ -85,7 +71,7 @@ class Agent:
     self.logger.debug('Recording...')
     audio_stream = self.audio.capture_stream()
     self.logger.debug('Finished recording...')
-    text = self.stt.audio_to_text(audio_stream)
+    text = self.actions.hear.stt(audio_stream)
     return text
 
   # NOTE: <-------- Conversation -------->
@@ -93,7 +79,7 @@ class Agent:
     prompt = ''
     exit_flag = True
     self.logger.info('Starting chat...')
-    self.conversation.clear_chat()
+    self.rational.clear_recall()
     prompt = self.speech_to_text().strip()
     self.logger.info(f'USER: {prompt}')
     # TODO: this should be a check for a conversation end using NLP

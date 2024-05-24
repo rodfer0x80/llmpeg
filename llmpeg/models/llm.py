@@ -3,6 +3,7 @@ from typing import Union
 
 import ollama
 
+
 @dataclass
 class LLM:
   model: str  # NOTE: e.g. "gemma:2b"

@@ -2,7 +2,7 @@
 name = "llmpeg"
 version = "0.1.0"
 description = ""
-authors = ["rodfer0x80 <rodrigolf080@gmail.com>"]
+authors = ["rodfer0x80 <admin@rodfer.online>"]
 license = "MIT"
 readme = "README.md"
 
@@ -19,13 +19,12 @@ numpy = "^1.26.4"
 python-vlc = "^3.0.20123"
 beautifulsoup4 = "^4.12.3"
 yt-dlp = "^2024.4.9"
-
-
 easyocr = "^1.7.1"
 loguru = "^0.7.2"
 pytest = "^8.2.1"
 pypeline = {git = "https://github.com/rodfer0x80/pypeline"}
 pylogger = {git = "https://github.com/rodfer0x80/pylogger"}
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

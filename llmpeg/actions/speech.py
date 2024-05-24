@@ -9,7 +9,7 @@ from llmpeg.utils import CurrentDate
 
 
 @dataclass
-class TTS:
+class Speech:
   model_size: str
   cache_dir: Path
   large_model = 'tts_models/en/jenny/jenny'
