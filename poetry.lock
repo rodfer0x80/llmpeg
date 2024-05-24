@@ -3301,6 +3301,24 @@ files = [
 typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
+name = "pylogger"
+version = "1.0.1"
+description = ""
+optional = false
+python-versions = ">=3.6, <4.0"
+files = []
+develop = false
+
+[package.dependencies]
+loguru = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/rodfer0x80/pylogger"
+reference = "HEAD"
+resolved_reference = "1829ae121cc646873c2427ce40f5d4b6b40085a2"
+
+[[package]]
 name = "pynndescent"
 version = "0.5.12"
 description = "Nearest Neighbor Descent"
@@ -3331,6 +3349,24 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[[package]]
+name = "pypeline"
+version = "1.0.1"
+description = ""
+optional = false
+python-versions = ">=3.6, <4.0"
+files = []
+develop = false
+
+[package.dependencies]
+pytest = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/rodfer0x80/pypeline"
+reference = "HEAD"
+resolved_reference = "68b1ffc838f304e19a85c5c83d3d0cb0989ae6da"
 
 [[package]]
 name = "pypinyin"
@@ -5481,4 +5517,4 @@ secretstorage = ["cffi", "secretstorage"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11.0, <3.12"
-content-hash = "fc9b0e904c5fd27071f2154926b0e0eb64729571aff96a1f03dadce6fa64a967"
+content-hash = "4a64486b93cf71f339b90fff96fc6e8dc0d82124628a6ec47d8b136b486880f1"

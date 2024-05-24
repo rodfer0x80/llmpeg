@@ -2,7 +2,7 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from llmpeg.logger import LoggerToStdout
+from pylogger import LoggerToStdout
 from llmpeg.config import Config
 from llmpeg.capabilities.audio.audio import Audio
 from llmpeg.capabilities.networking.browser import Browser
