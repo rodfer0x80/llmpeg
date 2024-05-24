@@ -31,9 +31,6 @@ class Browser:
     self.driver.close()
     return ss_path
 
-  def search_audio_stream(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
-    self.networking.search_audio_stream(query)
-
   def scrape_url(self, url: str) -> tuple[Union[str, None], Union[str, None]]:
     text_content, err = self.networking.scrape(url)
     if err:

@@ -1630,13 +1630,13 @@ files = [
 
 [[package]]
 name = "jsonargparse"
-version = "4.28.0"
+version = "4.29.0"
 description = "Implement minimal boilerplate CLIs derived from type hints and parse from command line, config files and environment variables."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "jsonargparse-4.28.0-py3-none-any.whl", hash = "sha256:9dcda241349547e8035c630d51de73b8b4ba67bdc2b014d7f76734d404e82518"},
-    {file = "jsonargparse-4.28.0.tar.gz", hash = "sha256:ac835a290ef18cc2a5309e6bfa8ada9c5d63f46ff18701583fc8f3e95314679c"},
+    {file = "jsonargparse-4.29.0-py3-none-any.whl", hash = "sha256:e093d9509996b031d156fe8d4a087e2d91adbfc654b9e2c783878d45ad0dfefe"},
+    {file = "jsonargparse-4.29.0.tar.gz", hash = "sha256:03d407122c856095c48b07c58107002c9d3eaeb2795d8040efad831db5817494"},
 ]
 
 [package.dependencies]
@@ -3301,6 +3301,24 @@ files = [
 typing-extensions = ">=4.6.0,<4.7.0 || >4.7.0"
 
 [[package]]
+name = "pylogger"
+version = "1.0.1"
+description = ""
+optional = false
+python-versions = ">=3.6, <4.0"
+files = []
+develop = false
+
+[package.dependencies]
+loguru = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/rodfer0x80/pylogger"
+reference = "HEAD"
+resolved_reference = "1829ae121cc646873c2427ce40f5d4b6b40085a2"
+
+[[package]]
 name = "pynndescent"
 version = "0.5.12"
 description = "Nearest Neighbor Descent"
@@ -3331,6 +3349,24 @@ files = [
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
+
+[[package]]
+name = "pypeline"
+version = "1.0.1"
+description = ""
+optional = false
+python-versions = ">=3.6, <4.0"
+files = []
+develop = false
+
+[package.dependencies]
+pytest = "*"
+
+[package.source]
+type = "git"
+url = "https://github.com/rodfer0x80/pypeline"
+reference = "HEAD"
+resolved_reference = "68b1ffc838f304e19a85c5c83d3d0cb0989ae6da"
 
 [[package]]
 name = "pypinyin"
@@ -5092,13 +5128,13 @@ test = ["black (>=22.3.0,<23.0.0)", "coverage (>=6.2,<7.0)", "isort (>=5.0.6,<6.
 
 [[package]]
 name = "typing-extensions"
-version = "4.11.0"
+version = "4.12.0"
 description = "Backported and Experimental Type Hints for Python 3.8+"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "typing_extensions-4.11.0-py3-none-any.whl", hash = "sha256:c1f94d72897edaf4ce775bb7558d5b79d8126906a14ea5ed1635921406c0387a"},
-    {file = "typing_extensions-4.11.0.tar.gz", hash = "sha256:83f085bd5ca59c80295fc2a82ab5dac679cbe02b9f33f7d83af68e241bea51b0"},
+    {file = "typing_extensions-4.12.0-py3-none-any.whl", hash = "sha256:b349c66bea9016ac22978d800cfff206d5f9816951f12a7d0ec5578b0a819594"},
+    {file = "typing_extensions-4.12.0.tar.gz", hash = "sha256:8cbcdc8606ebcb0d95453ad7dc5065e6237b6aa230a31e81d0f440c30fed5fd8"},
 ]
 
 [[package]]
@@ -5481,4 +5517,4 @@ secretstorage = ["cffi", "secretstorage"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11.0, <3.12"
-content-hash = "fc9b0e904c5fd27071f2154926b0e0eb64729571aff96a1f03dadce6fa64a967"
+content-hash = "4a64486b93cf71f339b90fff96fc6e8dc0d82124628a6ec47d8b136b486880f1"

@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
 
-@dataclass
-class Triggerlist:
-    audio_check = ['from', 'by', 'song', 'music', 'play']
+@dataclass(frozen=True)
+class TriggerList:
+  audio_check = ['from', 'by', 'song', 'music', 'play']
   audio_start = 'play'
   goodbye = ['bye', 'goodbye']
   greeting = ['hi', 'hello', 'hey', 'greetings']

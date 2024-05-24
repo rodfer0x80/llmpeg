@@ -2,28 +2,21 @@ import time
 from dataclasses import dataclass
 from pathlib import Path
 
-from llmpeg.logger import LoggerToStdout
+from pylogger import LoggerToStdout
+
 from llmpeg.config import Config
 from llmpeg.capabilities.audio.audio import Audio
-from llmpeg.capabilities.networking.browser import Browser
-from llmpeg.actions.reactions import (
-  Conversation,
-  TTS,
-  STT,
-  Vision,
-)  # TODO: remove this import
-from llmpeg.actions.triggers.triggers import Triggers  # TODO: remove this import
+from llmpeg.capabilities.network.network import Network
 from llmpeg.actions.actions import Actions
-
 from llmpeg.utils import FileCacheDirectory
 
 
 @dataclass
 class Agent:
-  conversation_model: str
-  nlp_model: str
-  tts_model_size: str
-  stt_model_size: str
+  rational_model: str
+  trigger_model: str
+  speech_model: str
+  hear_model: str
 
   def __post_init__(self):
     self.cache_dir = FileCacheDirectory().__repr__()
@@ -34,58 +27,52 @@ class Agent:
     # TODO: make this work and dynamically
     Config()
 
-    # TODO: make all internal logic for agent in senses.py and turn this into a clean wrapper
-    self.actions = Actions()
-
     self.audio = Audio(cache_dir=self.cache_dir, audio_output_src='--aout=alsa')
-    self.browser = Browser(cache_dir=self.cache_dir)
+    self.network = Network(cache_dir=self.cache_dir)
 
-    self.conversation = Conversation(self.conversation_model)
-    self.nlp = Triggers(self.nlp_model, self.cache_dir)
-    self.stt = STT(self.stt_model_size, self.cache_dir)
-    self.tts = TTS(self.tts_model_size, self.cache_dir)
-    self.vision = Vision(self.browser)
+    self.actions = Actions(self.cache_dir, self.rational_model, self.trigger_model, self.speech_model, self.hear_model)
 
   # NOTE: <-------- Vision -------->
   def ocr_url(self, url: str):
-    return self.vision.ocr_stream(self.browser.screenshot(url))
+    return self.actions.vision.ocr_stream(self.network.browser.screenshot(url))
 
   def dictate_url(self, url: str):
-    self.text_to_speech(' '.join(self.ocr_url(url)))
+    self.text_to_speech(' '.join(self.actions.vision.ocr_stream(self.network.browser.screenshot(url))))
 
   # TODO: explain/summ etc on data from ocr_url
 
   # NOTE: <-------- Browser -------->
   def summarize_search(self, url: str) -> None:
-    search_content, err = self.browser.scrape(url)
-    assert not err, err
+    search_content, _ = self.network.scrape(url)
     self.summarize(search_content)
 
   def explain_search(self, url: str) -> None:
-    search_content, err = self.browser.scrape(url)
-    assert not err, err
+    search_content, _ = self.network.scrape(url)
     self.explain(search_content)
 
   def stream_soundtrack(self, query: str) -> None:
-    audio_stream, _ = self.browser.search_audio_stream(query)
-    # NOTE: convert to list for play_audio_stream
+    audio_stream, err = self.network.find_audio(query)
+    if err:
+      self.logger.error(err)
+      # self.logger.error('No audio stream found.')
+      return
     self.logger.debug(audio_stream)
     audio_stream = [audio_stream] if audio_stream else None
     if audio_stream:
-      self.audio.play_stream(audio_stream)
+      self.audio.play_audio_stream(audio_stream)
     else:
       self.logger.error('No audio stream found.')
 
   # NOTE: <-------- Audio -------->
   # def text_to_speech(self, text: str) -> None: self.audio.play_stream(self.tts.synthesize_to_stream(text=text))
   def text_to_speech(self, text: str) -> None:
-    self.audio.play_audio_file(self.tts.synthesize_to_file(text=text))
+    self.audio.play_audio_file(self.actions.speech.synthesize_to_file(text=text))
 
   def speech_to_text(self) -> str:
     self.logger.debug('Recording...')
     audio_stream = self.audio.capture_stream()
     self.logger.debug('Finished recording...')
-    text = self.stt.audio_to_text(audio_stream)
+    text = self.actions.hear.synthesize_to_stream(audio_stream)
     return text
 
   # NOTE: <-------- Conversation -------->
@@ -93,37 +80,37 @@ class Agent:
     prompt = ''
     exit_flag = True
     self.logger.info('Starting chat...')
-    self.conversation.clear_chat()
+    self.actions.rational.clear_chat()
     prompt = self.speech_to_text().strip()
     self.logger.info(f'USER: {prompt}')
     # TODO: this should be a check for a conversation end using NLP
-    while not self.nlp.check_goodbye(prompt):
+    while not self.actions.trigger.check_goodbye(prompt):
       if exit_flag:
         exit_flag = False
-      if self.nlp.check_audio_request(prompt):
+      if self.actions.trigger.check_audio_request(prompt):
         self.logger.debug('Audio request...')
         self.stream_soundtrack(prompt)
         time.sleep(0.5)
       else:
-        res = self.conversation.chat(prompt=prompt)
+        res = self.actions.rational.chat(prompt=prompt)
         self.logger.info(f'AGENT: {res}')
         self.text_to_speech(text=res)
       prompt = self.speech_to_text().strip()
       self.logger.info(f'USER: {prompt}')
     if exit_flag:
-      res = self.conversation.respond(prompt)
+      res = self.actions.rational.chat(prompt)
       self.logger.info(f'AGENT: {res}')
       self.text_to_speech(text=res)
 
   def respond(self) -> None:
     text = self.speech_to_text().strip()
     self.logger.info(f'USER: {text}')
-    if self.nlp.check_audio_request(text):
+    if self.actions.trigger.check_audio_request(text):
       self.logger.debug('Audio request...')
       self.stream_soundtrack(text)
       return
     self.logger.debug('Responding...')
-    res = self.conversation.respond(text)
+    res = self.actions.rational.respond(text)
     self.logger.info(f'AGENT: {res}')
     self.text_to_speech(res)
 
@@ -133,7 +120,7 @@ class Agent:
       self.logger.info(f'USER: {text}')
     else:
       self.logger.info(f'USER: __explain__ {text}')
-    res = self.conversation.explain(text)
+    res = self.actions.rational.explain(text)
     self.logger.info(f'AGENT: {res}')
     self.text_to_speech(res)
 
@@ -143,6 +130,6 @@ class Agent:
       self.logger.info(f'USER: {text}')
     else:
       self.logger.info(f'USER: __summarize__ {text}')
-    res = self.conversation.summarize(text)
+    res = self.actions.rational.summarize(text)
     self.logger.info(f'AGENT: {res}')
     self.text_to_speech(res)

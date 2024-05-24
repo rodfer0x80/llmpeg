@@ -57,7 +57,7 @@ https://www.python-httpx.org/
 ````
 nlp llm model
 https://github.com/ollama/ollama/blob/main/docs/import.md
-https://github.com/ollama/ollama/blob/main/docs/import.md
+https://huggingface.co/docs/transformers/main/en/model_doc/gpt_neo#transformers.GPTNeoForCausalLM
 https://github.com/ollama/ollama/blob/main/docs/import.md#manually-converting--quantizing-models
 ````
 
