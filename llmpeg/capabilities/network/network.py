@@ -1,18 +1,23 @@
 import requests
 from dataclasses import dataclass
 from typing import Union
+from pathlib import Path
 
 from bs4 import BeautifulSoup
 import yt_dlp
 
 from llmpeg.utils import Error
+from llmpeg.capabilities.network.browser import Browser
 
 
 @dataclass
-class Networking:
+class Network:
+  cache_dir: Path
+
   def __post_init__(self) -> None:
     self.session: requests.Session = requests.Session()
     self.session.headers.update({'User-Agent': 'Mozilla/5.0'})  # self.session.headers.update({'User-Agent': 'Chrome/78.0.3904.108'})
+    self.browser = Browser(self.cache_dir)
 
   def scrape(self, url: str) -> tuple[str, Union[str, None]]:
     try:
@@ -30,7 +35,7 @@ class Networking:
     except requests.RequestException as e:
       return '', Error(e)
 
-  def search_audio_stream(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
+  def find_audio(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
     try:
       # NOTE: ffmpeg is required for this to work
       # NOTE: mp3 192kbps is the preferred format

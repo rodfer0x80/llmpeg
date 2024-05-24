@@ -11,8 +11,10 @@ class BrainRational:
   model: str  # NOTE: e.g. "gemma:2b"
   explain_prompt: str = 'Explain the following data which was extracted from a webpage in your own words'
   summarize_prompt: str = 'Summarize the following data which was extracted from a webpage'
-  chat_messages = []
-  llm = LLM(model=model)
+
+  def __post_init__(self) -> None:
+    self.chat_messages = []
+    self.llm = LLM(self.model)
 
   def summarize(self, prompt: str) -> str:
     return self.llm.generate(f'{self.summarize_prompt}\n{prompt}')

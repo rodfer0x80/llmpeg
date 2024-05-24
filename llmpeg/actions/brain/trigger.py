@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import nltk
 
-from llmpeg.actions.brain.trigger_list import TriggerList
+from llmpeg.actions.brain.triggerlist import TriggerList
 
 
 @dataclass

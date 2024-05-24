@@ -20,7 +20,6 @@ class Speech:
     Path.mkdir(self.cache_dir, exist_ok=True)
 
     self.model_name = self.large_model if self.model_size == 'large' else self.small_model
-    print(self.model_name)
     self.speed = 1.3 if self.model_size == 'large' else 2.5
 
     model_config_path = site.getsitepackages()[0] + '/TTS/.models.json'

@@ -7,7 +7,7 @@ from llmpeg.utils import CurrentDate
 
 
 @dataclass
-class Speech:
+class Hear:
   model_size: str
   cache_dir: Path
 
@@ -16,10 +16,10 @@ class Speech:
     self.cache_dir = self.cache_dir / 'stt'
     Path.mkdir(self.cache_dir, exist_ok=True)
 
-  def audio_to_text(self, audio_data: bytes) -> str:
+  def synthesize_to_stream(self, audio_data: bytes) -> str:
     return self.model.transcribe(audio_data)['text']
 
-  def audio_to_text_file(self, audio_data: bytes, path: Path) -> Path:
+  def synthesize_to_file(self, audio_data: bytes, path: Path) -> Path:
     if not path:
       path = self.cache_dir / f'{CurrentDate()}.txt'
     open(path, 'w').write(self.model.transcribe(audio_data)['text'])
