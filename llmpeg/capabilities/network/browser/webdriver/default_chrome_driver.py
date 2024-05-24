@@ -1,7 +1,6 @@
 from pathlib import Path
 from dataclasses import dataclass
 from os import getenv
-from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,7 +8,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException as WebDriverTimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
-from llmpeg.capabilities.networking.browser.webdriver import Driver
+from llmpeg.capabilities.network.browser.webdriver import Driver
 from llmpeg.utils import CurrentDate, ScreenSize
 
 
@@ -24,10 +23,13 @@ class DefaultChromeDriver(Driver):
   def __post_init__(self):
     self.browser_data_dir = self.cache_dir / 'data'
     Path.mkdir(self.browser_data_dir, exist_ok=True)
+
     self.cache_dir = self.cache_dir / 'webdriver'
     Path.mkdir(self.cache_dir, exist_ok=True)
+
     self.headless = self.driver_flags['headless']
     self.incognito = self.driver_flags['incognito']
+
     self.driver = self._init_driver()
 
   def _init_driver(self):
@@ -37,9 +39,12 @@ class DefaultChromeDriver(Driver):
     self._enable_system_options()
     self._enable_stealth_options()
     self._enable_automation_options()
+
     driver = webdriver.Chrome(options=self.options)
+
     driver.implicitly_wait(3)
     driver.maximize_window()
+
     return driver
 
   def close(self):
@@ -96,12 +101,13 @@ class DefaultChromeDriver(Driver):
     self.driver.get(url)
     # NOTE: hack to wait for webpage to load, sometimes breaks
     try:
-      WebDriverWait(self.driver, 5).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+      WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
     except WebDriverTimeoutException:
       pass
-    WebDriverWait(self.driver, 5).until(lambda d: self.driver.execute_script('return document.readyState') == 'complete')
+    WebDriverWait(self.driver, 3).until(lambda d: self.driver.execute_script('return document.readyState') == 'complete')
     # self.driver.save_screenshot(path)  # has scrollbar?
+    self.driver.implicitly_wait(2)
     self.driver.find_element(By.TAG_NAME, 'body').screenshot(str(path))  # avoids scrollbar?
-    sleep(1)
+    self.driver.implicitly_wait(1)
     self.driver.set_window_size(original_size['width'], original_size['height'])
     return path

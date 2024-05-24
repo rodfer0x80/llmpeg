@@ -1,1 +1,1 @@
-from .networking import Networking
+from .network import Network

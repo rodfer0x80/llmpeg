@@ -33,7 +33,13 @@ class Network:
       text_content = text_content.replace('\u200b', ' ')
       return text_content, None
     except requests.RequestException as e:
-      return '', Error(e)
+      return '', Error(e).__repr__()
+
+  def scrape_url(self, url: str) -> tuple[Union[str, None], Union[str, None]]:
+    text_content, err = self.scrape(url)
+    if err:
+      raise Exception(Error(err).__repr__())
+    return text_content
 
   def find_audio(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
     try:
@@ -56,6 +62,6 @@ class Network:
         if 'entries' in search_results and len(search_results['entries']) > 0:
           return search_results['entries'][0]['url'], None
         else:
-          return None, Error('No search results found')
+          return None, Error('No search results found').__repr__()
     except Exception as e:
-      return None, Error(e)
+      return None, Error(e).__repr__()

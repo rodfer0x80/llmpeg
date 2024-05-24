@@ -12,6 +12,7 @@ class BrainRational:
   explain_prompt: str = 'Explain the following data which was extracted from a webpage in your own words'
   summarize_prompt: str = 'Summarize the following data which was extracted from a webpage'
 
+  # TODO: sqlite3 for storing chat history
   def __post_init__(self) -> None:
     self.chat_messages = []
     self.llm = LLM(self.model)
