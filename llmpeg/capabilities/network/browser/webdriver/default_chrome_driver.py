@@ -9,7 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException as WebDriverTimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
-from llmpeg.capabilities.networking.browser.webdriver import Driver
+from llmpeg.capabilities.network.browser.webdriver import Driver
 from llmpeg.utils import CurrentDate, ScreenSize
 
 

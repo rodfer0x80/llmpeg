@@ -35,6 +35,12 @@ class Network:
     except requests.RequestException as e:
       return '', Error(e)
 
+  def scrape_url(self, url: str) -> tuple[Union[str, None], Union[str, None]]:
+    text_content, err = self.scrape(url)
+    if err:
+      raise Exception(err)
+    return text_content
+
   def find_audio(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
     try:
       # NOTE: ffmpeg is required for this to work
