@@ -4,3 +4,6 @@ from .network.browser.webdriver.driver import Driver
 from .network.browser.webdriver.default_chrome_driver import DefaultChromeDriver
 from .network.browser.browser import Browser
 from .network.network import Network
+from .clipboard.clipboard import Clipboard
+from .clipboard.clipboard import CopyToClipboard
+from .clipboard.clipboard import CopyFromClipboard

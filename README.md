@@ -66,14 +66,11 @@ https://github.com/ollama/ollama/blob/main/docs/import.md#manually-converting--q
 
 
 ````
-docker
-https://www.youtube.com/watch?v=m0fc6ZPb6NU
-https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming.html
-https://ollama.com/blog/ollama-is-now-available-as-an-official-docker-image
-https://hub.docker.com/r/ollama/ollama
-https://collabnix.com/getting-started-with-ollama-and-docker/
-https://docs.coqui.ai/en/latest/inference.html
-https://github.com/valiantlynx/ollama-docker
+improve
+https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming
+https://blog.waleson.com/2024/05/the-long-long-tail-of-ai-applications.html
+https://www.strangeloopcanon.com/p/what-can-llms-never-do
+https://jxnl.co/writing/2024/05/22/systematically-improving-your-rag/#cluster-and-model-topics
 ````
 
 ````
