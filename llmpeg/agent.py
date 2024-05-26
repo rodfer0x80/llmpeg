@@ -108,7 +108,7 @@ class Agent:
                                 self.logger.debug('Audio request...')
                                 self.stream_soundtrack(prompt)
                                 time.sleep(0.5)
-                        else: # TODO: we need a wait feature for when the user is doing something else
+                        else:  # TODO: we need a wait feature for when the user is doing something else
                                 res = self.actions.rational.chat(prompt=prompt)
                                 self.logger.info(f'AGENT: {res}')
                                 self.text_to_speech(text=res)

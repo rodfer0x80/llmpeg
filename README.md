@@ -21,17 +21,14 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [x] headless browser
 [x] pyproject proper struct
 [x] upgrade to python3.11
-...
-[x] good nlp for chat flow and controls
-...
 [x] dockerfile update to python3.11
 [x] containerd cluster run ollama server and llmpeg client
 ...
-[ ] clipboard feature for chat browsing
+[x] clipboard feature for chat browsing
+[x] test nlp for chat flow and controls
 [ ] sqlite db for llm chat
 [ ] agent pipeline for executing actions in chaingraph of functions
 [ ] chat wait feature
-...
 [ ] add regression tests
 [ ] add docs
 [ ] dynamic config 
