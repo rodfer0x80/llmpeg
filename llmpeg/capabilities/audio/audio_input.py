@@ -14,17 +14,28 @@ class AudioInput:
         def __post_init__(self):
                 self.audio = pyaudio.PyAudio()
 
-        def capture_stream(self, duration: int = 5, sr: int = 16000) -> np.float32:
+        def capture_stream(
+                self, duration: int = 5, sr: int = 16000
+        ) -> np.float32:
                 CHUNK = 1024
                 FORMAT = pyaudio.paInt16  # int16
                 CHANNELS = 1
                 frames = []
 
-                stream = self.audio.open(format=FORMAT, channels=CHANNELS, rate=sr, input=True, frames_per_buffer=CHUNK)
+                stream = self.audio.open(
+                        format=FORMAT,
+                        channels=CHANNELS,
+                        rate=sr,
+                        input=True,
+                        frames_per_buffer=CHUNK,
+                )
 
                 num_frames = int(sr / CHUNK * duration)
                 read_chunk = partial(stream.read, CHUNK)
-                frames = [np.frombuffer(read_chunk(), dtype=np.int16) for _ in range(num_frames)]
+                frames = [
+                        np.frombuffer(read_chunk(), dtype=np.int16)
+                        for _ in range(num_frames)
+                ]
 
                 stream.stop_stream()
                 stream.close()

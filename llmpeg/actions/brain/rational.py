@@ -4,14 +4,23 @@ from typing import Union
 from llmpeg.models.llm import LLM
 
 
-# TODO: have a conversation with preprompted character roleplay and play songs on request
+# TODO: have a conversation with preprompted character roleplay
+# TODO: and play songs on request
 # TODO: this should be a in front of browser and call it todo stuff
 # TODO: instead of bypassing this and using capabilities directly
 @dataclass
 class BrainRational:
         model: str  # NOTE: e.g. "gemma:2b"
-        explain_prompt: str = 'Explain the following data which was extracted from a webpage in your own words'
-        summarize_prompt: str = 'Summarize the following data which was extracted from a webpage'
+        explain_prompt: str = (
+                'Explain the following data which was extracted'
+                + ' '
+                + 'from a webpage in your own words'
+        )
+        summarize_prompt: str = (
+                'Summarize the following data which was extracted'
+                + ' '
+                + 'from a webpage'
+        )
 
         # TODO: sqlite3 for storing chat history
         def __post_init__(self) -> None:
@@ -31,8 +40,12 @@ class BrainRational:
                 self.chat_messages = []
 
         def _add_message(self, prompt) -> None:
-                return self.chat_messages.append({'role': 'user', 'content': prompt})
+                return self.chat_messages.append({
+                        'role': 'user',
+                        'content': prompt,
+                })
 
         def chat(self, prompt: str) -> Union[str, list[str]]:
                 self._add_message(prompt)
-                return self.llm.recall_generate(self.chat_messages[-1]['content'], self.chat_messages)
+                message = self.chat_messages[-1]['content']
+                return self.llm.recall_generate(message, self.chat_messages)

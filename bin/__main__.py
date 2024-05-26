@@ -14,7 +14,10 @@ class Main:
 
         def __post_init__(self):
                 self.agent = Agent(
-                        self.rational_model, self.trigger_model, self.speech_model_size, self.hear_model_size
+                        self.rational_model,
+                        self.trigger_model,
+                        self.speech_model_size,
+                        self.hear_model_size,
                 )
 
         def run(self):

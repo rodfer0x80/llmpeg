@@ -24,7 +24,9 @@ class Audio:
         def capture_to_file(self, duration: int):
                 return self.audio_input.capture_to_file(duration)
 
-        def play_audio_stream(self, audio_stream: Union[bytes, np.float32]) -> None:
+        def play_audio_stream(
+                self, audio_stream: Union[bytes, np.float32]
+        ) -> None:
                 self.audio_output.play([audio_stream])
 
         def play_remote_audio_stream_url(self, url: str) -> None:
@@ -33,7 +35,9 @@ class Audio:
         def play_audio_file(self, audio_file: Path) -> None:
                 self.audio_output.play([audio_file])
 
-        def play(self, tracks: list[Union[str, Path, bytes, np.float32]]) -> None:
+        def play(
+                self, tracks: list[Union[str, Path, bytes, np.float32]]
+        ) -> None:
                 self.audio_output.play(tracks)
 
         def stop(self):

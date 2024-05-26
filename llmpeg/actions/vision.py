@@ -13,6 +13,7 @@ class Vision:
                 return self.ocr_reader.readtext(stream, detail=0)
 
         def ocr_img(self, path: Path) -> list[str]:
-                return [word[-2] for word in self.ocr_reader.readtext(path, detail=0)]
+                prediction = self.ocr_reader.readtext(path, detail=0)
+                return [word[-2] for word in prediction]  # text_pos in -2
 
         # TODO: https://github.com/Efficient-Large-Model/VILA?tab=readme-ov-file

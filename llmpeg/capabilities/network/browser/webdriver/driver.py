@@ -9,10 +9,12 @@ class Driver:
                 raise Exception(Error('Not implemented'))
 
         def close(self) -> None:
-                self.driver.close() if self.driver else None  # NOTE: webdrive breaks without this condition
+                # NOTE: webdrive breaks without this condition
+                self.driver.close() if self.driver else None
 
         def quit(self) -> None:
-                self.driver.quit() if self.driver else None  # NOTE: webdrive breaks without this condition
+                # NOTE: webdrive breaks without this condition
+                self.driver.quit() if self.driver else None
 
         def _enable_insecure_options(self) -> None:
                 self.options.add_argument('--single-process')
