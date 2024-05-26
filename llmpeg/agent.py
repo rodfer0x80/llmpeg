@@ -28,7 +28,7 @@ class Agent:
                 # TODO: make this work and dynamically
                 Config()
 
-                self.audio = Audio(cache_dir=self.cache_dir, audio_output_src='--aout=alsa')
+                self.audio = Audio(cache_dir=self.cache_dir)
                 self.network = Network(cache_dir=self.cache_dir)
 
                 self.actions = Actions(
@@ -37,10 +37,13 @@ class Agent:
 
         # NOTE: <-------- Vision -------->
         def ocr_url(self, url: str):
-                return self.actions.vision.ocr_stream(self.network.browser.screenshot(url))
+                data = self.network.browser.screenshot(url)
+                prediction = self.actions.vision.ocr_stream(data)
+                return prediction
 
         def dictate_url(self, url: str):
-                self.text_to_speech(' '.join(self.actions.vision.ocr_stream(self.network.browser.screenshot(url))))
+                text = ' '.join(self.ocr_url(url))
+                self.text_to_speech(text)
 
         # TODO: explain/summ etc on data from ocr_url
 
@@ -74,7 +77,8 @@ class Agent:
         # NOTE: <-------- Audio -------->
         # def text_to_speech(self, text: str) -> None: self.audio.play_stream(self.tts.synthesize_to_stream(text=text))
         def text_to_speech(self, text: str) -> None:
-                self.audio.play_audio_file(self.actions.speech.synthesize_to_file(text=text))
+                audio_file = self.actions.speech.synthesize_to_file(text)
+                self.audio.play_audio_file(audio_file)
 
         def speech_to_text(self) -> str:
                 self.logger.debug('Recording...')

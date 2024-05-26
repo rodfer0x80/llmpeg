@@ -11,10 +11,10 @@ from llmpeg.utils import CurrentDate, WaveFile
 class AudioInput:
         cache_dir: Path
 
-        def __init__(self):
+        def __post_init__(self):
                 self.audio = pyaudio.PyAudio()
 
-        def capture_stream(self, duration: int = 5, sr: int = 16000) -> np.ndarray:
+        def capture_stream(self, duration: int = 5, sr: int = 16000) -> np.float32:
                 CHUNK = 1024
                 FORMAT = pyaudio.paInt16  # int16
                 CHANNELS = 1

@@ -12,9 +12,9 @@ from llmpeg.utils import WaveFile, Error
 
 
 class AudioOutput:
-        def __init__(self, audio_output_src: str, cache_dir: Path) -> None:
-                self.audio_output_src = audio_output_src
-                self.cache_dir = cache_dir
+        cache_dir: Path
+
+        def __post_init__(self) -> None:
                 self.playing = False
                 self.thread = None
                 self.stop_event = threading.Event()
@@ -33,7 +33,8 @@ class AudioOutput:
                         _ = 44100  # Assuming sample rate of 44100 Hz
                         data = (track * np.iinfo(np.int16).max).astype(np.int16)
                 else:
-                        raise ValueError(Error('Unsupported audio format').__repr__())
+                        err = Error('Unsupported audio format').__repr__()
+                        raise ValueError(err)
 
                 self.playing = True
                 stream.write(data.tobytes())
@@ -62,6 +63,6 @@ class AudioOutput:
                                 try:
                                         self._play_audio(track)
                                 except Exception as e:
-                                        print(f'[ERROR]: {Error(e).__repr__()}')
+                                        raise Exception(Error(e).__repr__())
                         else:
                                 time.sleep(0.1)

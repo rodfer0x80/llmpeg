@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from llmpeg.capabilities.network.browser.webdriver import Driver
 from llmpeg.utils import CurrentDate, ScreenSize
 
-
+# NOTE: thos file is disgusting.
 @dataclass
 class DefaultChromeDriver(Driver):
         # NOTE: default screen size
