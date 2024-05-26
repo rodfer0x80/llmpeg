@@ -30,7 +30,9 @@ class CurrentDate:
         date: str = None
 
         def __post_init__(self):
-                self.date = datetime.datetime.now().strftime('%H-%M-%S_%d-%m-%Y')
+                self.date = datetime.datetime.now().strftime(
+                        '%H-%M-%S_%d-%m-%Y'
+                )
 
         def __str__(self):
                 return self.date
@@ -60,7 +62,9 @@ class FileCacheDirectory:
         cache_dir: Path = None
 
         def __post_init__(self):
-                self.cache_dir = Path(f'~/.cache/{str(Path(__file__).cwd().name).split("/")[-1]}').expanduser()
+                self.cache_dir = Path(
+                        f'~/.cache/{str(Path(__file__).cwd().name).split("/")[-1]}'
+                ).expanduser()
                 Path.mkdir(self.cache_dir, exist_ok=True)
 
         def __str__(self) -> Path:

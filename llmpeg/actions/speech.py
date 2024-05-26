@@ -19,13 +19,22 @@ class Speech:
                 self.cache_dir = self.cache_dir / 'tts'
                 Path.mkdir(self.cache_dir, exist_ok=True)
 
-                self.model_name = self.large_model if self.model_size == 'large' else self.small_model
-                self.speed = 1.3 if self.model_size == 'large' else 2.5
+                if self.model_size == 'large':
+                        self.model_name = self.large_model
+                else:
+                        self.small_model
+                self.speed = 2.5  # 1.3 for small, 2.5 for large?
 
-                model_config_path = site.getsitepackages()[0] + '/TTS/.models.json'
+                model_config_path = (
+                        site.getsitepackages()[0] + '/TTS/.models.json'
+                )
                 model_manager = ModelManager(model_config_path)
-                model_path, config_path, model_item = model_manager.download_model(self.model_name)
-                voc_path, voc_config_path, _ = model_manager.download_model(model_item['default_vocoder'])
+                model_path, config_path, model_item = (
+                        model_manager.download_model(self.model_name)
+                )
+                voc_path, voc_config_path, _ = model_manager.download_model(
+                        model_item['default_vocoder']
+                )
                 self.synthesizer = Synthesizer(
                         tts_checkpoint=model_path,
                         tts_config_path=config_path,

@@ -28,19 +28,26 @@ class Agent:
                 # TODO: make this work and dynamically
                 Config()
 
-                self.audio = Audio(cache_dir=self.cache_dir, audio_output_src='--aout=alsa')
+                self.audio = Audio(cache_dir=self.cache_dir)
                 self.network = Network(cache_dir=self.cache_dir)
 
                 self.actions = Actions(
-                        self.cache_dir, self.rational_model, self.trigger_model, self.speech_model, self.hear_model
+                        self.cache_dir,
+                        self.rational_model,
+                        self.trigger_model,
+                        self.speech_model,
+                        self.hear_model,
                 )
 
         # NOTE: <-------- Vision -------->
         def ocr_url(self, url: str):
-                return self.actions.vision.ocr_stream(self.network.browser.screenshot(url))
+                data = self.network.browser.screenshot(url)
+                prediction = self.actions.vision.ocr_stream(data)
+                return prediction
 
         def dictate_url(self, url: str):
-                self.text_to_speech(' '.join(self.actions.vision.ocr_stream(self.network.browser.screenshot(url))))
+                text = ' '.join(self.ocr_url(url))
+                self.text_to_speech(text)
 
         # TODO: explain/summ etc on data from ocr_url
 
@@ -72,9 +79,11 @@ class Agent:
                         self.logger.error('No audio stream found.')
 
         # NOTE: <-------- Audio -------->
-        # def text_to_speech(self, text: str) -> None: self.audio.play_stream(self.tts.synthesize_to_stream(text=text))
+        # def text_to_speech(self, text: str) -> None:
+        # self.audio.play_stream(self.tts.synthesize_to_stream(text=text))
         def text_to_speech(self, text: str) -> None:
-                self.audio.play_audio_file(self.actions.speech.synthesize_to_file(text=text))
+                audio_file = self.actions.speech.synthesize_to_file(text)
+                self.audio.play_audio_file(audio_file)
 
         def speech_to_text(self) -> str:
                 self.logger.debug('Recording...')
@@ -99,16 +108,23 @@ class Agent:
                                 self.logger.debug('Search request... ' + prompt)
                                 self.chat_search(prompt)
                         elif self.actions.trigger.check_explain_request(prompt):
-                                self.logger.debug('Explain request... ' + prompt)
+                                self.logger.debug(
+                                        'Explain request... ' + prompt
+                                )
                                 self.explain(prompt)
-                        elif self.actions.trigger.check_summarize_request(prompt):
-                                self.logger.debug('Summarize request... ' + prompt)
+                        elif self.actions.trigger.check_summarize_request(
+                                prompt
+                        ):
+                                self.logger.debug(
+                                        'Summarize request... ' + prompt
+                                )
                                 self.summarize(prompt)
                         elif self.actions.trigger.check_audio_request(prompt):
                                 self.logger.debug('Audio request...')
                                 self.stream_soundtrack(prompt)
                                 time.sleep(0.5)
-                        else:  # TODO: we need a wait feature for when the user is doing something else
+                        else:  # TODO: we need a wait feature for when the user
+                                # TODO:  is doing something else
                                 res = self.actions.rational.chat(prompt=prompt)
                                 self.logger.info(f'AGENT: {res}')
                                 self.text_to_speech(text=res)

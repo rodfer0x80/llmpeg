@@ -23,8 +23,10 @@ class BrainTrigger:
 
         def _find_intent(self, instruction: str) -> str:
                 return (
-                        f'Complete the following text: Given the instruction "{instruction}". '
-                        + 'Categorize it as "play music", "research web". "chat with me". The answer is '
+                        'Complete the following text: Given the instruction'
+                        + f'"{instruction}". Categorize it as '
+                        + '"play music", "research web", "chat with me". '
+                        + 'The answer is: '
                 )
 
         def find_intent(self, prompt: str) -> str:
@@ -37,11 +39,15 @@ class BrainTrigger:
                         return 'chat'
 
         def check_greeting(self, prompt: str) -> bool:
-                return any(keyword in nltk.tokenize.word_tokenize(prompt.lower()) for keyword in TriggerList.greeting)
+                return any(
+                        keyword in nltk.tokenize.word_tokenize(prompt.lower())
+                        for keyword in TriggerList.greeting
+                )
 
         def check_goodbye(self, text: str) -> bool:
                 return any(
-                        keyword in nltk.tokenize.word_tokenize(text.lower()) for keyword in TriggerList.goodbye
+                        keyword in nltk.tokenize.word_tokenize(text.lower())
+                        for keyword in TriggerList.goodbye
                 ) or all(
                         keyword in nltk.tokenize.word_tokenize(text.lower())
                         for keyword in TriggerList.goodbye_default_phrase
@@ -52,7 +58,10 @@ class BrainTrigger:
                 return (
                         True
                         if TriggerList.chat_start in tokens
-                        and any(keyword in tokens for keyword in TriggerList.chat_check)
+                        and any(
+                                keyword in tokens
+                                for keyword in TriggerList.chat_check
+                        )
                         else False
                 )
 
@@ -61,7 +70,10 @@ class BrainTrigger:
                 return (
                         True
                         if TriggerList.browse_start in tokens
-                        and any(keyword in tokens for keyword in TriggerList.browse_check)
+                        and any(
+                                keyword in tokens
+                                for keyword in TriggerList.browse_check
+                        )
                         else False
                 )
 
@@ -70,7 +82,10 @@ class BrainTrigger:
                 return (
                         True
                         if TriggerList.summarize_start in tokens
-                        and any(keyword in tokens for keyword in TriggerList.summarize_check)
+                        and any(
+                                keyword in tokens
+                                for keyword in TriggerList.summarize_check
+                        )
                         else False
                 )
 
@@ -79,7 +94,10 @@ class BrainTrigger:
                 return (
                         True
                         if TriggerList.explain_start in tokens
-                        and any(keyword in tokens for keyword in TriggerList.explain_check)
+                        and any(
+                                keyword in tokens
+                                for keyword in TriggerList.explain_check
+                        )
                         else False
                 )
 
@@ -89,6 +107,9 @@ class BrainTrigger:
                 return (
                         True
                         if TriggerList.audio_start in tokens
-                        and any(keyword in tokens for keyword in TriggerList.audio_check)
+                        and any(
+                                keyword in tokens
+                                for keyword in TriggerList.audio_check
+                        )
                         else False
                 )

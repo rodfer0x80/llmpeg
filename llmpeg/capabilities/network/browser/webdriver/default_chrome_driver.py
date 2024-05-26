@@ -5,20 +5,28 @@ from os import getenv
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import TimeoutException as WebDriverTimeoutException
+from selenium.common.exceptions import (
+        TimeoutException as WebDriverTimeoutException,
+)
 from selenium.webdriver.support import expected_conditions as EC
 
 from llmpeg.capabilities.network.browser.webdriver import Driver
 from llmpeg.utils import CurrentDate, ScreenSize
 
 
+# NOTE: thos file is disgusting.
 @dataclass
 class DefaultChromeDriver(Driver):
         # NOTE: default screen size
-        # TODO: this should be dynamic but breaks in docker, need to check where it's running
+        # TODO: this should be dynamic but breaks in docker
+        # TODO: need to check where it's running
         cache_dir: Path
         driver_flags: dict[bool, bool]
-        window_width, window_height = ScreenSize().__repr__() if getenv('$DISPLAY', '') else 1920, 1080
+
+        if getenv('$DISPLAY', ''):
+                window_width, window_height = ScreenSize().__repr__()
+        else:
+                window_width, window_height = 1920, 1080
 
         def __post_init__(self):
                 self.browser_data_dir = self.cache_dir / 'data'
@@ -54,12 +62,22 @@ class DefaultChromeDriver(Driver):
                 super().quit()
 
         def _enable_automation_options(self):
-                self.options.add_experimental_option('excludeSwitches', ['enable-automation', 'enable-logging'])
-                self.options.add_argument('--no-sandbox')  # NOTE: dont touch this breaks user perms
+                self.options.add_experimental_option(
+                        'excludeSwitches',
+                        ['enable-automation', 'enable-logging'],
+                )
+                # NOTE: dont touch this breaks user perms
+                self.options.add_argument('--no-sandbox')
                 self.options.add_argument('--disable-dev-shm-usage')
-                self.options.add_argument('--disable-blink-features=AutomationControlled')
-                self.options.add_experimental_option('useAutomationExtension', False)
-                self.options.add_experimental_option('excludeSwitches', ['enable-automation'])
+                self.options.add_argument(
+                        '--disable-blink-features=AutomationControlled'
+                )
+                self.options.add_experimental_option(
+                        'useAutomationExtension', False
+                )
+                self.options.add_experimental_option(
+                        'excludeSwitches', ['enable-automation']
+                )
                 self.options.add_argument('--disable-notifications')
                 # self.options.add_argument("--disable-logging")
                 # self.options.add_argument("--silent")
@@ -69,15 +87,22 @@ class DefaultChromeDriver(Driver):
                 self.options.add_argument('--ignore-ssl-errors=yes')
                 self.options.add_argument('--ignore-certificate-errors')
                 # cookies and browser data dir
-                self.options.add_argument(f'user-data-dir={self.browser_data_dir}')
-                # self.option.add_experimental_option("detach", True) #prevent window from closing
+                self.options.add_argument(
+                        f'user-data-dir={self.browser_data_dir}'
+                )
+                # prevent window from closing
+                # self.option.add_experimental_option("detach", True)
 
         def _enable_stealth_options(self, country_id='en-GB', incognito=False):
                 # TODO: fix this with a better UA
-                # self.options.add_argument("--user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) "
-                #                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36")
+                # self.options.add_argument("
+                # --user-agent=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) "
+                # "AppleWebKit/537.36 (KHTML, like Gecko)
+                # Chrome/78.0.3904.108 Safari/537.36")
                 self.options.add_argument(f'--{country_id}')
-                self.options.add_argument(f'--window-size={self.window_width},{self.window_height}')
+                self.options.add_argument(
+                        f'--window-size={self.window_width},{self.window_height}'
+                )
                 if incognito:
                         self.options.add_argument('--incognito')
                 self.options.add_argument('--disable-gpu')
@@ -95,21 +120,38 @@ class DefaultChromeDriver(Driver):
                 path = self.cache_dir / f'{CurrentDate()}.png'
                 # Ref: https://stackoverflow.com/a/52572919/
                 original_size = self.driver.get_window_size()
-                required_width = self.driver.execute_script('return document.body.parentNode.scrollWidth')
-                required_height = self.driver.execute_script('return document.body.parentNode.scrollHeight')
+                required_width = self.driver.execute_script(
+                        'return document.body.parentNode.scrollWidth'
+                )
+                required_height = self.driver.execute_script(
+                        'return document.body.parentNode.scrollHeight'
+                )
                 self.driver.set_window_size(required_width, required_height)
                 self.driver.get(url)
                 # NOTE: hack to wait for webpage to load, sometimes breaks
                 try:
-                        WebDriverWait(self.driver, 3).until(EC.presence_of_element_located((By.TAG_NAME, 'body')))
+                        WebDriverWait(self.driver, 3).until(
+                                EC.presence_of_element_located((
+                                        By.TAG_NAME,
+                                        'body',
+                                ))
+                        )
                 except WebDriverTimeoutException:
                         pass
                 WebDriverWait(self.driver, 3).until(
-                        lambda d: self.driver.execute_script('return document.readyState') == 'complete'
+                        lambda d: self.driver.execute_script(
+                                'return document.readyState'
+                        )
+                        == 'complete'
                 )
                 # self.driver.save_screenshot(path)  # has scrollbar?
                 self.driver.implicitly_wait(2)
-                self.driver.find_element(By.TAG_NAME, 'body').screenshot(str(path))  # avoids scrollbar?
+                # avoids scrollbar?
+                self.driver.find_element(By.TAG_NAME, 'body').screenshot(
+                        str(path)
+                )
                 self.driver.implicitly_wait(1)
-                self.driver.set_window_size(original_size['width'], original_size['height'])
+                self.driver.set_window_size(
+                        original_size['width'], original_size['height']
+                )
                 return path
