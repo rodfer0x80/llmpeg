@@ -1,11 +1,12 @@
 import time
-from io import BytesIO
 import threading
-from queue import Queue
+import queue
 from typing import Union
 from pathlib import Path
-import sounddevice as sd
+from io import BytesIO
+
 import numpy as np
+import pyaudio
 
 from llmpeg.utils import WaveFile, Error
 
@@ -17,20 +18,27 @@ class AudioOutput:
                 self.playing = False
                 self.thread = None
                 self.stop_event = threading.Event()
-                self.queue = Queue()
+                self.queue = queue.Queue()
+                self.pa = pyaudio.PyAudio()
 
         def _play_audio(self, track: Union[str, Path, bytes, np.float32]) -> None:
+                # 16-bit signed integer format
+                stream = self.pa.open(format=pyaudio.paInt16, channels=1, rate=44100, output=True)
+
                 if isinstance(track, (str, Path)):
-                        fs, data = WaveFile.read(track)
+                        _, data = WaveFile.read(track)
                 elif isinstance(track, bytes):
-                        fs, data = WaveFile.read(BytesIO(track))
+                        _, data = WaveFile.read(BytesIO(track))
                 elif isinstance(track, np.ndarray):
-                        fs = 44100  # Assuming sample rate of 44100 Hz
+                        _ = 44100  # Assuming sample rate of 44100 Hz
                         data = (track * np.iinfo(np.int16).max).astype(np.int16)
                 else:
                         raise ValueError(Error('Unsupported audio format').__repr__())
+
                 self.playing = True
-                sd.play(data, fs, blocking=True)
+                stream.write(data.tobytes())
+                stream.stop_stream()
+                stream.close()
                 self.playing = False
 
         def stop(self) -> None:

@@ -76,7 +76,7 @@ class WaveFile:
                 with wave.open(file, 'rb') as wf:
                         fs = wf.getframerate()
                         data = wf.readframes(wf.getnframes())
-                return fs, np.frombuffer(data, dtype=np.int16)
+                return fs, np.frombuffer(data, dtype=np.int16)  # 16-bit int
 
         def write(audio_stream: np.ndarray, path: Path, sr: int = 16000):
                 with wave.open(str(path), 'wb') as wf:
