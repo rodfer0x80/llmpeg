@@ -27,21 +27,21 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [x] dockerfile update to python3.11
 [x] containerd cluster run ollama server and llmpeg client
 ...
+[ ] clipboard feature for chat browsing
 [ ] sqlite db for llm chat
 [ ] agent pipeline for executing actions in chaingraph of functions
+[ ] chat wait feature
 ...
 [ ] add regression tests
 [ ] add docs
-...
-[ ] refactor into senses high abstraction layer into very basic agent for easy config
-[ ] expand web search for processing screenshots+scraping to extract intel
-[ ] expand web search with rag?
 [ ] dynamic config 
 ...
-[ ] basic gui tk/web?
+[ ] expand web search for processing screenshots+scraping to extract intel
+[ ] expand web search with rag?
 ...
 [ ] models in tinygrad
-
+...
+[ ] basic gui web?
 ## Resources
 
 ````
