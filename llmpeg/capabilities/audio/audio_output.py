@@ -8,7 +8,6 @@ import numpy as np
 import pyaudio
 
 from llmpeg.types import Error
-from llmpeg.capabilities.filesystem import WaveFile
 
 
 class AudioOutput:
@@ -21,8 +20,7 @@ class AudioOutput:
         self.queue = queue.Queue()
         self.pa = pyaudio.PyAudio()
 
-       
-    def _play_audio(self, track: Union[bytes, np.float32]) -> None:
+    def _play_audio(self, audio: Union[bytes, np.float32]) -> None:
         # 16-bit signed integer format
         stream = self.pa.open(
             format=pyaudio.paInt16,
@@ -31,7 +29,7 @@ class AudioOutput:
             output=True,
         )
         self.playing = True
-        stream.write(track.tobytes())
+        stream.write(audio)
         stream.stop_stream()
         stream.close()
         self.playing = False

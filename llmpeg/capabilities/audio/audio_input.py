@@ -4,9 +4,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from functools import partial
 
-from llmpeg.types import CurrentDate
-from llmpeg.capabilities.filesystem import WaveFile
-
 
 @dataclass
 class AudioInput:
@@ -41,4 +38,3 @@ class AudioInput:
 
     def __del__(self):
         self.audio.terminate()
-

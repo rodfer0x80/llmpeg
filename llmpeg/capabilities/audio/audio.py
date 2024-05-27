@@ -10,6 +10,7 @@ from llmpeg.capabilities.audio.audio_output import AudioOutput
 from llmpeg.capabilities.filesystem import WaveFile
 from llmpeg.types import CurrentDate, URL, Error
 
+
 @dataclass
 class Audio:
     cache_dir: Path
@@ -58,4 +59,3 @@ class Audio:
             err = Error('Unsupported audio format').__repr__()
             raise ValueError(err)
         return data.tobytes()
-                
