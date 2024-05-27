@@ -89,6 +89,7 @@ class URL:
 class Date:
     text: str = None
 
+
 @dataclass(unsafe_hash=True)
 class CurrentDate(Date):
     def __post_init__(self):
