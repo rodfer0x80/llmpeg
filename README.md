@@ -27,6 +27,7 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [x] clipboard feature for chat browsing
 [x] test nlp for chat flow and controls
 [ ] sqlite db for llm chat
+[ ] finetune models prebuild file and scripts https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model
 [ ] agent pipeline for executing actions in chaingraph of functions
 [ ] chat wait feature
 [ ] add regression tests
@@ -36,9 +37,9 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [ ] expand web search for processing screenshots+scraping to extract intel
 [ ] expand web search with rag?
 ...
-[ ] models in tinygrad
+[ ] basic gui web? check integrations https://github.com/ollama/ollama?tab=readme-ov-file#community-integrations
 ...
-[ ] basic gui web?
+[ ] models in tinygrad
 ## Resources
 
 ````

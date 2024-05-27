@@ -1,4 +1,0 @@
->>> Complete the following text: Given the instruction "play the kids arent alright by the offspring". Categorize it as "play music", "research web". "chat with me". The answer is
-<<< I'd categorize this instruction as "play music".
-
-

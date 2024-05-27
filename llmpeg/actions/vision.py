@@ -1,19 +1,32 @@
 from pathlib import Path
 from dataclasses import dataclass
+from PIL import Image
+import requests
+from typing import Union
 
-import easyocr
+
+from llmpeg.models.vlm import VLM
+from llmpeg.utils import URL
 
 
 @dataclass
 class Vision:
-        def __post_init__(self):
-                self.ocr_reader = easyocr.Reader(['ch_tra', 'en'])
+    ocr_query: str = 'Perform OCR on this image and return the text: '
 
-        def ocr_stream(self, stream: bytes) -> list[str]:
-                return self.ocr_reader.readtext(stream, detail=0)
+    def __post_init__(self) -> None:
+        self.vlm = VLM()
 
-        def ocr_img(self, path: Path) -> list[str]:
-                prediction = self.ocr_reader.readtext(path, detail=0)
-                return [word[-2] for word in prediction]  # text_pos in -2
+    def preprocess_image(self, image: Union[URL, Image.Image, Path]) -> Image.Image:
+        if isinstance(image, URL):
+            url = str(image)
+            _image = requests.get(url, stream=True).raw
+            image = Image.open(_image)
+        elif isinstance(image, Path):
+            image = Image.open(image)
+        return image.convert('RGB')
 
-        # TODO: https://github.com/Efficient-Large-Model/VILA?tab=readme-ov-file
+    def ocr(self, image: Union[URL, Image.Image, Path]) -> list[str]:
+        return self.vlm.generate(self.ocr_query, self.preprocess_image(image))
+
+    def query(self, query: str, image: Union[Path, URL, Image.Image]) -> list[str]:
+        return self.vlm.generate(query, self.preprocess_image(image))
