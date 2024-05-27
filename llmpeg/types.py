@@ -86,15 +86,17 @@ class URL:
 
 
 @dataclass
-class CurrentDate:
-    date: str = None
+class Date:
+    text: str = None
 
+@dataclass(unsafe_hash=True)
+class CurrentDate(Date):
     def __post_init__(self):
-        if not self.date:
-            self.date = datetime.datetime.now().strftime('%H-%M-%S_%d-%m-%Y')
+        if not self.text:
+            self.text = datetime.datetime.now().strftime('%H-%M-%S_%d-%m-%Y')
 
     def __str__(self):
-        return self.date
+        return self.text
 
     def __repr__(self):
-        return self.date
+        return self.text

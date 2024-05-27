@@ -6,7 +6,7 @@ from pathlib import Path
 from bs4 import BeautifulSoup
 import yt_dlp
 
-from llmpeg.utils import Error, URL
+from llmpeg.types import Error, URL
 from llmpeg.capabilities.network.browser import Browser
 
 
@@ -21,7 +21,7 @@ class Network:
         })
         self.browser = Browser(self.cache_dir)
 
-    def scrape(self, url: URL) -> tuple[str, Union[str, None]]:
+    def _scrape(self, url: URL) -> tuple[str, Union[str, None]]:
         try:
             response = self.session.get(str(url))
             # NOTE: raise an exception for bad status codes
@@ -38,11 +38,11 @@ class Network:
         except requests.RequestException as e:
             return '', Error(e).__repr__()
 
-    def scrape_url(self, url: URL) -> tuple[Union[str, None], Union[str, None]]:
-        text_content, err = self.scrape(str(url))
+    def scrape(self, url: URL) -> tuple[Union[str, None], Union[str, None]]:
+        text, err = self._scrape(str(url))
         if err:
             raise Exception(str(Error(err)))
-        return text_content
+        return text
 
     def _find_audio(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
         # NOTE: ffmpeg is required for this to work
@@ -67,7 +67,7 @@ class Network:
                 return None, str(Error('No search results found'))
 
     def find_audio(self, query: str) -> tuple[Union[str, None], Union[str, None]]:
-        try:
-            return self._find_audio(query)
-        except Exception as e:
-            return None, str(Error(e))
+        audio, err = self._find_audio(query)
+        if err:
+            raise Exception(str(Error(err)))
+        return audio
