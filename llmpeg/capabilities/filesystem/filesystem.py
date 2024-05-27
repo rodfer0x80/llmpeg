@@ -11,8 +11,7 @@ class FileCacheDirectory:
 
     def __post_init__(self):
         if not self.cache_dir:
-            self.cache_dir = Path(f'~/.cache/{str(
-                Path(__file__).cwd().name).split("/")[-1]}').expanduser()
+            self.cache_dir = Path(f'~/.cache/{str(Path(__file__).cwd().name).split("/")[-1]}').expanduser()
         Path.mkdir(self.cache_dir, exist_ok=True)
 
     def __str__(self) -> Path:

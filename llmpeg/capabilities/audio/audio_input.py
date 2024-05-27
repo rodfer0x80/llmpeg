@@ -4,7 +4,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from functools import partial
 
-from llmpeg.utils import CurrentDate, WaveFile
+from llmpeg.types import CurrentDate
+from llmpeg.capabilities.filesystem import WaveFile
 
 
 @dataclass
@@ -14,7 +15,7 @@ class AudioInput:
     def __post_init__(self):
         self.audio = pyaudio.PyAudio()
 
-    def capture_stream(self, duration: int = 5, sr: int = 16000) -> np.float32:
+    def capture_stream(self, duration: int, sr: int) -> np.float32:
         CHUNK = 1024
         FORMAT = pyaudio.paInt16  # int16
         CHANNELS = 1
@@ -41,8 +42,3 @@ class AudioInput:
     def __del__(self):
         self.audio.terminate()
 
-    def capture_to_file(self, duration: int = 5, sr: int = 16000) -> Path:
-        audio_stream = self.capture_stream(duration, sr)
-        audio_file = self.cache_dir / f'{CurrentDate().date}.wav'
-        WaveFile.write(audio_stream, audio_file, sr)
-        return audio_file
