@@ -1,5 +1,5 @@
-import tkinter as tk
 from dataclasses import dataclass
+import tkinter as tk
 
 
 @dataclass

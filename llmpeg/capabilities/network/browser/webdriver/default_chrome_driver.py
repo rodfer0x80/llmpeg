@@ -11,7 +11,8 @@ from selenium.common.exceptions import (
 from selenium.webdriver.support import expected_conditions as EC
 
 from llmpeg.capabilities.network.browser.webdriver import Driver
-from llmpeg.utils import CurrentDate, ScreenSize
+from llmpeg.types import CurrentDate
+from llmpeg.capabilities.screen import ScreenSize
 
 
 # NOTE: thos file is disgusting.

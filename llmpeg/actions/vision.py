@@ -6,7 +6,7 @@ from typing import Union
 
 
 from llmpeg.models.vlm import VLM
-from llmpeg.utils import URL
+from llmpeg.types import URL  # TODO: fileIO should be in actions
 
 
 @dataclass
@@ -16,6 +16,7 @@ class Vision:
     def __post_init__(self) -> None:
         self.vlm = VLM()
 
+    # TODO: fileIO should be in actions
     def preprocess_image(self, image: Union[URL, Image.Image, Path]) -> Image.Image:
         if isinstance(image, URL):
             url = str(image)

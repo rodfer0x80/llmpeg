@@ -5,7 +5,7 @@ import site
 from TTS.utils.manage import ModelManager
 from TTS.utils.synthesizer import Synthesizer
 
-from llmpeg.utils import CurrentDate
+from llmpeg.types import CurrentDate  # TODO: fileIO should be in actions
 
 # TODO: make this in torch
 
@@ -38,6 +38,7 @@ class Speech:
             vocoder_config=voc_config_path,
         )
 
+    # TODO: fileIO should be in actions
     def synthesize_to_file(self, text: str) -> Path:
         path = self.cache_dir / f'{CurrentDate()}.wav'
         outputs = self.synthesizer.tts(text)

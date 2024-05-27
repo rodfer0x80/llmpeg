@@ -3,7 +3,7 @@ from pathlib import Path
 
 import whisper  # TODO: change this to use tinygrad customised whisper example
 
-from llmpeg.utils import CurrentDate
+from llmpeg.types import CurrentDate  # TODO: fileIO should be in actions
 
 # make this in torch inseatd of using openai
 
@@ -22,6 +22,7 @@ class Hear:
     def synthesize_to_stream(self, audio_data: bytes) -> str:
         return self.model.transcribe(audio_data)['text']
 
+    # TODO: fileIO should be in actions
     def synthesize_to_file(self, audio_data: bytes, path: Path) -> Path:
         path = self.cache_dir / f'{CurrentDate()}.txt'
         open(path, 'w').write(self.model.transcribe(audio_data)['text'])

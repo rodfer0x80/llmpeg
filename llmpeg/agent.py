@@ -9,7 +9,8 @@ from llmpeg.capabilities.audio.audio import Audio
 from llmpeg.capabilities.network.network import Network
 from llmpeg.capabilities.clipboard import Clipboard
 from llmpeg.actions.actions import Actions
-from llmpeg.utils import FileCacheDirectory, URL
+from llmpeg.types import URL
+from llmpeg.capabilities.filesystem import FileCacheDirectory
 
 
 @dataclass
