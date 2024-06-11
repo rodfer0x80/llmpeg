@@ -1,48 +1,28 @@
 import numpy as np
-import pyaudio
+import sounddevice as sd
 from dataclasses import dataclass
 from pathlib import Path
-from functools import partial
-
-from llmpeg.utils import CurrentDate, WaveFile
 
 
 @dataclass
 class AudioInput:
-    cache_dir: Path
+  cache_dir: Path
 
-    def __post_init__(self):
-        self.audio = pyaudio.PyAudio()
+  def capture_stream(self, duration: int, sr: int = 44100, channels: int = 1) -> np.ndarray:
+    """
+    Capture an audio stream.
 
-    def capture_stream(self, duration: int = 5, sr: int = 16000) -> np.float32:
-        CHUNK = 1024
-        FORMAT = pyaudio.paInt16  # int16
-        CHANNELS = 1
-        frames = []
+    :param duration: Duration of the recording in seconds.
+    :param sr: Sample rate (default is 44100 Hz). (wav standard is 44100 Hz, 16-bit, stereo)
+    :param channels: Number of audio channels (1 for mono, 2 for stereo, etc.). (mono is cleaner for processing)
+    :return: Recorded audio data as a numpy array.
+    """
+    audio_stream = sd.rec(int(duration * sr), samplerate=sr, channels=channels, dtype='float32')
+    sd.wait()
+    # If multiple channels, reshape to a 2D array (time, channels)
+    if channels > 1:
+      audio_stream = audio_stream.reshape(-1, channels)
+    return audio_stream
 
-        stream = self.audio.open(
-            format=FORMAT,
-            channels=CHANNELS,
-            rate=sr,
-            input=True,
-            frames_per_buffer=CHUNK,
-        )
-
-        num_frames = int(sr / CHUNK * duration)
-        read_chunk = partial(stream.read, CHUNK)
-        frames = [np.frombuffer(read_chunk(), dtype=np.int16) for _ in range(num_frames)]
-
-        stream.stop_stream()
-        stream.close()
-
-        audio_stream = np.concatenate(frames).astype(np.float32)
-        return audio_stream  # float32
-
-    def __del__(self):
-        self.audio.terminate()
-
-    def capture_to_file(self, duration: int = 5, sr: int = 16000) -> Path:
-        audio_stream = self.capture_stream(duration, sr)
-        audio_file = self.cache_dir / f'{CurrentDate().date}.wav'
-        WaveFile.write(audio_stream, audio_file, sr)
-        return audio_file
+  def __del__(self):
+    pass  # sounddevice handles cleanup automatically

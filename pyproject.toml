@@ -23,10 +23,13 @@ pytest = "^8.2.1"
 pypeline = {git = "https://github.com/rodfer0x80/pypeline"}
 pylogger = {git = "https://github.com/rodfer0x80/pylogger"}
 
-pyaudio = "^0.2.14"
 pillow = "^10.3.0"
 transformers = "^4.41.1"
 torch = "^2.3.0"
+bitsandbytes = "^0.43.1"
+accelerate = "^0.31.0"
+sounddevice = "^0.4.7"
+huggingface-hub = "^0.23.3"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

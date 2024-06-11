@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHE=~/.cache
+CACHE="$XDG_CACHE_HOME/llmpeg"
 VENV=$CACHE/.venv
 RUFF=$VENV/bin/ruff
 $RUFF format --config ruff.toml --preview

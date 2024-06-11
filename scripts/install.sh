@@ -1,6 +1,6 @@
 #!/bin/sh
 
-CACHE=~/.cache
+CACHE="$XDG_CACHE_HOME/llmpeg"
 VENV=$CACHE/.venv
 PYTHON="/usr/bin/python3.11"
 PIP=$VENV/bin/pip
@@ -8,7 +8,7 @@ POETRY=$VENV/bin/poetry
 
 mkdir -p $CACHE
 if [ -d $VENV ]; then
-    rm -rf $VENV
+    rm -rf $VENV ./poetry.lock
 fi
 $PYTHON -m venv $VENV
 $PIP install --upgrade pip
