@@ -1,4 +1,5 @@
 #!/bin/sh
 
-CACHE=~/.cache
-rm -rf $CACHE/llmpeg/*
+CACHE="$XDG_CACHE_HOME/llmpeg"
+VENV=$CACHE/.venv
+rm -rf $VENV ./poetry.lock

@@ -3,18 +3,12 @@ import tkinter as tk
 
 
 @dataclass
-class ScreenSize:
-    width: int = None
-    height: int = None
+class Screen:
+  width: int = tk.Tk().winfo_screenwidth()
+  height: int = tk.Tk().winfo_screenheight()
 
-    def __post_init__(self):
-        if not self.width:
-            self.width = tk.Tk().winfo_screenwidth()
-        if not self.height:
-            self.height = tk.Tk().winfo_screenheight()
+  def size(self):
+    return self.width, self.height
 
-    def __str__(self) -> tuple:
-        return self.width, self.height
-
-    def __repr__(self) -> tuple:
-        return self.width, self.height
+  def __str__(self) -> tuple:
+    return 'Screen(width={self.width}, height={self.height})'

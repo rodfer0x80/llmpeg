@@ -1,1 +1,1 @@
-from .screen import ScreenSize
+from .screen import Screen

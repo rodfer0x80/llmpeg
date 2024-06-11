@@ -26,6 +26,9 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 ...
 [x] clipboard feature for chat browsing
 [x] test nlp for chat flow and controls
+[ ] refactor
+[ ] swap whiper with local movel [https://huggingface.co/facebook/wav2vec2-large-xlsr-53/tree/main]
+[ ] improve logging info 
 [ ] sqlite db for llm chat
 [ ] finetune models prebuild file and scripts https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model
 [ ] agent pipeline for executing actions in chaingraph of functions
