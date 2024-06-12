@@ -11,6 +11,7 @@ class Main:
   trigger_model: str
   speech_model_size: str
   hear_model_size: str
+  vision_model: str
 
   def __post_init__(self):
     self.agent = Agent(
@@ -18,6 +19,7 @@ class Main:
       self.trigger_model,
       self.speech_model_size,
       self.hear_model_size,
+      self.vision_model,
     )
 
   def run(self):

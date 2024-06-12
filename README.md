@@ -46,6 +46,14 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 ## Resources
 
 ````
+=> pipeline
+https://github.com/wandb/wandb
+https://flameshot.org/
+https://github.com/coqui-ai/TTS
+https://academic.oup.com/qje/article/134/3/1225/5435538
+https://www.noahpinion.blog/p/decade-of-the-battery-334
+
+
 project struct 
 https://matt.sh/python-project-structure-2024
 https://docs.python.org/3/library/itertools.html

@@ -1,6 +1,5 @@
 import requests
 from dataclasses import dataclass
-from typing import Union
 from pathlib import Path
 
 from bs4 import BeautifulSoup

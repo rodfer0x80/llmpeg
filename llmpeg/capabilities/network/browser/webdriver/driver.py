@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from pylogger import LoggerToStdout
-
 from llmpeg.types import Error
 
 

@@ -18,6 +18,7 @@ class Actions:
   trigger_model: str  # nltk => ollama/gemma:2b
   speech_model_size: str  # tts_models/en/jenny/jenny
   hear_model_size: str  # openai-whisper/base
+  vision_model: str  # google/paligemma-3b-mix-224
 
   def __post_init__(self) -> None:
     self.logger = LoggerToStdout()
@@ -29,5 +30,5 @@ class Actions:
     self.logger.info('Hear model loaded')
     self.speech = Speech(self.hear_model_size, self.cache_dir)
     self.logger.info('Speech model loaded')
-    self.vision = Vision(self.cache_dir)
+    self.vision = Vision(self.vision_model, self.cache_dir)
     self.logger.info('Vision model loaded')

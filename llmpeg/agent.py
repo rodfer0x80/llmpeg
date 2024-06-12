@@ -19,6 +19,7 @@ class Agent:
   trigger_model: str
   speech_model: str
   hear_model: str
+  vision_model: str
 
   def __post_init__(self):
     self.cache_dir = FileCacheDirectory().__repr__()

@@ -5,7 +5,6 @@ from dataclasses import dataclass
 import nltk
 
 from llmpeg.actions.brain.triggerlist import TriggerList
-from llmpeg.models.llm import LLM
 
 
 @dataclass
@@ -17,7 +16,6 @@ class BrainTrigger:
   def __post_init__(self):
     self.cache_dir = self.cache_dir / 'triggers'
     Path.mkdir(self.cache_dir, exist_ok=True)
-    # self.llm = LLM(self.model_name)
     os.environ['NLTK_DATA'] = str(self.cache_dir / 'nltk_data')
     nltk.download(self.model_name)  # NOTE: e.g. "punkt"
 
