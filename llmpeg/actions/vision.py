@@ -18,8 +18,10 @@ class Vision:
   def __post_init__(self) -> None:
     self.cache_dir = self.cache_dir / 'vision'
     Path.mkdir(self.cache_dir, exist_ok=True)
+    print("preparing vision model")
     self.vlm = VLM(cache_dir=self.cache_dir, model_name=self.model_name)
-
+    print("vision model ready")
+    
   # TODO: fileIO should be in actions
   def preprocess_image(self, image: Union[URL, Image.Image, Path]) -> Image.Image:
     if isinstance(image, URL):

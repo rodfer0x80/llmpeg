@@ -1,1 +1,1 @@
-from .filesystem import FileCacheDirectory, WaveFile
+from .filesystem import FileCacheDirectory, WavVec, ImgVec, ImageVec

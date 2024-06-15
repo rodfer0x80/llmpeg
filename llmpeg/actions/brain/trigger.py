@@ -2,8 +2,7 @@ import os
 from pathlib import Path
 from dataclasses import dataclass
 
-import nltk
-
+from llmpeg.models.nlp import NLP
 from llmpeg.actions.brain.triggerlist import TriggerList
 
 

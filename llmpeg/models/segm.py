@@ -1,13 +1,11 @@
 from dataclasses import dataclass
 from pathlib import Path
 
-from llmpeg.capabilities.filesystem import ImgVec
-
-# TODO: https://huggingface.co/blog/vlms
+#TODO: https://huggingface.co/pyannote/segmentation-3.0
 @dataclass
-class VLM:
+class Segmentation:
     cache_dir: Path
-    model_name: str = 'vlm'
+    model: str = 'pyannote/segmentation-3.0'
 
     def __post_init__(self):
         self.cache_dir = self.cache_dir / 'models'
@@ -15,7 +13,8 @@ class VLM:
         self._setup()
 
     def _setup(self):
-        return
-
-    def generate(self, query: str, image: ImgVec) -> str:
-        return ""
+        return 0
+    
+    def infer(self, query: str) -> str:
+        return query
+    

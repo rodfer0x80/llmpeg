@@ -2,7 +2,7 @@
 
 CACHE="$XDG_CACHE_HOME/llmpeg"
 VENV=$CACHE/.venv
-PYTHON="/usr/bin/python3.11"
+PYTHON="/usr/bin/python3.12"
 PIP=$VENV/bin/pip
 POETRY=$VENV/bin/poetry
 

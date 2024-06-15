@@ -7,29 +7,24 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = ">=3.11.0, <3.12" 
-tts = "^0.22.0"
-selenium = "^4.21.0"
-jsonargparse = "^4.28.0"
-ollama = "^0.2.0"
-openai-whisper = "^20231117"
-numpy = "^1.26.4"
-python-vlc = "^3.0.20123"
-beautifulsoup4 = "^4.12.3"
-yt-dlp = "^2024.4.9"
-easyocr = "^1.7.1"
-loguru = "^0.7.2"
-pytest = "^8.2.1"
-pypeline = {git = "https://github.com/rodfer0x80/pypeline"}
-pylogger = {git = "https://github.com/rodfer0x80/pylogger"}
+python = ">=3.12, <4.0" 
+
 
 pillow = "^10.3.0"
-transformers = "^4.41.1"
-torch = "^2.3.0"
-bitsandbytes = "^0.43.1"
-accelerate = "^0.31.0"
+torch = "^2.3.1"
+transformers = "^4.41.2"
 sounddevice = "^0.4.7"
-huggingface-hub = "^0.23.3"
+accelerate = "^0.31.0"
+numpy = "^1.26.4"
+selenium = "^4.21.0"
+pylogger = {git = "https://github.com/rodfer0x80/pylogger.git"}
+pypeline = {git = "https://github.com/rodfer0x80/pypeline"}
+yt-dlp = "^2024.5.27"
+beautifulsoup4 = "^4.12.3"
+huggingface-hub = "^0.23.4"
+nltk = "^3.8.1"
+setuptools = "^70.0.0"
+wheel = "^0.43.0"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

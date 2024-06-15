@@ -1,15 +1,12 @@
 from dataclasses import dataclass
-from typing import Union
 
-import ollama
-
-
+#TODO: stop using fucking ollama and load models from hf wth torch
 @dataclass
 class LLM:
   model: str  # NOTE: e.g. "llama3"
 
   def generate(self, prompt: str) -> str:
-    return ollama.generate(model=self.model, prompt=prompt)['response']
+    return ""
 
-  def batch_generate(self, prompt: str, messages: list) -> Union[str, list[str]]:
-    return ollama.chat(model=self.model, prompt=prompt, messages=messages)['message']['content']
+  def batch_generate(self, prompt: str, messages: list) -> str | list[str]:
+    return ""

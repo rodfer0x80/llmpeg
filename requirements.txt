@@ -1,0 +1,22 @@
+selenium = ">=4.21.0"
+jsonargparse = ">=4.28.0"
+ollama = ">=0.2.0"
+openai-whisper = ">=20231117"
+numpy = ">=1.26.4"
+python-vlc = ">=3.0.20123"
+beautifulsoup4 = ">=4.12.3"
+yt-dlp = ">=2024.4.9"
+easyocr = ">=1.7.1"
+loguru = ">=0.7.2"
+pytest = ">=8.2.1"
+pypeline = {git = "https://github.com/rodfer0x80/pypeline"}
+pylogger = {git = "https://github.com/rodfer0x80/pylogger"}
+
+pillow = ">=10.3.0"
+transformers = ">=4.41.1"
+torch = ">=2.3.0"
+bitsandbytes = ">=0.43.1"
+accelerate = ">=0.31.0"
+sounddevice = ">=0.4.7"
+huggingface-hub = ">=0.23.3"
+nltk

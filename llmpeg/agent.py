@@ -40,6 +40,7 @@ class Agent:
       self.trigger_model,
       self.speech_model,
       self.hear_model,
+      self.vision_model,
     )
     print('finished actions')
 

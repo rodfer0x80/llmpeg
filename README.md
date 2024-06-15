@@ -27,7 +27,7 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 [x] clipboard feature for chat browsing
 [x] test nlp for chat flow and controls
 [ ] refactor
-[ ] swap whiper with local movel [https://huggingface.co/facebook/wav2vec2-large-xlsr-53/tree/main]
+[ ] swap whiper with local model [https://huggingface.co/facebook/wav2vec2-large-xlsr-53/tree/main]
 [ ] improve logging info 
 [ ] sqlite db for llm chat
 [ ] finetune models prebuild file and scripts https://github.com/ollama/ollama?tab=readme-ov-file#customize-a-model
@@ -46,15 +46,25 @@ for ubuntu check ci/llmpeg.Dockerfile for all packages needed
 ## Resources
 
 ````
-=> pipeline
+https://johnthenerd.com/blog/faster-local-llm-assistant/
+
+=> pipeline, database
+https://medium.com/@samarthgvasist/building-a-simple-data-pipeline-with-apache-kafka-2459aea2d2bd
+https://medium.com/nerd-for-tech/design-data-pipeline-and-streaming-using-kafka-5c6fb1fdc122
+https://www.youtube.com/watch?v=kGT4PcTEPP8
 https://github.com/wandb/wandb
 https://flameshot.org/
 https://github.com/coqui-ai/TTS
 https://academic.oup.com/qje/article/134/3/1225/5435538
 https://www.noahpinion.blog/p/decade-of-the-battery-334
 
+unblock recs
+https://huggingface.co/blog/mlabonne/abliteration
 
-project struct 
+```` 
+
+```` 
+project struct, containers
 https://matt.sh/python-project-structure-2024
 https://docs.python.org/3/library/itertools.html
 https://more-itertools.readthedocs.io/en/stable/
@@ -75,7 +85,7 @@ https://github.com/ollama/ollama/blob/main/docs/import.md#manually-converting--q
 
 
 ````
-improve
+scaling llms
 https://www.geoffreylitt.com/2023/03/25/llm-end-user-programming
 https://blog.waleson.com/2024/05/the-long-long-tail-of-ai-applications.html
 https://www.strangeloopcanon.com/p/what-can-llms-never-do
@@ -93,10 +103,12 @@ speech -> vits or openvoice
 https://github.com/myshell-ai/OpenVoice/blob/main/docs/USAGE.md
 https://github.com/myshell-ai/OpenVoice/blob/main/demo_part3.ipynb
 https://huggingface.co/docs/transformers/en/model_doc/vits
+https://www.youtube.com/watch?v=HxEXMHcwtlI
 ````
 
 ````
 listen -> wav2vec or whisper local 
 https://huggingface.co/docs/transformers/en/model_doc/whisper
 https://huggingface.co/docs/transformers/en/model_doc/wav2vec2
+https://www.youtube.com/watch?v=HxEXMHcwtlI
 ````
