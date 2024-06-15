@@ -7,20 +7,20 @@ from llmpeg.agent import Agent
 
 @dataclass()
 class Main:
-  rational_model: str
-  trigger_model: str
-  speech_model_size: str
-  hear_model_size: str
-  vision_model: str
+  # rational_model: str
+  # trigger_model: str
+  # speech_model_size: str
+  # hear_model_size: str
+  # vision_model: str
 
   def __post_init__(self):
-    self.agent = Agent(
-      self.rational_model,
-      self.trigger_model,
-      self.speech_model_size,
-      self.hear_model_size,
-      self.vision_model,
-    )
+    self.agent = Agent()
+      # self.rational_model,
+      # self.trigger_model,
+      # self.speech_model_size,
+      # self.hear_model_size,
+      # self.vision_model,
+    # )
 
   def run(self):
     # NOTE: [EDITABLE]

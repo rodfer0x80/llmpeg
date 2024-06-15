@@ -5,8 +5,10 @@ import struct
 
 from PIL import Image
 
+from llmpeg.types import ImgVec
+
 @dataclass
-class FileCacheDirectory:
+class CacheDir:
   cache_dir: Path = None
 
   def __post_init__(self):
@@ -21,7 +23,7 @@ class FileCacheDirectory:
     return self.cache_dir
 
 @dataclass
-class WavVec:
+class Wav:
     wav_file_path: str | Path
 
     def __post_init__(self):
@@ -57,13 +59,9 @@ class WavVec:
                 output_wav.writeframes(packed_data)
         except (wave.Error, struct.error) as e:
             raise ValueError(f"Error writing WAV data: {e}")
-        
+      
 @dataclass
-class ImgVec:
-    data: list[int]
-
-@dataclass
-class ImageVec:
+class Img:
     image_file_path: str | Path
 
     def __post_init__(self):

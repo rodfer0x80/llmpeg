@@ -55,3 +55,7 @@ class Date:
 
   def __repr__(self):
     return f'Date({self.text!r})'
+
+@dataclass
+class ImgVec:
+    data: list[int]
